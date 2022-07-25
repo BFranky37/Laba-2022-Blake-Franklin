@@ -1,40 +1,34 @@
 package com.DeliverySystem.people;
 
 import java.util.Objects;
-
 import com.DeliverySystem.orders.Location;
 
-public class Person {
+public abstract class Person {
     
-    private String firstName = "Gordon";
-    private String lastName = "Ramsay";
-    private Location address = new Location();
+    private String name;
+    private String phoneNumber;
+    private Location mainAddress;
 
     public Person() {
+        mainAddress = new Location();
     }
-    public Person(String fname, String lname, Location fulladdress) {
-        firstName = fname;
-        lastName = lname;
-        address = fulladdress;
+    public Person(String fullname, String phoneNum, Location fulladdress) {
+        name = fullname;
+        phoneNumber = phoneNum;
+        mainAddress = fulladdress;
     }
+
+    public String getName() { return name; }
+    public void setName(String fullname) { name = fullname; }
+
+    public String getNumber() { return phoneNumber; }
+    public void setNumber(String num) { phoneNumber = num; }
+
+    public Location getAddress() { return mainAddress; }
+    public void setAddress(Location newAddress) { mainAddress = newAddress; }
 
     @Override
     public String toString() {
-        return "Name: " + firstName + " " + lastName + "\nAddress: " + address;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) return false;
-        Person per = (Person) obj;
-
-        return (this.firstName == per.firstName &&
-                this.lastName == per.lastName &&
-                this.address == per.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, address);
+        return "Name: " + name + "\nAddress: " + mainAddress;
     }
 }

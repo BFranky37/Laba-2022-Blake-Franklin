@@ -3,9 +3,9 @@ import java.util.Objects;
 
 public class Box {
 
-    private float length;
-    private float width;
-    private float height;
+    private double length;
+    private double width;
+    private double height;
 
     public Box() {
     }
@@ -18,7 +18,7 @@ public class Box {
 
     @Override
     public String toString() {
-        return "Length: " + length + " inches, Width: " + width + " inches, Height: " + height + " inches";
+        return "Length: " + length + " feet, Width: " + width + " feet, Height: " + height + " feet";
     }
 
     @Override
