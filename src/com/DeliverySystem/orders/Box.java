@@ -1,15 +1,16 @@
+package com.DeliverySystem.orders;
 import java.util.Objects;
 
-public class CardboardBox {
+public class Box {
 
     private float length;
     private float width;
     private float height;
 
-    public CardboardBox() {
+    public Box() {
     }
 
-    public CardboardBox(float l, float w, float h) {
+    public Box(float l, float w, float h) {
         length = l;
         width = w;
         height = h;
@@ -23,7 +24,7 @@ public class CardboardBox {
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
-        CardboardBox per = (CardboardBox) obj;
+        Box per = (Box) obj;
 
         return (this.length == per.length &&
                 this.width == per.width &&

@@ -1,11 +1,15 @@
+import com.DeliverySystem.orders.Location;
+import com.DeliverySystem.orders.Box;
+import com.DeliverySystem.people.Person;
+
 public class DeliveryMain {
     public static void main(String[] args) {
         
-        CardboardBox box1 = new CardboardBox(10, 10, 5);
-        CardboardBox box2 = new CardboardBox(10, 10, 10);
+        Box box1 = new Box(10, 10, 5);
+        Box box2 = new Box(10, 10, 10);
 
-        AddressLocation address1 = new AddressLocation();
-        AddressLocation address2 = new AddressLocation("111 Main St", "Bigtown", "New York", 11112, "USA");
+        Location address1 = new Location();
+        Location address2 = new Location("111 Main St", "Bigtown", "New York", 11112, "USA");
 
         Person sender = new Person("Bob", "Miller", address1);
         Person reciever = new Person("Steven", "Jackson", address2);

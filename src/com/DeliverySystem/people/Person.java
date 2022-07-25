@@ -1,14 +1,18 @@
+package com.DeliverySystem.people;
+
 import java.util.Objects;
+
+import com.DeliverySystem.orders.Location;
 
 public class Person {
     
     private String firstName = "Gordon";
     private String lastName = "Ramsay";
-    private AddressLocation address = new AddressLocation();
+    private Location address = new Location();
 
     public Person() {
     }
-    public Person(String fname, String lname, AddressLocation fulladdress) {
+    public Person(String fname, String lname, Location fulladdress) {
         firstName = fname;
         lastName = lname;
         address = fulladdress;

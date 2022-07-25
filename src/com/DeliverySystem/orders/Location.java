@@ -1,16 +1,17 @@
+package com.DeliverySystem.orders;
 import java.util.Objects;
 
-public class AddressLocation {
-    
+public class Location {
+
     private String streetAddress = "123 Home St";
     private String city = "Hometown";
     private String state = "New York";
     private int zipcode = 11111;
     private String country = "USA";
 
-    public AddressLocation() {   
+    public Location() {
     }
-    public AddressLocation(String saddress, String c, String s, int zip, String nation) {  
+    public Location(String saddress, String c, String s, int zip, String nation) {
         streetAddress = saddress;
         city = c;
         state = s;
@@ -26,12 +27,12 @@ public class AddressLocation {
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
-        AddressLocation address = (AddressLocation) obj;
+        Location address = (Location) obj;
 
         return (this.streetAddress == address.streetAddress &&
                 this.city == address.city &&
                 this.state == address.state &&
-                this.zipcode == address.zipcode && 
+                this.zipcode == address.zipcode &&
                 this.country == address.country);
     }
 
