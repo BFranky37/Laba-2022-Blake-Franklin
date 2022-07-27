@@ -9,7 +9,7 @@ import com.DeliverySystem.people.Recipient;
 import com.DeliverySystem.people.Person;
 
 
-public class Shipment {
+public final class Shipment {
 
     private Sender sender;
     private Recipient recipient;
@@ -87,5 +87,7 @@ public class Shipment {
 
         calculateTotalPrice();
     }
+
+    
 
 }

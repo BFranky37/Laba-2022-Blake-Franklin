@@ -29,6 +29,12 @@ public class Insurance {
         return baseCost + (priceRate * value);
     }
 
+    public static void insuranceInfo() {
+        System.out.println("Purchasing insurance for your shipment means that if the item you are shipping is lost or damaged, " +
+                            "you will be reimbursed for the full value of the item. Different insurance plans are available for " +
+                            "items of different value");
+    }
+
     @Override
     public String toString() {
         return ("Name: " + name + ", Base Cost: " + baseCost + ", Price Rate: " + (priceRate * 100) + "%");
