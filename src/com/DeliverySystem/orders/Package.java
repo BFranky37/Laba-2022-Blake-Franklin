@@ -7,6 +7,7 @@ public class Package {
     private Box box;
     private double weight;
     private boolean fragility;
+    private double value;
     private double cost;
 
     private final static double costRate = 2.3;
@@ -29,6 +30,9 @@ public class Package {
 
     public boolean getFragility() { return fragility; }
     public void setFragility(boolean fragile) { fragility = fragile; }
+
+    public boolean getValue() { return value; }
+    public void setValue(boolean val) { value = val; }
 
     public double getCost() { return cost; }
     public void calculateCost() {

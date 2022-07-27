@@ -23,13 +23,13 @@ public abstract class Vehicle {
     public String getName() { return name; }
     public void setName(String newName) { name = newName; }
 
-    public Location getRate() { return costRate; }
+    public double getRate() { return costRate; }
     public void setRate(double rate) { costRate = rate; }
 
-    public String getMaxWeight() { return weightCapacity; }
+    public double getMaxWeight() { return weightCapacity; }
     public void setMaxWeight(double weight) { weightCapacity = weight; }
 
-    public String getMaxSize() { return spaceCapacity; }
+    public double getMaxSize() { return spaceCapacity; }
     public void setMaxSize(double size) { spaceCapacity = size; }
 
     @Override

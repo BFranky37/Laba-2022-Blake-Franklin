@@ -1,6 +1,7 @@
 package com.DeliverySystem.orders;
 
 import java.util.Objects;
+import java.lang.Math;
 
 public class Route{
     
@@ -11,7 +12,7 @@ public class Route{
     private int distance;
     private double price;
 
-    public Route(String from, String to) {
+    public Route(Location from, Location to) {
         fromLocation = from;
         toLocation = to;
         calculateRoute();

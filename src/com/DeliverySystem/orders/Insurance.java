@@ -16,8 +16,8 @@ public class Insurance {
         priceRate = rate;
     }
 
-    public double getName() { return name; }
-    public void setName(double newName) { name = newName; }
+    public String getName() { return name; }
+    public void setName(String newName) { name = newName; }
 
     public double getCost() { return baseCost; }
     public void setCost(double cost) { baseCost = cost; }

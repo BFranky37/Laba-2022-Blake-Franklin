@@ -35,14 +35,14 @@ public class Sender extends Person{
         if (!(obj instanceof Sender)) return false;
         Sender per = (Sender) obj;
 
-        return (super.firstName == per.firstName &&
-                super.lastName == per.lastName &&
-                super.mainAddress == per.mainAddress &&
-                this.orders == obj.orders);
+        return (this.getName() == per.getName() &&
+                this.getNumber() == per.getNumber() &&
+                this.getAddress() == per.getAddress() &&
+                this.orders == per.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.name, super.phoneNumber, super.mainAddress, orders);
+        return Objects.hash(this.getName(), this.getNumber(), this.getAddress(), orders);
     }
 }

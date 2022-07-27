@@ -1,8 +1,12 @@
 package com.DeliverySystem.orders;
 
 import java.util.Objects;
-import com.DeliverySystem.vehicles;
-import com.DeliverySystem.people;
+import com.DeliverySystem.vehicles.Truck;
+import com.DeliverySystem.vehicles.Plane;
+import com.DeliverySystem.vehicles.Vehicle;
+import com.DeliverySystem.people.Sender;
+import com.DeliverySystem.people.Recipient;
+import com.DeliverySystem.people.Person;
 
 
 public class Shipment {
@@ -17,7 +21,7 @@ public class Shipment {
 
     private double totalPrice;
     
-    public Shipment(Sender send, Recipent recieve, Package pack, Insurance plan) {
+    public Shipment(Sender send, Recipient recieve, Package pack, Insurance plan) {
         sender = send;
         recipient = recieve;
         shippingPackage = pack;
@@ -70,7 +74,8 @@ public class Shipment {
 
     public double getTotalPrice() { return totalPrice; }
     public void calculateTotalPrice() {
-        totalPrice = shippingPackage.getCost() + travelRoute.getPrice() + vehicle.getRate() + insurance.calculateFullCost();
+        totalPrice = shippingPackage.getCost() + travelRoute.getPrice() + vehicle.getRate()
+                    + insurance.calculateFullCost(shippingPackage.getValue());
     }
 
     public void determineShippingPlan() {
