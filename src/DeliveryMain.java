@@ -9,7 +9,7 @@ public class DeliveryMain {
         Box box2 = new Box(1, 1, 1);
 
         Location address1 = new Location();
-        Location address2 = new Location("111 Main St", "Bigtown", "New York", 11112, "USA");
+        Location address2 = new Location("111 Main St", "Bigtown", 11112);
 
         Person sender = new Person("Bob Miller", "1112223344", address1);
         Person reciever = new Person("Steven Jackson", "1112225566", address2);

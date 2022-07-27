@@ -1,5 +1,7 @@
 package com.DeliverySystem.people;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import com.DeliverySystem.orders.Shipment;
 
 public class Sender extends Person{
@@ -29,8 +31,9 @@ public class Sender extends Person{
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
-        Person per = (Person) obj;
+        if (this == obj) return true;
+        if (!(obj instanceof Sender)) return false;
+        Sender per = (Sender) obj;
 
         return (super.firstName == per.firstName &&
                 super.lastName == per.lastName &&

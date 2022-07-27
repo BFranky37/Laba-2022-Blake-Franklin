@@ -1,44 +1,49 @@
 package com.DeliverySystem.orders;
+
 import java.util.Objects;
 
 public class Location {
 
-    private String streetAddress = "123 Home St";
-    private String city = "Hometown";
-    private String state = "New York";
-    private int zipcode = 11111;
-    private String country = "USA";
+    private String streetAddress;
+    private String city;
+    private int zipcode;
 
     public Location() {
     }
-    public Location(String saddress, String c, String s, int zip, String nation) {
+    public Location(String saddress, String c, int zip) {
         streetAddress = saddress;
         city = c;
-        state = s;
         zipcode = zip;
-        country = nation;
     }
+
+    public String getAddress() { return streetAddress; }
+    public void setAddress(String address) { streetAddress = address; }
+    
+    public String getCity() { return city; }
+    public void setCity(String newcity) { city = newcity; }
+
+    public int getZipcode() { return zipcode; }
+    public void setZipcode(int zip) { zipcode = zip; }
 
     @Override
     public String toString() {
-        return streetAddress + ", " + city + ", " + state + " " + zipcode + ", " + country;
+        return streetAddress + ", " + city + ", " + zipcode + ", ";
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
+        if (this == obj) return true;
+        if (!(obj instanceof Location)) return false;
         Location address = (Location) obj;
 
         return (this.streetAddress == address.streetAddress &&
                 this.city == address.city &&
-                this.state == address.state &&
-                this.zipcode == address.zipcode &&
-                this.country == address.country);
+                this.zipcode == address.zipcode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(streetAddress, city, state, zipcode, country);
+        return Objects.hash(streetAddress, city, zipcode);
     }
 
 }
