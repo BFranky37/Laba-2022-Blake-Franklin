@@ -1,6 +1,6 @@
-import com.DeliverySystem.orders.Location;
-import com.DeliverySystem.orders.Box;
-import com.DeliverySystem.people.Person;
+import com.DeliverySystem.orders;
+import com.DeliverySystem.orders;
+import com.DeliverySystem.people;
 
 public class DeliveryMain {
     public static void main(String[] args) {
