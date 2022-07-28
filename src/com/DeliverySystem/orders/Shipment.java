@@ -88,6 +88,30 @@ public final class Shipment {
         calculateTotalPrice();
     }
 
-    
+    @Override
+    public String toString() {
+        return ("Sender: " + sender + ", Recipient: " + recipient + 
+                "\nRoute: " + travelRoute +
+                "\nShipping method: " + vehicle + ", Total Price: " + totalPrice);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Shipment)) return false;
+        Shipment ship = (Shipment) obj;
+
+        return (this.sender == ship.sender &&
+                this.recipient == ship.recipient &&
+                this.shippingPackage == ship.shippingPackage &&
+                this.insurance == ship.insurance &&
+                this.vehicle == ship.vehicle &&
+                this.totalPrice == ship.totalPrice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sender, recipient, shippingPackage, insurance, vehicle, totalPrice);
+    }
 
 }

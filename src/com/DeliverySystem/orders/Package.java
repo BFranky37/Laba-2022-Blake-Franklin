@@ -2,15 +2,13 @@ package com.DeliverySystem.orders;
 
 import java.util.Objects;
 
-public class Package {
+public class Package implements PackageInterface {
 
     private Box box;
     private double weight;
     private boolean fragility;
     private double value;
     private double cost;
-
-    private final static double costRate = 2.3;
 
     public Package(Box bx, double wgt, boolean fragile) {
         box = bx;
@@ -31,13 +29,13 @@ public class Package {
     public boolean getFragility() { return fragility; }
     public void setFragility(boolean fragile) { fragility = fragile; }
 
-    public boolean getValue() { return value; }
-    public void setValue(boolean val) { value = val; }
+    public double getValue() { return value; }
+    public void setValue(double val) { value = val; }
 
     public double getCost() { return cost; }
     public void calculateCost() {
         // area / 100 * costRate
-        cost = (box.getArea() / 100 * 2.3);
+        cost = (box.getArea() / 100 * costRate);
     }
 
     @Override

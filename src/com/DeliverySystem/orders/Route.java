@@ -39,7 +39,7 @@ public class Route{
         fromZip = fromLocation.getZipcode();
         toZip = toLocation.getZipcode();
 
-        distance = abs(fromZip - toZip);
+        distance = Math.abs(fromZip - toZip);
         if (distance < 100) {
             price = (Math.round(distance * 100.0) / 100000.0) + basePrice;
         }

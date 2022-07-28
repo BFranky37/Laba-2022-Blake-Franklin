@@ -29,6 +29,6 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return ("Name: " + name + "\nAddress: " + mainAddress);
+        return ("Name: " + name + "\nPhone Number: " + phoneNumber);
     }
 }

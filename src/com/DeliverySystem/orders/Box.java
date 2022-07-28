@@ -2,7 +2,7 @@ package com.DeliverySystem.orders;
 
 import java.util.Objects;
 
-public class Box {
+public class Box implements BoxInterface {
     //Dimensions measured in inches
     private double length;
     private double width;
@@ -31,7 +31,7 @@ public class Box {
 
     @Override
     public String toString() {
-        return "Length: " + length + " feet, Width: " + width + " feet, Height: " + height + " feet";
+        return "Length: " + length + " " + measurement + ", Width: " + width + " " + measurement + ", Height: " + height + " " + measurement;
     }
 
     @Override
