@@ -25,6 +25,7 @@ public class Box implements BoxInterface {
     public double getHeight() { return height; }
     public void setHeight(double h) { height = h; }
 
+    @Override
     public final double getArea() { //return area in cubic inches
         return (length*width*height);
     }

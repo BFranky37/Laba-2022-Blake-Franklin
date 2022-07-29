@@ -41,8 +41,8 @@ public final class Shipment {
     }
 
     public Recipient getRecipient() { return recipient; }
-    public void setRecipient(Recipient recieve) {
-        recipient = recieve;
+    public void setRecipient(Recipient receive) {
+        recipient = receive;
 
         System.out.println("As the recipient for this shipment has been changed, we must re-verufy the shipping method and update the price.");
         setRoute();

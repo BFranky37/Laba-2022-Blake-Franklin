@@ -1,3 +1,5 @@
+package com.DeliverySystem.orders;
+
 public final class Company {
 
     private static String companyName = "Speedy Delivery";
