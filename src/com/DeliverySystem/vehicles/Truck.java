@@ -15,8 +15,12 @@ public class Truck extends Vehicle{
         truckNumber = num;
     }
 
-    public String getTruckNumber() { return truckNumber; }
-    public void setTruckNumber(String newNum) { truckNumber = newNum; }
+    public String getTruckNumber() {
+        return truckNumber;
+    }
+    public void setTruckNumber(String newNum) {
+        truckNumber = newNum;
+    }
 
     @Override
     public String toString() {

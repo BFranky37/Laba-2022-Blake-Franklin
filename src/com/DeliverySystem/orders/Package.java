@@ -9,6 +9,7 @@ public class Package implements PackageInterface {
     private boolean fragility;
     private double value;
     private double cost;
+    final static double costRate = 2.3;
 
     public Package(Box bx, double wgt, boolean fragile) {
         box = bx;
@@ -17,22 +18,38 @@ public class Package implements PackageInterface {
         calculateCost();
     }
 
-    public Box getBox() { return box; }
+    public Box getBox() {
+        return box;
+    }
     public void setBox(Box bx) { 
         box = bx; 
         calculateCost();
     }
 
-    public double getWeight() { return weight; }
-    public void setWeight(double wgt) { weight = wgt; }
+    public double getWeight() {
+        return weight;
+    }
+    public void setWeight(double wgt) {
+        weight = wgt;
+    }
 
-    public boolean getFragility() { return fragility; }
-    public void setFragility(boolean fragile) { fragility = fragile; }
+    public boolean getFragility() {
+        return fragility;
+    }
+    public void setFragility(boolean fragile) {
+        fragility = fragile;
+    }
 
-    public double getValue() { return value; }
-    public void setValue(double val) { value = val; }
+    public double getValue() {
+        return value;
+    }
+    public void setValue(double val) {
+        value = val;
+    }
 
-    public double getCost() { return cost; }
+    public double getCost() {
+        return cost;
+    }
     public void calculateCost() {
         // area / 100 * costRate
         cost = (box.getArea() / 100 * costRate);
@@ -49,9 +66,7 @@ public class Package implements PackageInterface {
         if (!(obj instanceof Package)) return false;
         Package pkg = (Package) obj;
 
-        return (this.box == pkg.box &&
-                this.weight == pkg.weight &&
-                this.fragility == pkg.fragility);
+        return (this.box == pkg.box && this.weight == pkg.weight && this.fragility == pkg.fragility);
     }
 
     @Override

@@ -18,21 +18,29 @@ public class Route{
         calculateRoute();
     }
 
-    public Location getFromLocation() { return fromLocation; }
-    public void setFromLocation(Location from) { 
-        fromLocation = from; 
+    public Location getFromLocation() {
+        return fromLocation;
+    }
+    public void setFromLocation(Location from) {
+        fromLocation = from;
         calculateRoute();
     }
 
-    public Location getToLocation() { return toLocation; }
-    public void setToLocation(Location to) { 
-        toLocation = to; 
+    public Location getToLocation() {
+        return toLocation;
+    }
+    public void setToLocation(Location to) {
+        toLocation = to;
         calculateRoute();
     }
 
-    public int getDistance() { return distance; }
-    
-    public double getPrice() { return price; }
+    public int getDistance() {
+        return distance;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 
     public void calculateRoute() { //Generally speaking, the bigger the difference in Zip Code, the further away the post offices are
         double basePrice = .10;

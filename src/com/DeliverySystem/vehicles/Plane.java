@@ -15,8 +15,12 @@ public class Plane extends Vehicle{
         flightNumber = num;
     }
 
-    public String getFlighNum() { return flightNumber; }
-    public void setFlightNum(String newNum) { flightNumber = newNum; }
+    public String getFlighNum() {
+        return flightNumber;
+    }
+    public void setFlightNum(String newNum) {
+        flightNumber = newNum;
+    }
 
     @Override
     public String toString() {

@@ -7,8 +7,13 @@ public final class Company {
 
     private Company() {}
 
-    public static String getCompanyName() { return companyName; }
-    public static int getYearFounded() { return yearFounded; }
+    public static String getCompanyName() {
+        return companyName;
+    }
+
+    public static int getYearFounded() {
+        return yearFounded;
+    }
 
     public static void companyDescription() {
         System.out.println(companyName + ", founded in " + yearFounded + " is commited to providing a quality and speedy deliver service" +

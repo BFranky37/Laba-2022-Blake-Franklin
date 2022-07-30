@@ -13,6 +13,7 @@ public class Recipient extends Person{
     public Recipient() {
         super();
     }
+
     public Recipient(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
     }
@@ -20,10 +21,13 @@ public class Recipient extends Person{
     public void recievePackage(Package dropOff) {
         packagesRecieved.add(dropOff);
     }
+
     //to get the list of all packages this recipient has recieved
     public void getPackagesRecieved() {
         System.out.println("Packages recieved by" + super.getName() + ": ");
-        for (Package p : packagesRecieved) { System.out.println(p);}
+        for (Package p : packagesRecieved) {
+            System.out.println(p);
+        }
     }
 
     @Override

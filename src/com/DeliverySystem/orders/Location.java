@@ -16,14 +16,26 @@ public class Location {
         zipcode = zip;
     }
 
-    public String getAddress() { return streetAddress; }
-    public void setAddress(String address) { streetAddress = address; }
-    
-    public String getCity() { return city; }
-    public void setCity(String newcity) { city = newcity; }
+    public String getAddress() {
+        return streetAddress;
+    }
+    public void setAddress(String address) {
+        streetAddress = address;
+    }
 
-    public int getZipcode() { return zipcode; }
-    public void setZipcode(int zip) { zipcode = zip; }
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String newcity) {
+        city = newcity;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+    public void setZipcode(int zip) {
+        zipcode = zip;
+    }
 
     @Override
     public String toString() {

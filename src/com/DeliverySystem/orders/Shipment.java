@@ -21,17 +21,19 @@ public final class Shipment {
 
     private double totalPrice;
     
-    public Shipment(Sender send, Recipient recieve, Package pack, Insurance plan) {
+    public Shipment(Sender send, Recipient receive, Package pack, Insurance plan) {
         sender = send;
-        recipient = recieve;
+        recipient = receive;
         shippingPackage = pack;
         insurance = plan;
 
-        travelRoute = new Route(send.getAddress(), recieve.getAddress());
+        travelRoute = new Route(send.getAddress(), receive.getAddress());
         determineShippingPlan();
     }
 
-    public Sender getSender() { return sender; }
+    public Sender getSender() {
+        return sender;
+    }
     public void setSender(Sender send) {
         sender = send;
 
@@ -40,7 +42,9 @@ public final class Shipment {
         determineShippingPlan();
     }
 
-    public Recipient getRecipient() { return recipient; }
+    public Recipient getRecipient() {
+        return recipient;
+    }
     public void setRecipient(Recipient receive) {
         recipient = receive;
 
@@ -49,7 +53,9 @@ public final class Shipment {
         determineShippingPlan();
     }
 
-    public Package getPackage() { return shippingPackage; }
+    public Package getPackage() {
+        return shippingPackage;
+    }
     public void setPackage(Package pack) {
         shippingPackage = pack;
 
@@ -57,33 +63,43 @@ public final class Shipment {
         determineShippingPlan();
     }
 
-    public Insurance getInsurance() { return insurance; }
+    public Insurance getInsurance() {
+        return insurance;
+    }
     public void setInsurance(Insurance plan) {
         insurance = plan;
         calculateTotalPrice();
     }
 
-    public Route getRoute() { return travelRoute; }
+    public Route getRoute() {
+        return travelRoute;
+    }
     public void setRoute() {
         travelRoute.setFromLocation(sender.getAddress());
         travelRoute.setToLocation(recipient.getAddress());
     }
 
-    public Vehicle getVehicle() { return vehicle; }
-    private void setVehicle(Vehicle newVehicle) { vehicle = newVehicle; }
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+    private void setVehicle(Vehicle newVehicle) {
+        vehicle = newVehicle;
+    }
 
-    public double getTotalPrice() { return totalPrice; }
+    public double getTotalPrice() {
+        return totalPrice;
+    }
     public void calculateTotalPrice() {
         totalPrice = shippingPackage.getCost() + travelRoute.getPrice() + vehicle.getRate()
                     + insurance.calculateFullCost(shippingPackage.getValue());
     }
 
     public void determineShippingPlan() {
-        //This is the function that will promt the user for the desired priority of the delivery,
+        //This is the function that will prompt the user for the desired priority of the delivery,
         //then it will choose a vehicle based on factors such as distance, priority and size of package
         // it will either be vehicle = new Truck() or vehicle = new Plane(), and then fill in the remaining fields with a vehicle preset
         
-        //To be completed
+
 
         calculateTotalPrice();
     }

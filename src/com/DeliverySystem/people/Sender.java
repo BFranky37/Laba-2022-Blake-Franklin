@@ -13,6 +13,7 @@ public class Sender extends Person{
     public Sender() {
         super();
     }
+
     public Sender(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
     }
@@ -20,10 +21,12 @@ public class Sender extends Person{
     public void addOrder(Shipment order) {
         orders.add(order);
     }
-    //to get the list of all packages this recipient has recieved
+    //to get the list of all packages this recipient has received
     public void getOrders() {
         System.out.println("Shipments ordered by" + super.getName() + ": ");
-        for (Shipment s : orders) { System.out.println(s);}
+        for (Shipment s : orders) {
+            System.out.println(s);
+        }
     }
 
     @Override

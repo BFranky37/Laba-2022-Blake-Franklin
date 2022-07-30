@@ -2,7 +2,7 @@ package com.DeliverySystem.orders;
 
 import java.util.Objects;
 
-public class Box implements BoxInterface {
+public class Box implements Shape {
     //Dimensions measured in inches
     private double length;
     private double width;
@@ -16,23 +16,35 @@ public class Box implements BoxInterface {
         height = h;
     }
 
-    public double getLength() { return length; }
-    public void setLength(double l) { length = l; }
+    public double getLength() {
+        return length;
+    }
+    public void setLength(double l) {
+        length = l;
+    }
 
-    public double getWidth() { return width; }
-    public void setWidth(double w) { width = w; }
+    public double getWidth() {
+        return width;
+    }
+    public void setWidth(double w) {
+        width = w;
+    }
 
-    public double getHeight() { return height; }
-    public void setHeight(double h) { height = h; }
+    public double getHeight() {
+        return height;
+    }
+    public void setHeight(double h) {
+        height = h;
+    }
 
     @Override
     public final double getArea() { //return area in cubic inches
-        return (length*width*height);
+        return (length * width * height);
     }
 
     @Override
     public String toString() {
-        return "Length: " + length + " " + measurement + ", Width: " + width + " " + measurement + ", Height: " + height + " " + measurement;
+        return "Length: " + length + " inches, Width: " + width + " inches,  Height: " + height + " inches";
     }
 
     @Override
