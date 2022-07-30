@@ -7,7 +7,7 @@ public class Plane extends Vehicle{
     private String flightNumber; 
 
     public Plane(Vehicle pl, String flightNum) {
-        super(pl.getName(), pl.getRate(), pl.getMaxWeight(), pl.getMaxSize());
+        super(pl.getName(), pl.getPrice(), pl.getMaxWeight(), pl.getMaxSize());
         flightNumber = flightNum;
     }
     public Plane(String newName, double rate, String num, double capacity, double maxSize) {
@@ -34,7 +34,7 @@ public class Plane extends Vehicle{
         Plane pln = (Plane) obj;
 
         return (this.getName() == pln.getName() &&
-                this.getRate() == pln.getRate() &&
+                this.getPrice() == pln.getPrice() &&
                 this.getMaxWeight() == pln.getMaxWeight() &&
                 this.getMaxSize() == pln.getMaxSize() &&
                 this.flightNumber == pln.flightNumber);
@@ -42,6 +42,6 @@ public class Plane extends Vehicle{
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getName(), this.getRate(), this.getMaxWeight(), this.getMaxSize(), flightNumber);
+        return Objects.hash(this.getName(), this.getPrice(), this.getMaxWeight(), this.getMaxSize(), flightNumber);
     }
 }

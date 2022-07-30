@@ -12,7 +12,7 @@ import com.DeliverySystem.other.DataLoader;
 import static com.DeliverySystem.other.DataLoader.getVehicles;
 
 
-public final class Shipment {
+public final class Shipment implements Charge{
 
     private Sender sender;
     private Recipient recipient;
@@ -44,7 +44,6 @@ public final class Shipment {
 
         System.out.println("As the sender for this shipment has been changed, we must re-verufy the shipping method and update the price.");
         setRoute();
-        determineShippingPlan();
     }
 
     public Recipient getRecipient() {
@@ -55,7 +54,6 @@ public final class Shipment {
 
         System.out.println("As the recipient for this shipment has been changed, we must re-verufy the shipping method and update the price.");
         setRoute();
-        determineShippingPlan();
     }
 
     public Package getPackage() {
@@ -64,7 +62,7 @@ public final class Shipment {
     public void setPackage(Package pack) {
         shippingPackage = pack;
 
-        System.out.println("As the package for this shipment has been changed, we must re-verufy the shipping method and update the price.");
+        System.out.println("As the package for this shipment has been changed, we must re-verify the shipping method and update the price.");
         determineShippingPlan();
     }
 
@@ -73,7 +71,7 @@ public final class Shipment {
     }
     public void setInsurance(Insurance plan) {
         insurance = plan;
-        calculateTotalPrice();
+        calculatePrice();
     }
 
     public Route getRoute() {
@@ -82,6 +80,9 @@ public final class Shipment {
     public void setRoute() {
         travelRoute.setFromLocation(sender.getAddress());
         travelRoute.setToLocation(recipient.getAddress());
+
+        System.out.println("As the route for this shipment has been changed, we must re-verify the shipping method and update the price.");
+        determineShippingPlan();
     }
 
     public Vehicle getVehicle() {
@@ -91,12 +92,14 @@ public final class Shipment {
         vehicle = newVehicle;
     }
 
-    public double getTotalPrice() {
+    @Override
+    public double getPrice() {
         return totalPrice;
     }
-    public void calculateTotalPrice() {
-        totalPrice = shippingPackage.getCost() + travelRoute.getPrice() + vehicle.getRate()
-                    + insurance.calculateFullCost(shippingPackage.getValue());
+    @Override
+    public void calculatePrice() {
+        totalPrice = shippingPackage.getPrice() + travelRoute.getPrice() + vehicle.getRate()
+                    + insurance.calculatePrice(shippingPackage.getValue());
     }
 
     public void determineShippingPlan() {
@@ -118,7 +121,7 @@ public final class Shipment {
             vehicle = new Plane(getVehicles().get(4), "04-" + vehicleNumber); //Standard Delivery Plane
         else vehicle = new Plane(getVehicles().get(5), "05-" + vehicleNumber); //Heavy Cargo Plane
 
-        calculateTotalPrice();
+        calculatePrice();
     }
 
     @Override

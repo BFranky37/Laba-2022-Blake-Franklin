@@ -1,8 +1,10 @@
 package com.DeliverySystem.vehicles;
 
+import com.DeliverySystem.orders.Charge;
+
 import java.util.Objects;
 
-public abstract class Vehicle {
+public abstract class Vehicle implements Limits {
     
     private String name;
     private double costRate;
@@ -27,13 +29,14 @@ public abstract class Vehicle {
         name = newName;
     }
 
-    public double getRate() {
+    public double getPrice() {
         return costRate;
     }
     public void setRate(double rate) {
         costRate = rate;
     }
 
+    @Override
     public double getMaxWeight() {
         return weightCapacity;
     }
@@ -41,6 +44,7 @@ public abstract class Vehicle {
         weightCapacity = weight;
     }
 
+    @Override
     public double getMaxSize() {
         return spaceCapacity;
     }

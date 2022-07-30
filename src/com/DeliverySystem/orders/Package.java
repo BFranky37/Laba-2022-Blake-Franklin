@@ -4,7 +4,7 @@ import com.DeliverySystem.other.Box;
 
 import java.util.Objects;
 
-public class Package implements PackageInterface {
+public class Package implements Charge, Description {
 
     private Box box;
     private double weight;
@@ -17,15 +17,15 @@ public class Package implements PackageInterface {
         box = bx;
         weight = wgt;
         fragility = fragile;
-        calculateCost();
+        calculatePrice();
     }
 
     public Box getBox() {
         return box;
     }
     public void setBox(Box bx) { 
-        box = bx; 
-        calculateCost();
+        box = bx;
+        calculatePrice();
     }
 
     public double getWeight() {
@@ -49,12 +49,20 @@ public class Package implements PackageInterface {
         value = val;
     }
 
-    public double getCost() {
+    @Override
+    public double getPrice() {
         return cost;
     }
-    public void calculateCost() {
+    @Override
+    public void calculatePrice() {
         // area / 100 * costRate
         cost = (box.getArea() / 100 * costRate);
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Your Package represents the item you are shipping, including its weight, value, and fragility, " +
+                            "as well as the box it is packed into.");
     }
 
     @Override

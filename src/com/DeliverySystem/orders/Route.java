@@ -5,7 +5,7 @@ import com.DeliverySystem.other.Location;
 import java.util.Objects;
 import java.lang.Math;
 
-public class Route{
+public class Route implements Charge, Description{
     
     private Location fromLocation;
     private Location toLocation;
@@ -17,7 +17,7 @@ public class Route{
     public Route(Location from, Location to) {
         fromLocation = from;
         toLocation = to;
-        calculateRoute();
+        calculatePrice();
     }
 
     public Location getFromLocation() {
@@ -25,7 +25,7 @@ public class Route{
     }
     public void setFromLocation(Location from) {
         fromLocation = from;
-        calculateRoute();
+        calculatePrice();
     }
 
     public Location getToLocation() {
@@ -33,18 +33,20 @@ public class Route{
     }
     public void setToLocation(Location to) {
         toLocation = to;
-        calculateRoute();
+        calculatePrice();
     }
 
     public int getDistance() {
         return distance;
     }
 
+    @Override
     public double getPrice() {
         return price;
     }
 
-    public void calculateRoute() { //Generally speaking, the bigger the difference in Zip Code, the further away the post offices are
+    @Override
+    public void calculatePrice() { //Generally speaking, the bigger the difference in Zip Code, the further away the post offices are
         double basePrice = .10;
         fromZip = fromLocation.getZipcode();
         toZip = toLocation.getZipcode();
@@ -57,6 +59,12 @@ public class Route{
             price = (Math.round(distance * 100.0) / 2000000.0) + basePrice;
         }
 
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Your shipment's route represents the necessary travel required for the delivery, including " +
+                            "the start and end points, as well as the distance in between.");
     }
 
     @Override

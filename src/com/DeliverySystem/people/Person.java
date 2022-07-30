@@ -2,7 +2,7 @@ package com.DeliverySystem.people;
 
 import com.DeliverySystem.other.Location;
 
-public abstract class Person {
+public abstract class Person implements Profile{
     
     private String name;
     private String phoneNumber;
@@ -18,6 +18,7 @@ public abstract class Person {
         mainAddress = fulladdress;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -25,6 +26,7 @@ public abstract class Person {
         name = fullname;
     }
 
+    @Override
     public String getNumber() {
         return phoneNumber;
     }
@@ -32,6 +34,7 @@ public abstract class Person {
         phoneNumber = num;
     }
 
+    @Override
     public Location getAddress() {
         return mainAddress;
     }

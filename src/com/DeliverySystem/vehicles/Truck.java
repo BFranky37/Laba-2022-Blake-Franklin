@@ -7,7 +7,7 @@ public class Truck extends Vehicle{
     private String truckNumber; 
 
     public Truck(Vehicle tr, String truckNum) {
-        super(tr.getName(), tr.getRate(), tr.getMaxWeight(), tr.getMaxSize());
+        super(tr.getName(), tr.getPrice(), tr.getMaxWeight(), tr.getMaxSize());
         truckNumber = truckNum;
     }
     public Truck(String newName, double rate, String num, double capacity, double maxSize) {
@@ -34,7 +34,7 @@ public class Truck extends Vehicle{
         Truck car = (Truck) obj;
 
         return (this.getName() == car.getName() &&
-                this.getRate() == car.getRate() &&
+                this.getPrice() == car.getPrice() &&
                 this.getMaxWeight() == car.getMaxWeight() &&
                 this.getMaxSize() == car.getMaxSize() &&
                 this.truckNumber == car.truckNumber);
@@ -42,6 +42,6 @@ public class Truck extends Vehicle{
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getName(), this.getRate(), this.getMaxWeight(), this.getMaxSize(), truckNumber);
+        return Objects.hash(this.getName(), this.getPrice(), this.getMaxWeight(), this.getMaxSize(), truckNumber);
     }
 }
