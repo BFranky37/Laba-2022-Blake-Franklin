@@ -1,5 +1,5 @@
-import com.DeliverySystem.orders.*;
-import com.DeliverySystem.vehicles.*;
+import com.DeliverySystem.other.Box;
+import com.DeliverySystem.other.Location;
 import com.DeliverySystem.people.*;
 
 public class DeliveryMain {

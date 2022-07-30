@@ -3,7 +3,7 @@ package com.DeliverySystem.people;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.DeliverySystem.orders.Location;
+import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Package;
 
 public class Recipient extends Person{

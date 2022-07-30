@@ -6,7 +6,7 @@ public class Truck extends Vehicle{
     
     private String truckNumber; 
 
-    public Truck(Truck tr, String truckNum) {
+    public Truck(Vehicle tr, String truckNum) {
         super(tr.getName(), tr.getRate(), tr.getMaxWeight(), tr.getMaxSize());
         truckNumber = truckNum;
     }

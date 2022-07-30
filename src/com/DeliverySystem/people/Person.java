@@ -1,7 +1,6 @@
 package com.DeliverySystem.people;
 
-import java.util.Objects;
-import com.DeliverySystem.orders.Location;
+import com.DeliverySystem.other.Location;
 
 public abstract class Person {
     

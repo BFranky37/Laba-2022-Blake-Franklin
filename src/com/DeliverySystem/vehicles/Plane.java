@@ -6,7 +6,7 @@ public class Plane extends Vehicle{
     
     private String flightNumber; 
 
-    public Plane(Plane pl, String flightNum) {
+    public Plane(Vehicle pl, String flightNum) {
         super(pl.getName(), pl.getRate(), pl.getMaxWeight(), pl.getMaxSize());
         flightNumber = flightNum;
     }

@@ -7,8 +7,8 @@ public abstract class Vehicle {
     private String name;
     private double costRate;
     private double weightCapacity; //max weight of packages in pounds
-    //for reference, UPS separates weight class at the 70 and 150lbs mark for standard cars, with no limit on frieght trucks
-    private double spaceCapacity; //max size of packages in cubic feet
+    //for reference, UPS separates weight class at the 70 and 150lbs mark for standard cars, with no limit on freight trucks
+    private double spaceCapacity; //max size of packages in cubic inches
 
     public Vehicle() {
         

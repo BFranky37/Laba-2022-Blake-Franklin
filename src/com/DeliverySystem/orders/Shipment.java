@@ -7,6 +7,9 @@ import com.DeliverySystem.vehicles.Vehicle;
 import com.DeliverySystem.people.Sender;
 import com.DeliverySystem.people.Recipient;
 import com.DeliverySystem.people.Person;
+import com.DeliverySystem.other.DataLoader;
+
+import static com.DeliverySystem.other.DataLoader.getVehicles;
 
 
 public final class Shipment {
@@ -19,13 +22,15 @@ public final class Shipment {
     private Route travelRoute;
     private Vehicle vehicle;
 
+    private boolean priority;
     private double totalPrice;
     
-    public Shipment(Sender send, Recipient receive, Package pack, Insurance plan) {
+    public Shipment(Sender send, Recipient receive, Package pack, Insurance plan, boolean prio) {
         sender = send;
         recipient = receive;
         shippingPackage = pack;
         insurance = plan;
+        priority = prio;
 
         travelRoute = new Route(send.getAddress(), receive.getAddress());
         determineShippingPlan();
@@ -98,8 +103,20 @@ public final class Shipment {
         //This is the function that will prompt the user for the desired priority of the delivery,
         //then it will choose a vehicle based on factors such as distance, priority and size of package
         // it will either be vehicle = new Truck() or vehicle = new Plane(), and then fill in the remaining fields with a vehicle preset
-        
+        int vehicleNumber = (int)Math.floor(Math.random()*(999999-100000+1)+100000);
 
+        if (!priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 150 && shippingPackage.getBox().getArea() <= 65000)
+            vehicle = new Truck(getVehicles().get(0), "00-" + vehicleNumber); //Standard Delivery Car
+        else if (!priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 300 && shippingPackage.getBox().getArea() <= 90000)
+            vehicle = new Truck(getVehicles().get(1), "01-" + vehicleNumber); //Heavy Delivery Truck
+        else if (priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 150 && shippingPackage.getBox().getArea() <= 65000)
+            vehicle = new Truck(getVehicles().get(2), "02-" + vehicleNumber); //Priority Delivery Car
+        else if (!priority && shippingPackage.getWeight() <= 1000 && shippingPackage.getBox().getArea() <= 500000.0)
+            vehicle = new Truck(getVehicles().get(3), "03-" + vehicleNumber); //Delivery Freight Truck
+
+        else if (shippingPackage.getWeight() <= 300 && shippingPackage.getBox().getArea() <= 90000)
+            vehicle = new Plane(getVehicles().get(4), "04-" + vehicleNumber); //Standard Delivery Plane
+        else vehicle = new Plane(getVehicles().get(5), "05-" + vehicleNumber); //Heavy Cargo Plane
 
         calculateTotalPrice();
     }

@@ -1,5 +1,7 @@
 package com.DeliverySystem.orders;
 
+import com.DeliverySystem.other.Box;
+
 import java.util.Objects;
 
 public class Package implements PackageInterface {
