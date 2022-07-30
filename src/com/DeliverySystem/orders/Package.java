@@ -13,9 +13,10 @@ public class Package implements Charge, Description {
     private double cost;
     final static double costRate = 2.3;
 
-    public Package(Box bx, double wgt, boolean fragile) {
+    public Package(Box bx, double wgt, double val, boolean fragile) {
         box = bx;
         weight = wgt;
+        value = val;
         fragility = fragile;
         calculatePrice();
     }

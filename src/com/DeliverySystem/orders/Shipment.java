@@ -42,7 +42,7 @@ public final class Shipment implements Charge{
     public void setSender(Sender send) {
         sender = send;
 
-        System.out.println("As the sender for this shipment has been changed, we must re-verufy the shipping method and update the price.");
+        System.out.println("As the sender for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
     }
 
@@ -52,7 +52,7 @@ public final class Shipment implements Charge{
     public void setRecipient(Recipient receive) {
         recipient = receive;
 
-        System.out.println("As the recipient for this shipment has been changed, we must re-verufy the shipping method and update the price.");
+        System.out.println("As the recipient for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
     }
 
@@ -81,7 +81,6 @@ public final class Shipment implements Charge{
         travelRoute.setFromLocation(sender.getAddress());
         travelRoute.setToLocation(recipient.getAddress());
 
-        System.out.println("As the route for this shipment has been changed, we must re-verify the shipping method and update the price.");
         determineShippingPlan();
     }
 
@@ -98,7 +97,7 @@ public final class Shipment implements Charge{
     }
     @Override
     public void calculatePrice() {
-        totalPrice = shippingPackage.getPrice() + travelRoute.getPrice() + vehicle.getRate()
+        totalPrice = shippingPackage.getPrice() + travelRoute.getPrice() + vehicle.getPrice()
                     + insurance.calculatePrice(shippingPackage.getValue());
     }
 
