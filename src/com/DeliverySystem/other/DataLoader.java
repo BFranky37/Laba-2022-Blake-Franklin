@@ -20,7 +20,6 @@ public final class DataLoader {
 
     private static void loadVehicles() {
         vehicles.clear();
-
         vehicles.add(new Truck("Standard Delivery Car", 2.0, "00-000000", 150.0, 65000.0));
         vehicles.add(new Truck("Heavy Delivery Truck", 3.0, "01-000000", 300.0, 90000.0));
         vehicles.add(new Truck("Priority Delivery Car", 6.0, "02-000000", 150.0, 65000.0));
@@ -32,7 +31,6 @@ public final class DataLoader {
 
     private static void loadInsurancePlans() {
         insurancePlans.clear();
-
         insurancePlans.add(new Insurance("No Insurance", 0, 0));
         insurancePlans.add(new Insurance("Basic Insurance", 0.3, .015));
         insurancePlans.add(new Insurance("Fragility Insurance", 0.5, .03));
@@ -40,6 +38,6 @@ public final class DataLoader {
     }
 
     public static ArrayList<Vehicle> getVehicles(){return vehicles;}
-    public static ArrayList<Insurance> getInsurancePlans(){return insurancePlans;}
 
+    public static ArrayList<Insurance> getInsurancePlans(){return insurancePlans;}
 }

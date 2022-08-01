@@ -3,9 +3,10 @@ package com.DeliverySystem.vehicles;
 import java.util.Objects;
 
 public class Plane extends Vehicle{
-    
+    //Members
     private String flightNumber; 
 
+    //Constructors
     public Plane(Vehicle pl, String flightNum) {
         super(pl.getName(), pl.getPrice(), pl.getMaxWeight(), pl.getMaxSize());
         flightNumber = flightNum;
@@ -15,13 +16,16 @@ public class Plane extends Vehicle{
         flightNumber = num;
     }
 
+    //Getters and Setters
     public String getFlightNum() {
         return flightNumber;
     }
+
     public void setFlightNum(String newNum) {
         flightNumber = newNum;
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return ("Vehicle name: " + this.getName() + ", Flight number: " + flightNumber);

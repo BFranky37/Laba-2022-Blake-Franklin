@@ -7,15 +7,18 @@ import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Shipment;
 
 public class Sender extends Person{
+    //Members
+    private final ArrayList<Shipment> orders;
 
-    private ArrayList<Shipment> orders = new ArrayList<>();
-
+    //Constructors
     public Sender() {
         super();
+        orders = new ArrayList<>();
     }
 
     public Sender(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
+        orders = new ArrayList<>();
     }
 
     public void addOrder(Shipment order) {
@@ -29,6 +32,7 @@ public class Sender extends Person{
         }
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return super.toString();

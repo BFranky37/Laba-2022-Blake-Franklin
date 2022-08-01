@@ -7,15 +7,18 @@ import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Package;
 
 public class Recipient extends Person{
-    
-    private ArrayList<Package> packagesRecieved = new ArrayList<>();
+    //Members
+    private final ArrayList<Package> packagesRecieved;
 
+    //Constructors
     public Recipient() {
         super();
+        packagesRecieved = new ArrayList<>();
     }
 
     public Recipient(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
+        packagesRecieved = new ArrayList<>();
     }
 
     public void recievePackage(Package dropOff) {
@@ -30,6 +33,7 @@ public class Recipient extends Person{
         }
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return super.toString();

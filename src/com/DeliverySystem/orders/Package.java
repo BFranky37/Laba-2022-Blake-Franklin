@@ -5,7 +5,7 @@ import com.DeliverySystem.other.Box;
 import java.util.Objects;
 
 public class Package implements Charge, Description {
-
+    //Members
     private Box box;
     private double weight;
     private boolean fragility;
@@ -13,6 +13,7 @@ public class Package implements Charge, Description {
     private double cost;
     final static double costRate = 2.3;
 
+    //Constructors
     public Package(Box bx, double wgt, double val, boolean fragile) {
         box = bx;
         weight = wgt;
@@ -21,9 +22,11 @@ public class Package implements Charge, Description {
         calculatePrice();
     }
 
+    //Getters and Setters
     public Box getBox() {
         return box;
     }
+
     public void setBox(Box bx) { 
         box = bx;
         calculatePrice();
@@ -32,6 +35,7 @@ public class Package implements Charge, Description {
     public double getWeight() {
         return weight;
     }
+
     public void setWeight(double wgt) {
         weight = wgt;
     }
@@ -39,6 +43,7 @@ public class Package implements Charge, Description {
     public boolean getFragility() {
         return fragility;
     }
+
     public void setFragility(boolean fragile) {
         fragility = fragile;
     }
@@ -46,6 +51,7 @@ public class Package implements Charge, Description {
     public double getValue() {
         return value;
     }
+
     public void setValue(double val) {
         value = val;
     }
@@ -54,6 +60,7 @@ public class Package implements Charge, Description {
     public double getPrice() {
         return cost;
     }
+
     @Override
     public void calculatePrice() {
         // area / 100 * costRate
@@ -66,6 +73,7 @@ public class Package implements Charge, Description {
                             "as well as the box it is packed into.");
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return (box.toString() + "\nWeight: " + weight + " pounds, Fragile: " + fragility);

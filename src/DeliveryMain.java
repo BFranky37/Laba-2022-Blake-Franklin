@@ -10,14 +10,12 @@ import static com.DeliverySystem.other.DataLoader.loadData;
 
 public class DeliveryMain {
     public static void main(String[] args) {
-
         Scanner input = new Scanner(System.in);
 
         loadData();
 
         //SENDER
         System.out.println("Welcome to the DeliveryApp. We will be happy to ship your package. First we need some information about you");
-
         System.out.println("Please enter your name: ");
         String name = input.nextLine();
         System.out.println("Please enter your phone number: ");
@@ -46,7 +44,6 @@ public class DeliveryMain {
                 System.out.println("Sorry, we do not accept packages that big. Try a smaller package.");
             }
         } while (l*w*h > 500000);
-        
         Box box = new Box(l, w, h);
 
         System.out.println("What is the weight of your package in pounds: ");
@@ -65,7 +62,6 @@ public class DeliveryMain {
 
         //RECIPIENT
         System.out.println("We now need to know who you want to send this package to.");
-
         System.out.println("Please enter the recipient's name: ");
         name = input.nextLine();
         System.out.println("Please enter the recipient's phone number: ");
@@ -115,7 +111,6 @@ public class DeliveryMain {
         input.nextLine();
 
         System.out.println(shipment);
-
         System.out.println("Exiting Program...");
     }
 }

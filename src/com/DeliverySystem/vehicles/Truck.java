@@ -3,9 +3,10 @@ package com.DeliverySystem.vehicles;
 import java.util.Objects;
 
 public class Truck extends Vehicle{
-    
+    //Members
     private String truckNumber; 
 
+    //Constructors
     public Truck(Vehicle tr, String truckNum) {
         super(tr.getName(), tr.getPrice(), tr.getMaxWeight(), tr.getMaxSize());
         truckNumber = truckNum;
@@ -15,13 +16,16 @@ public class Truck extends Vehicle{
         truckNumber = num;
     }
 
+    //Getters and Setters
     public String getTruckNumber() {
         return truckNumber;
     }
+
     public void setTruckNumber(String newNum) {
         truckNumber = newNum;
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return ("Vehicle name: " + this.getName() + ", Truck number: " + truckNumber);

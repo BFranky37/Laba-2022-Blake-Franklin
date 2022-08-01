@@ -6,21 +6,25 @@ import java.util.Objects;
 import java.lang.Math;
 
 public class Route implements Charge, Description{
-    
+    //Members
     private Location fromLocation;
     private Location toLocation;
     private int distance;
     private double price;
+    private static final double basePrice = .10;
 
+    //Constructors
     public Route(Location from, Location to) {
         fromLocation = from;
         toLocation = to;
         calculatePrice();
     }
 
+    //Getters and Setters
     public Location getFromLocation() {
         return fromLocation;
     }
+
     public void setFromLocation(Location from) {
         fromLocation = from;
         calculatePrice();
@@ -29,6 +33,7 @@ public class Route implements Charge, Description{
     public Location getToLocation() {
         return toLocation;
     }
+
     public void setToLocation(Location to) {
         toLocation = to;
         calculatePrice();
@@ -45,8 +50,6 @@ public class Route implements Charge, Description{
 
     @Override
     public void calculatePrice() { //Generally speaking, the bigger the difference in Zip Code, the further away the post offices are
-        double basePrice = .10;
-
         distance = Math.abs(fromLocation.getZipcode() - toLocation.getZipcode());
         if (distance < 100) {
             price = (Math.round(distance * 100.0) / 100000.0) + basePrice;
@@ -54,7 +57,6 @@ public class Route implements Charge, Description{
         else {
             price = (Math.round(distance * 100.0) / 2000000.0) + basePrice;
         }
-
     }
 
     @Override
@@ -63,6 +65,7 @@ public class Route implements Charge, Description{
                             "the start and end points, as well as the distance in between.");
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return ("From " + fromLocation.getCity() + " to " + toLocation.getCity());

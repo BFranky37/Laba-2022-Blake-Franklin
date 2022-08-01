@@ -6,14 +6,12 @@ import com.DeliverySystem.vehicles.Plane;
 import com.DeliverySystem.vehicles.Vehicle;
 import com.DeliverySystem.people.Sender;
 import com.DeliverySystem.people.Recipient;
-import com.DeliverySystem.people.Person;
-import com.DeliverySystem.other.DataLoader;
 
 import static com.DeliverySystem.other.DataLoader.getVehicles;
 
 
 public final class Shipment implements Charge{
-
+    //MEMBERS
     private Sender sender;
     private Recipient recipient;
     private Package shippingPackage;
@@ -24,7 +22,8 @@ public final class Shipment implements Charge{
 
     private boolean priority;
     private double totalPrice;
-    
+
+    //Constructor
     public Shipment(Sender send, Recipient receive, Package pack, Insurance plan, boolean prio) {
         sender = send;
         recipient = receive;
@@ -36,39 +35,41 @@ public final class Shipment implements Charge{
         determineShippingPlan();
     }
 
+    //Getters and Setters
     public Sender getSender() {
         return sender;
     }
+
     public void setSender(Sender send) {
         sender = send;
-
-        System.out.println("As the sender for this shipment has been changed, we must re-verify the shipping method and update the price.");
+        //System.out.println("As the sender for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
     }
 
     public Recipient getRecipient() {
         return recipient;
     }
+
     public void setRecipient(Recipient receive) {
         recipient = receive;
-
-        System.out.println("As the recipient for this shipment has been changed, we must re-verify the shipping method and update the price.");
+        //System.out.println("As the recipient for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
     }
 
     public Package getPackage() {
         return shippingPackage;
     }
+
     public void setPackage(Package pack) {
         shippingPackage = pack;
-
-        System.out.println("As the package for this shipment has been changed, we must re-verify the shipping method and update the price.");
+        //System.out.println("As the package for this shipment has been changed, we must re-verify the shipping method and update the price.");
         determineShippingPlan();
     }
 
     public Insurance getInsurance() {
         return insurance;
     }
+
     public void setInsurance(Insurance plan) {
         insurance = plan;
         calculatePrice();
@@ -77,24 +78,40 @@ public final class Shipment implements Charge{
     public Route getRoute() {
         return travelRoute;
     }
+
     public void setRoute() {
         travelRoute.setFromLocation(sender.getAddress());
         travelRoute.setToLocation(recipient.getAddress());
+        determineShippingPlan();
+    }
 
+    public void setRoute(Route newRoute) {
+        travelRoute = newRoute;
         determineShippingPlan();
     }
 
     public Vehicle getVehicle() {
         return vehicle;
     }
+
     private void setVehicle(Vehicle newVehicle) {
         vehicle = newVehicle;
+    }
+
+    public boolean getPrio() {
+        return priority;
+    }
+
+    public void setPrio(boolean prio) {
+        priority = prio;
+        determineShippingPlan();
     }
 
     @Override
     public double getPrice() {
         return totalPrice;
     }
+
     @Override
     public void calculatePrice() {
         totalPrice = shippingPackage.getPrice() + travelRoute.getPrice() + vehicle.getPrice()
@@ -123,6 +140,7 @@ public final class Shipment implements Charge{
         calculatePrice();
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return ("Sender: " + sender + "\nRecipient: " + recipient +
@@ -148,5 +166,4 @@ public final class Shipment implements Charge{
     public int hashCode() {
         return Objects.hash(sender, recipient, shippingPackage, insurance, vehicle, totalPrice);
     }
-
 }

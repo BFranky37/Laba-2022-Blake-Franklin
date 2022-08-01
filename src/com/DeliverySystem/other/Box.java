@@ -8,6 +8,7 @@ public class Box implements Shape {
     private double width;
     private double height;
 
+    //Constructors
     public Box() {
     }
     public Box(double l, double w, double h) {
@@ -19,6 +20,7 @@ public class Box implements Shape {
     public double getLength() {
         return length;
     }
+
     public void setLength(double l) {
         length = l;
     }
@@ -26,6 +28,7 @@ public class Box implements Shape {
     public double getWidth() {
         return width;
     }
+
     public void setWidth(double w) {
         width = w;
     }
@@ -33,6 +36,7 @@ public class Box implements Shape {
     public double getHeight() {
         return height;
     }
+
     public void setHeight(double h) {
         height = h;
     }
@@ -42,6 +46,7 @@ public class Box implements Shape {
         return (length * width * height);
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return "Length: " + length + " inches, Width: " + width + " inches,  Height: " + height + " inches";
@@ -50,6 +55,7 @@ public class Box implements Shape {
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
+        if (!(obj instanceof Box)) return false;
         Box per = (Box) obj;
 
         return (this.length == per.length &&

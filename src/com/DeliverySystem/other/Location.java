@@ -3,11 +3,12 @@ package com.DeliverySystem.other;
 import java.util.Objects;
 
 public class Location {
-
+    //Members
     private String streetAddress;
     private String city;
     private int zipcode;
 
+    //Constructors
     public Location() {
     }
     public Location(String saddress, String c, int zip) {
@@ -16,9 +17,11 @@ public class Location {
         zipcode = zip;
     }
 
+    //Getters and Setters
     public String getAddress() {
         return streetAddress;
     }
+
     public void setAddress(String address) {
         streetAddress = address;
     }
@@ -26,17 +29,20 @@ public class Location {
     public String getCity() {
         return city;
     }
-    public void setCity(String newcity) {
-        city = newcity;
+
+    public void setCity(String newCity) {
+        city = newCity;
     }
 
     public int getZipcode() {
         return zipcode;
     }
+
     public void setZipcode(int zip) {
         zipcode = zip;
     }
 
+    //Class Overrides
     @Override
     public String toString() {
         return streetAddress + ", " + city + ", " + zipcode + ", ";
@@ -57,5 +63,4 @@ public class Location {
     public int hashCode() {
         return Objects.hash(streetAddress, city, zipcode);
     }
-
 }
