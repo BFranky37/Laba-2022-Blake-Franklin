@@ -125,9 +125,9 @@ public final class Shipment implements Charge{
 
     @Override
     public String toString() {
-        return ("Sender: " + sender + ", Recipient: " + recipient + 
+        return ("Sender: " + sender + "\nRecipient: " + recipient +
                 "\nRoute: " + travelRoute +
-                "\nShipping method: " + vehicle + ", Total Price: " + totalPrice);
+                "\nShipping method: " + vehicle + "\nTotal Price: " + totalPrice);
     }
 
     @Override

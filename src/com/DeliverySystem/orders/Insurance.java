@@ -59,7 +59,7 @@ public class Insurance implements Description {
         if (!(obj instanceof Insurance)) return false;
         Insurance ins = (Insurance) obj;
 
-        return (this.name == ins.name &&
+        return (Objects.equals(this.name, ins.name) &&
                 this.baseCost == ins.baseCost &&
                 this.priceRate == ins.priceRate);
     }

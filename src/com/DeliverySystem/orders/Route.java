@@ -9,8 +9,6 @@ public class Route implements Charge, Description{
     
     private Location fromLocation;
     private Location toLocation;
-    private int fromZip;
-    private int toZip;
     private int distance;
     private double price;
 
@@ -48,10 +46,8 @@ public class Route implements Charge, Description{
     @Override
     public void calculatePrice() { //Generally speaking, the bigger the difference in Zip Code, the further away the post offices are
         double basePrice = .10;
-        fromZip = fromLocation.getZipcode();
-        toZip = toLocation.getZipcode();
 
-        distance = Math.abs(fromZip - toZip);
+        distance = Math.abs(fromLocation.getZipcode() - toLocation.getZipcode());
         if (distance < 100) {
             price = (Math.round(distance * 100.0) / 100000.0) + basePrice;
         }

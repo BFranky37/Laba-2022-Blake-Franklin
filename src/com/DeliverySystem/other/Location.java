@@ -48,8 +48,8 @@ public class Location {
         if (!(obj instanceof Location)) return false;
         Location address = (Location) obj;
 
-        return (this.streetAddress == address.streetAddress &&
-                this.city == address.city &&
+        return (Objects.equals(this.streetAddress, address.streetAddress) &&
+                Objects.equals(this.city, address.city) &&
                 this.zipcode == address.zipcode);
     }
 

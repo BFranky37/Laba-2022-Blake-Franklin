@@ -40,8 +40,8 @@ public class Sender extends Person{
         if (!(obj instanceof Sender)) return false;
         Sender per = (Sender) obj;
 
-        return (this.getName() == per.getName() &&
-                this.getNumber() == per.getNumber() &&
+        return (Objects.equals(this.getName(), per.getName()) &&
+                Objects.equals(this.getNumber(), per.getNumber()) &&
                 this.getAddress() == per.getAddress() &&
                 this.orders == per.orders);
     }

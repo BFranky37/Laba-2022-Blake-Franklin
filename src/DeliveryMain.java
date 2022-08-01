@@ -53,8 +53,13 @@ public class DeliveryMain {
         double weight = input.nextDouble();
         System.out.println("What is the value of the item you are shipping in dollars: ");
         double value = input.nextDouble();
+        input.nextLine();
         System.out.println("Is the item you are shipping fragile? (y/n): ");
         char fragility = input.next().charAt(0);
+        if (fragility == 'y' || fragility == 'Y') {
+            System.out.println("Noting package as fragile...");
+        }
+        input.nextLine();
 
         Package shippingPackage = new Package(box, weight, value, (fragility == 'y' || fragility == 'Y'));
 
@@ -71,6 +76,7 @@ public class DeliveryMain {
         city = input.nextLine();
         System.out.println("Please enter the recipient's zipcode or postal code: ");
         zipcode = input.nextInt();
+        input.nextLine();
 
         Location recipientAddress = new Location(address, city, zipcode);
         Recipient recipient = new Recipient(name, phoneNumber, recipientAddress);
@@ -85,12 +91,18 @@ public class DeliveryMain {
         System.out.println("Would you like to purchase insurance for this package to be reimbursed in the case it is lost or damaged? " +
                             "\nThe price for insurance for your item would be " +
                             "$" + Math.round(getInsurancePlans().get(insuranceType).calculatePrice(value) * 100.0) / 100.0 + " (y/n):");
-        if (input.next().charAt(0) == 'n' || input.next().charAt(0) == 'N')
+        if (input.next().charAt(0) == 'n' || input.next().charAt(0) == 'N') {
             insuranceType = 0;
+        }
+        else System.out.println("Insurance added.");
+        input.nextLine();
 
         //SHIPMENT
         System.out.println("Would you like to pay for priority shipping to ensure your package reaches the destination quickly? (y/n): ");
         char priority = input.next().charAt(0);
+        if (priority == 'y' || priority == 'Y') {
+            System.out.println("Priority Shipping added.");
+        }
         Shipment shipment = new Shipment(sender, recipient, shippingPackage, getInsurancePlans().get(insuranceType), (priority == 'y' || priority == 'Y'));
 
         System.out.println("The final price for this shipment comes out to $" + Math.round(shipment.getPrice() * 100.0) / 100.0);
@@ -100,6 +112,10 @@ public class DeliveryMain {
             recipient.recievePackage(shipment.getPackage());
             System.out.println("Package Sent!");
         }
+        input.nextLine();
+
+        System.out.println(shipment);
+
         System.out.println("Exiting Program...");
     }
 }

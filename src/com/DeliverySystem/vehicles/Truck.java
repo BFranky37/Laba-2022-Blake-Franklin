@@ -24,7 +24,7 @@ public class Truck extends Vehicle{
 
     @Override
     public String toString() {
-        return (super.toString() + ", Truck number: " + truckNumber);
+        return ("Vehicle name: " + this.getName() + ", Truck number: " + truckNumber);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class Truck extends Vehicle{
         if (!(obj instanceof Truck)) return false;
         Truck car = (Truck) obj;
 
-        return (this.getName() == car.getName() &&
+        return (Objects.equals(this.getName(), car.getName()) &&
                 this.getPrice() == car.getPrice() &&
                 this.getMaxWeight() == car.getMaxWeight() &&
                 this.getMaxSize() == car.getMaxSize() &&
-                this.truckNumber == car.truckNumber);
+                Objects.equals(this.truckNumber, car.truckNumber));
     }
 
     @Override

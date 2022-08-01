@@ -15,7 +15,7 @@ public class Plane extends Vehicle{
         flightNumber = num;
     }
 
-    public String getFlighNum() {
+    public String getFlightNum() {
         return flightNumber;
     }
     public void setFlightNum(String newNum) {
@@ -24,7 +24,7 @@ public class Plane extends Vehicle{
 
     @Override
     public String toString() {
-        return (super.toString() + ", Truck number: " + flightNumber);
+        return ("Vehicle name: " + this.getName() + ", Flight number: " + flightNumber);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class Plane extends Vehicle{
         if (!(obj instanceof Plane)) return false;
         Plane pln = (Plane) obj;
 
-        return (this.getName() == pln.getName() &&
+        return (Objects.equals(this.getName(), pln.getName()) &&
                 this.getPrice() == pln.getPrice() &&
                 this.getMaxWeight() == pln.getMaxWeight() &&
                 this.getMaxSize() == pln.getMaxSize() &&
-                this.flightNumber == pln.flightNumber);
+                Objects.equals(this.flightNumber, pln.flightNumber));
     }
 
     @Override

@@ -44,6 +44,6 @@ public abstract class Person implements Profile{
 
     @Override
     public String toString() {
-        return ("Name: " + name + "\nPhone Number: " + phoneNumber);
+        return ("Name: " + name + ", Phone Number: " + phoneNumber);
     }
 }

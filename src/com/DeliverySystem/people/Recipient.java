@@ -41,8 +41,8 @@ public class Recipient extends Person{
         if (!(obj instanceof Recipient)) return false;
         Recipient per = (Recipient) obj;
 
-        return (this.getName() == per.getName() &&
-                this.getNumber() == per.getNumber() &&
+        return (Objects.equals(this.getName(), per.getName()) &&
+                Objects.equals(this.getNumber(), per.getNumber()) &&
                 this.getAddress() == per.getAddress() &&
                 this.packagesRecieved == per.packagesRecieved);
     }
