@@ -3,6 +3,7 @@ package com.DeliverySystem.people;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.DeliverySystem.exceptions.InvalidDeliveryException;
 import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Package;
 
@@ -22,7 +23,13 @@ public class Recipient extends Person{
     }
 
     public void recievePackage(Package dropOff) {
-        packagesRecieved.add(dropOff);
+        try {
+            if (dropOff.getBox() == null) {
+                throw new InvalidDeliveryException("Null values attached to this shipment");
+            } else packagesRecieved.add(dropOff);
+        } catch (InvalidDeliveryException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     //to get the list of all packages this recipient has recieved

@@ -1,5 +1,8 @@
 package com.DeliverySystem.other;
 
+import com.DeliverySystem.exceptions.ExceedsLimitsException;
+import com.DeliverySystem.exceptions.NegativeValueException;
+
 import java.util.Objects;
 
 public class Box implements Shape {
@@ -7,6 +10,7 @@ public class Box implements Shape {
     private double length;
     private double width;
     private double height;
+    public static final double sizeLimit = 500000;
 
     //Constructors
     public Box() {
@@ -39,6 +43,15 @@ public class Box implements Shape {
 
     public void setHeight(double h) {
         height = h;
+    }
+
+    public static double validateSize(double l, double w, double h) throws ExceedsLimitsException, NegativeValueException {
+        if (l*w*h > sizeLimit) {
+            throw new ExceedsLimitsException("Size exceeds limit");
+        } else if (l < 0 || w < 0 || h < 0) {
+            throw new NegativeValueException("Got a negative value for size");
+        }
+        else return l*w*h;
     }
 
     @Override

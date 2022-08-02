@@ -1,6 +1,8 @@
 package com.DeliverySystem.orders;
 
 import java.util.Objects;
+
+import com.DeliverySystem.exceptions.UnloadedDataException;
 import com.DeliverySystem.vehicles.Truck;
 import com.DeliverySystem.vehicles.Plane;
 import com.DeliverySystem.vehicles.Vehicle;
@@ -8,6 +10,7 @@ import com.DeliverySystem.people.Sender;
 import com.DeliverySystem.people.Recipient;
 
 import static com.DeliverySystem.other.DataLoader.getVehicles;
+import static com.DeliverySystem.other.DataLoader.loadData;
 
 
 public final class Shipment implements Charge{
@@ -24,7 +27,7 @@ public final class Shipment implements Charge{
     private double totalPrice;
 
     //Constructor
-    public Shipment(Sender send, Recipient receive, Package pack, Insurance plan, boolean prio) {
+    public Shipment(Sender send, Recipient receive, Package pack, Insurance plan, boolean prio) throws UnloadedDataException {
         sender = send;
         recipient = receive;
         shippingPackage = pack;
@@ -40,7 +43,7 @@ public final class Shipment implements Charge{
         return sender;
     }
 
-    public void setSender(Sender send) {
+    public void setSender(Sender send) throws UnloadedDataException {
         sender = send;
         //System.out.println("As the sender for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
@@ -50,7 +53,7 @@ public final class Shipment implements Charge{
         return recipient;
     }
 
-    public void setRecipient(Recipient receive) {
+    public void setRecipient(Recipient receive) throws UnloadedDataException {
         recipient = receive;
         //System.out.println("As the recipient for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
@@ -60,7 +63,7 @@ public final class Shipment implements Charge{
         return shippingPackage;
     }
 
-    public void setPackage(Package pack) {
+    public void setPackage(Package pack) throws UnloadedDataException {
         shippingPackage = pack;
         //System.out.println("As the package for this shipment has been changed, we must re-verify the shipping method and update the price.");
         determineShippingPlan();
@@ -79,13 +82,13 @@ public final class Shipment implements Charge{
         return travelRoute;
     }
 
-    public void setRoute() {
+    public void setRoute() throws UnloadedDataException {
         travelRoute.setFromLocation(sender.getAddress());
         travelRoute.setToLocation(recipient.getAddress());
         determineShippingPlan();
     }
 
-    public void setRoute(Route newRoute) {
+    public void setRoute(Route newRoute) throws UnloadedDataException {
         travelRoute = newRoute;
         determineShippingPlan();
     }
@@ -102,7 +105,7 @@ public final class Shipment implements Charge{
         return priority;
     }
 
-    public void setPrio(boolean prio) {
+    public void setPrio(boolean prio) throws UnloadedDataException {
         priority = prio;
         determineShippingPlan();
     }
@@ -118,25 +121,30 @@ public final class Shipment implements Charge{
                     + insurance.calculatePrice(shippingPackage.getValue());
     }
 
-    public void determineShippingPlan() {
+    public void determineShippingPlan() throws UnloadedDataException {
         //This is the function that will prompt the user for the desired priority of the delivery,
         //then it will choose a vehicle based on factors such as distance, priority and size of package
         // it will either be vehicle = new Truck() or vehicle = new Plane(), and then fill in the remaining fields with a vehicle preset
         int vehicleNumber = (int)Math.floor(Math.random()*(999999-100000+1)+100000);
 
-        if (!priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 150 && shippingPackage.getBox().getArea() <= 65000)
-            vehicle = new Truck(getVehicles().get(0), "00-" + vehicleNumber); //Standard Delivery Car
-        else if (!priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 300 && shippingPackage.getBox().getArea() <= 90000)
-            vehicle = new Truck(getVehicles().get(1), "01-" + vehicleNumber); //Heavy Delivery Truck
-        else if (priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 150 && shippingPackage.getBox().getArea() <= 65000)
-            vehicle = new Truck(getVehicles().get(2), "02-" + vehicleNumber); //Priority Delivery Car
-        else if (!priority && shippingPackage.getWeight() <= 1000 && shippingPackage.getBox().getArea() <= 500000.0)
-            vehicle = new Truck(getVehicles().get(3), "03-" + vehicleNumber); //Delivery Freight Truck
+        try {
+            if (!priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 150 && shippingPackage.getBox().getArea() <= 65000)
+                vehicle = new Truck(getVehicles().get(0), "00-" + vehicleNumber); //Standard Delivery Car
+            else if (!priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 300 && shippingPackage.getBox().getArea() <= 90000)
+                vehicle = new Truck(getVehicles().get(1), "01-" + vehicleNumber); //Heavy Delivery Truck
+            else if (priority && travelRoute.getDistance() < 1000 && shippingPackage.getWeight() <= 150 && shippingPackage.getBox().getArea() <= 65000)
+                vehicle = new Truck(getVehicles().get(2), "02-" + vehicleNumber); //Priority Delivery Car
+            else if (!priority && shippingPackage.getWeight() <= 1000 && shippingPackage.getBox().getArea() <= 500000.0)
+                vehicle = new Truck(getVehicles().get(3), "03-" + vehicleNumber); //Delivery Freight Truck
 
-        else if (shippingPackage.getWeight() <= 300 && shippingPackage.getBox().getArea() <= 90000)
-            vehicle = new Plane(getVehicles().get(4), "04-" + vehicleNumber); //Standard Delivery Plane
-        else vehicle = new Plane(getVehicles().get(5), "05-" + vehicleNumber); //Heavy Cargo Plane
-
+            else if (shippingPackage.getWeight() <= 300 && shippingPackage.getBox().getArea() <= 90000)
+                vehicle = new Plane(getVehicles().get(4), "04-" + vehicleNumber); //Standard Delivery Plane
+            else vehicle = new Plane(getVehicles().get(5), "05-" + vehicleNumber); //Heavy Cargo Plane
+        } catch (UnloadedDataException e) {
+            System.out.println("Trying to access vehicle data that has not been loaded");
+            loadData();
+            determineShippingPlan();
+        }
         calculatePrice();
     }
 

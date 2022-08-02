@@ -1,5 +1,7 @@
 package com.DeliverySystem.orders;
 
+import com.DeliverySystem.exceptions.ExceedsLimitsException;
+import com.DeliverySystem.exceptions.NegativeValueException;
 import com.DeliverySystem.other.Box;
 
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Package implements Charge, Description {
     private double value;
     private double cost;
     final static double costRate = 2.3;
+    public static final double weightLimit = 3000;
 
     //Constructors
     public Package(Box bx, double wgt, double val, boolean fragile) {
@@ -71,6 +74,15 @@ public class Package implements Charge, Description {
     public void displayInfo() {
         System.out.println("Your Package represents the item you are shipping, including its weight, value, and fragility, " +
                             "as well as the box it is packed into.");
+    }
+
+    public static double validateWeight(double weight) throws ExceedsLimitsException, NegativeValueException {
+        if (weight > weightLimit) {
+            throw new ExceedsLimitsException("Size exceeds limit");
+        } else if (weight < 0) {
+            throw new NegativeValueException("Got a negative value for size");
+        }
+        else return weight;
     }
 
     //Class Overrides

@@ -1,5 +1,6 @@
 package com.DeliverySystem.other;
 
+import com.DeliverySystem.exceptions.UnloadedDataException;
 import com.DeliverySystem.orders.Insurance;
 import com.DeliverySystem.vehicles.Plane;
 import com.DeliverySystem.vehicles.Truck;
@@ -13,7 +14,10 @@ public final class DataLoader {
 
     private DataLoader() {}
 
-    public static void loadData(){
+    public static void loadData() throws UnloadedDataException {
+        if (!vehicles.isEmpty() || !insurancePlans.isEmpty()) {
+            throw new UnloadedDataException("Trying to load data that is already there");
+        }
         loadVehicles();
         loadInsurancePlans();
     }
@@ -37,7 +41,19 @@ public final class DataLoader {
         insurancePlans.add(new Insurance("High Value Insurance", 1.0, .05));
     }
 
-    public static ArrayList<Vehicle> getVehicles(){return vehicles;}
+    public static void checkDataLoaded() throws UnloadedDataException {
+        if (vehicles.isEmpty() || insurancePlans.isEmpty()) {
+            throw new UnloadedDataException("Attempting to access DataLoader data that has not been loaded");
+        }
+    }
 
-    public static ArrayList<Insurance> getInsurancePlans(){return insurancePlans;}
+    public static ArrayList<Vehicle> getVehicles() throws UnloadedDataException {
+        checkDataLoaded();
+        return vehicles;
+    }
+
+    public static ArrayList<Insurance> getInsurancePlans() throws UnloadedDataException {
+        checkDataLoaded();
+        return insurancePlans;
+    }
 }

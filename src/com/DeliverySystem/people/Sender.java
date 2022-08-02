@@ -3,6 +3,7 @@ package com.DeliverySystem.people;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.DeliverySystem.exceptions.InvalidDeliveryException;
 import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Shipment;
 
@@ -22,7 +23,19 @@ public class Sender extends Person{
     }
 
     public void addOrder(Shipment order) {
-        orders.add(order);
+        try {
+            if (order.getInsurance() == null ||
+                    order.getRecipient() == null ||
+                    order.getVehicle() == null ||
+                    order.getPackage() == null ||
+                    order.getRoute() == null) {
+                throw new InvalidDeliveryException("Null values attached to this shipment");
+            } else if (order.getSender() != this) {
+                throw new InvalidDeliveryException("Sender is attempting to make a shipment under another person's name");
+            } else orders.add(order);
+        } catch (InvalidDeliveryException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
     //to get the list of all packages this recipient has received
     public void getOrders() {
