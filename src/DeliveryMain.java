@@ -4,13 +4,32 @@ import com.DeliverySystem.orders.Shipment;
 import com.DeliverySystem.other.*;
 import com.DeliverySystem.people.*;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import static com.DeliverySystem.other.DataLoader.getInsurancePlans;
 import static com.DeliverySystem.other.DataLoader.loadData;
 
 public class DeliveryMain {
     public static void main(String[] args) {
+        //Set up Logger
+        Logger logger = Logger.getLogger("MyLog");
+        FileHandler fh;
+        try {
+            fh = new FileHandler("DeliveryLog.log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+            //logger.setUseParentHandlers(false);
+            logger.info("Set up Logger");
+        } catch (SecurityException | IOException e) {
+            logger.log(Level.WARNING, e.getMessage(), e);
+        }
+
         Scanner input = new Scanner(System.in);
         boolean valid = false;
         try {
@@ -30,7 +49,9 @@ public class DeliveryMain {
             int zipcode = input.nextInt();
 
             Location senderAddress = new Location(address, city, zipcode);
+            logger.log(Level.INFO, "");
             Sender sender = new Sender(name, phoneNumber, senderAddress);
+            logger.log(Level.INFO, "");
 
             //PACKAGE
             double l = 0, w = 0, h = 0;
@@ -48,12 +69,17 @@ public class DeliveryMain {
                     weight = Package.validateWeight(input.nextDouble());
                     valid = true;
                 } catch (ExceedsLimitsException e) {
+                    //e.printStackTrace();
+                    logger.log(Level.WARNING, "Package dimensions exceed limits", e);
                     System.out.println("This package exceeds our limits. Try using a smaller box or breaking your item up into lighter packages.");
                 } catch (NegativeValueException e) {
+                    //e.printStackTrace();
+                    logger.log(Level.WARNING, "Invalid Package dimensions", e);
                     System.out.println("Please enter a valid size and weight.");
                 }
             } while (!valid);
             Box box = new Box(l, w, h);
+            logger.log(Level.INFO, "Got dimensions, box created");
 
 
             System.out.println("What is the value of the item you are shipping in dollars: ");
