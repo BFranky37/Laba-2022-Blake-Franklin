@@ -2,7 +2,7 @@ package com.DeliverySystem.orders;
 
 import java.util.Objects;
 
-public class Insurance implements Description {
+public class Insurance {
     //MEMBERS
     private String name;
     private double baseCost; //base price of insurance
@@ -45,13 +45,6 @@ public class Insurance implements Description {
 
     public double calculatePrice(double value) {
         return baseCost + (priceRate * value);
-    }
-
-    @Override
-    public void displayInfo() {
-        System.out.println("Purchasing insurance for your shipment means that if the item you are shipping is lost or damaged, " +
-                            "you will be reimbursed for the full value of the item. Different insurance plans are available for " +
-                            "items of different value.");
     }
 
     //Class Overrides

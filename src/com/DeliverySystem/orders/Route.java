@@ -5,7 +5,7 @@ import com.DeliverySystem.other.Location;
 import java.util.Objects;
 import java.lang.Math;
 
-public class Route implements Charge, Description{
+public class Route implements Charge {
     //Members
     private Location fromLocation;
     private Location toLocation;
@@ -57,12 +57,6 @@ public class Route implements Charge, Description{
         else {
             price = (Math.round(distance * 100.0) / 2000000.0) + basePrice;
         }
-    }
-
-    @Override
-    public void displayInfo() {
-        System.out.println("Your shipment's route represents the necessary travel required for the delivery, including " +
-                            "the start and end points, as well as the distance in between.");
     }
 
     //Class Overrides

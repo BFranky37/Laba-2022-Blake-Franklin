@@ -6,7 +6,7 @@ import com.DeliverySystem.other.Box;
 
 import java.util.Objects;
 
-public class Package implements Charge, Description {
+public class Package implements Charge {
     //Members
     private Box box;
     private double weight;
@@ -68,12 +68,6 @@ public class Package implements Charge, Description {
     public void calculatePrice() {
         // area / 100 * costRate
         cost = (box.getArea() / 100 * costRate);
-    }
-
-    @Override
-    public void displayInfo() {
-        System.out.println("Your Package represents the item you are shipping, including its weight, value, and fragility, " +
-                            "as well as the box it is packed into.");
     }
 
     public static double validateWeight(double weight) throws ExceedsLimitsException, NegativeValueException {

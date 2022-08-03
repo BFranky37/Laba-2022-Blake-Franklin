@@ -13,7 +13,7 @@ import static com.DeliverySystem.other.DataLoader.getVehicles;
 import static com.DeliverySystem.other.DataLoader.loadData;
 
 
-public final class Shipment implements Charge{
+public final class Shipment implements Charge, ShippingPlan{
     //MEMBERS
     private Sender sender;
     private Recipient recipient;
@@ -121,6 +121,7 @@ public final class Shipment implements Charge{
                     + insurance.calculatePrice(shippingPackage.getValue());
     }
 
+    @Override
     public void determineShippingPlan() throws UnloadedDataException {
         //This is the function that will prompt the user for the desired priority of the delivery,
         //then it will choose a vehicle based on factors such as distance, priority and size of package
