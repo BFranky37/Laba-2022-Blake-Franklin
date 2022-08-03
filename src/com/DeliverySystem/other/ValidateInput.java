@@ -14,4 +14,11 @@ public final class ValidateInput {
         }
         else throw new InvalidInputException("Y or N not given");
     }
+
+    public static int validateZip(int input) throws InvalidInputException {
+        if (input <= 99999 && input >= 10000) {
+            return input;
+        }
+        else throw new InvalidInputException("Zipcode given not in valid range");
+    }
 }

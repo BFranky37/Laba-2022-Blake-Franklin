@@ -8,12 +8,13 @@ import com.DeliverySystem.vehicles.Plane;
 import com.DeliverySystem.vehicles.Vehicle;
 import com.DeliverySystem.people.Sender;
 import com.DeliverySystem.people.Recipient;
+import org.apache.log4j.Logger;
 
-import static com.DeliverySystem.other.DataLoader.getVehicles;
-import static com.DeliverySystem.other.DataLoader.loadData;
+import static com.DeliverySystem.other.DataLoader.*;
 
 
 public final class Shipment implements Charge, ShippingPlan{
+    private static final Logger logger = Logger.getLogger("DeliveryLog");
     //MEMBERS
     private Sender sender;
     private Recipient recipient;
@@ -36,6 +37,7 @@ public final class Shipment implements Charge, ShippingPlan{
 
         travelRoute = new Route(send.getAddress(), receive.getAddress());
         determineShippingPlan();
+        logger.info("Shipment created.");
     }
 
     //Getters and Setters
@@ -154,7 +156,7 @@ public final class Shipment implements Charge, ShippingPlan{
     public String toString() {
         return ("Sender: " + sender + "\nRecipient: " + recipient +
                 "\nRoute: " + travelRoute +
-                "\nShipping method: " + vehicle + "\nTotal Price: " + totalPrice);
+                "\nShipping method: " + vehicle + "\nTotal Price: " + Math.round(totalPrice * 100.0) / 100.0);
     }
 
     @Override

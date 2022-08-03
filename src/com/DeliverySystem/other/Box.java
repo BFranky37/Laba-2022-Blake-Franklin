@@ -2,10 +2,12 @@ package com.DeliverySystem.other;
 
 import com.DeliverySystem.exceptions.ExceedsLimitsException;
 import com.DeliverySystem.exceptions.NegativeValueException;
+import org.apache.log4j.Logger;
 
 import java.util.Objects;
 
 public class Box implements Shape {
+    private static final Logger logger = Logger.getLogger("DeliveryLog");
     //Dimensions measured in inches
     private double length;
     private double width;
@@ -14,11 +16,13 @@ public class Box implements Shape {
 
     //Constructors
     public Box() {
+        logger.info("Box created");
     }
     public Box(double l, double w, double h) {
         length = l;
         width = w;
         height = h;
+        logger.info("Box created with dimensions length: " + length + " width: " + width + " height: " + height );
     }
 
     public double getLength() {

@@ -3,10 +3,12 @@ package com.DeliverySystem.orders;
 import com.DeliverySystem.exceptions.ExceedsLimitsException;
 import com.DeliverySystem.exceptions.NegativeValueException;
 import com.DeliverySystem.other.Box;
+import org.apache.log4j.Logger;
 
 import java.util.Objects;
 
 public class Package implements Charge {
+    private static final Logger logger = Logger.getLogger("DeliveryLog");
     //Members
     private Box box;
     private double weight;
@@ -22,6 +24,7 @@ public class Package implements Charge {
         weight = wgt;
         value = val;
         fragility = fragile;
+        logger.info("Package created");
         calculatePrice();
     }
 

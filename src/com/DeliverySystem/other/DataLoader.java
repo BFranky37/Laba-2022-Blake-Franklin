@@ -5,21 +5,21 @@ import com.DeliverySystem.orders.Insurance;
 import com.DeliverySystem.vehicles.Plane;
 import com.DeliverySystem.vehicles.Truck;
 import com.DeliverySystem.vehicles.Vehicle;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 
 public final class DataLoader {
+    private static final Logger logger = Logger.getLogger("DeliveryLog");
     public static ArrayList<Vehicle> vehicles = new ArrayList<>();
     public static ArrayList<Insurance> insurancePlans = new ArrayList<>();
 
     private DataLoader() {}
 
-    public static void loadData() throws UnloadedDataException {
-        if (!vehicles.isEmpty() || !insurancePlans.isEmpty()) {
-            throw new UnloadedDataException("Trying to load data that is already there");
-        }
+    public static void loadData() {
         loadVehicles();
         loadInsurancePlans();
+        logger.info("Data loaded.");
     }
 
     private static void loadVehicles() {
@@ -48,12 +48,20 @@ public final class DataLoader {
     }
 
     public static ArrayList<Vehicle> getVehicles() throws UnloadedDataException {
-        checkDataLoaded();
-        return vehicles;
+        try {
+            checkDataLoaded();
+            return vehicles;
+        } catch (UnloadedDataException e) {
+            throw new UnloadedDataException(e.getMessage());
+        }
     }
 
     public static ArrayList<Insurance> getInsurancePlans() throws UnloadedDataException {
-        checkDataLoaded();
-        return insurancePlans;
+        try {
+            checkDataLoaded();
+            return insurancePlans;
+        } catch (UnloadedDataException e) {
+            throw new UnloadedDataException(e.getMessage());
+        }
     }
 }

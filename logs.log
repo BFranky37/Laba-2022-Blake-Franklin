@@ -1,2 +1,35 @@
 2022-08-03 16:32:04 INFO  DeliveryLog:19 - Set up Logger
+  2022-08-03 17:24:43 INFO  DeliveryLog:19 - Set up Logger
+  2022-08-03 17:24:43 INFO  DeliveryLog:22 - Data loaded.
+  2022-08-03 17:25:03 INFO  DeliveryLog:21 - Address created.
+  2022-08-03 17:25:03 INFO  DeliveryLog:40 - Sender address saved
+  2022-08-03 17:25:03 INFO  DeliveryLog:42 - Sender Information saved
+  2022-08-03 17:40:41 INFO  DeliveryLog:18 - Set up Logger
+  2022-08-03 17:40:41 INFO  DeliveryLog:22 - Data loaded.
+  2022-08-03 17:42:04 INFO  DeliveryLog:21 - Address created.
+  2022-08-03 17:42:04 INFO  DeliveryLog:48 - Sender address saved
+  2022-08-03 17:42:04 INFO  DeliveryLog:26 - Sender created.
+  2022-08-03 17:42:04 INFO  DeliveryLog:50 - Sender Information saved
+  2022-08-03 17:43:19 INFO  DeliveryLog:18 - Set up Logger
+  2022-08-03 17:43:19 INFO  DeliveryLog:22 - Data loaded.
+  2022-08-03 17:43:38 WARN  DeliveryLog:42 - Zipcode given not in valid rangeInvalid zipcode input
+  2022-08-03 17:43:47 INFO  DeliveryLog:21 - Address created.
+  2022-08-03 17:43:47 INFO  DeliveryLog:48 - Sender address saved
+  2022-08-03 17:43:47 INFO  DeliveryLog:26 - Sender created.
+  2022-08-03 17:43:47 INFO  DeliveryLog:50 - Sender Information saved
+  2022-08-03 17:44:27 WARN  DeliveryLog:74 - Got a negative value for sizeInvalid Package dimensions
+  2022-08-03 17:45:54 INFO  DeliveryLog:25 - Box created with dimensions length: 5.0 width: 5.0 height: 5.0
+  2022-08-03 17:45:54 INFO  DeliveryLog:79 - Got dimensions, box saved.
+  2022-08-03 17:46:11 WARN  DeliveryLog:94 - Y or N not givenInvalid yes/no input
+  2022-08-03 17:46:28 INFO  DeliveryLog:27 - Package created
+  2022-08-03 17:46:28 INFO  DeliveryLog:100 - Package information saved.
+  2022-08-03 17:46:55 INFO  DeliveryLog:21 - Address created.
+  2022-08-03 17:46:55 INFO  DeliveryLog:26 - Recipient created.
+  2022-08-03 17:46:59 INFO  DeliveryLog:157 - Insurance added: Fragility Insurance
+  2022-08-03 17:47:09 INFO  DeliveryLog:178 - Priority Shipping added.
+  2022-08-03 17:47:09 INFO  DeliveryLog:22 - Route created.
+  2022-08-03 17:47:09 INFO  DeliveryLog:41 - Shipment created.
+  2022-08-03 17:47:09 INFO  DeliveryLog:184 - Shipment information saved.
+  2022-08-03 17:47:19 INFO  DeliveryLog:206 - Shipment finalized
+  2022-08-03 17:47:19 INFO  DeliveryLog:211 - Exiting Program...
   

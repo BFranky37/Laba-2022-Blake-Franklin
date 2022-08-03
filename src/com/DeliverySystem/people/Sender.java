@@ -6,8 +6,10 @@ import java.util.Objects;
 import com.DeliverySystem.exceptions.InvalidDeliveryException;
 import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Shipment;
+import org.apache.log4j.Logger;
 
 public class Sender extends Person{
+    private static final Logger logger = Logger.getLogger("DeliveryLog");
     //Members
     private final ArrayList<Shipment> orders;
 
@@ -15,11 +17,13 @@ public class Sender extends Person{
     public Sender() {
         super();
         orders = new ArrayList<>();
+        logger.info("Sender created.");
     }
 
     public Sender(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
         orders = new ArrayList<>();
+        logger.info("Sender created.");
     }
 
     public void addOrder(Shipment order) {

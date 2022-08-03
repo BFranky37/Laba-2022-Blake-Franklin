@@ -6,8 +6,10 @@ import java.util.Objects;
 import com.DeliverySystem.exceptions.InvalidDeliveryException;
 import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Package;
+import org.apache.log4j.Logger;
 
 public class Recipient extends Person{
+    private static final Logger logger = Logger.getLogger("DeliveryLog");
     //Members
     private final ArrayList<Package> packagesRecieved;
 
@@ -15,11 +17,13 @@ public class Recipient extends Person{
     public Recipient() {
         super();
         packagesRecieved = new ArrayList<>();
+        logger.info("Recipient created.");
     }
 
     public Recipient(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
         packagesRecieved = new ArrayList<>();
+        logger.info("Recipient created.");
     }
 
     public void recievePackage(Package dropOff) {
