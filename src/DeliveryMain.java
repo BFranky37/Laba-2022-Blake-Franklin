@@ -4,31 +4,19 @@ import com.DeliverySystem.orders.Shipment;
 import com.DeliverySystem.other.*;
 import com.DeliverySystem.people.*;
 
-import java.io.IOException;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import java.util.Scanner;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import static com.DeliverySystem.other.DataLoader.getInsurancePlans;
 import static com.DeliverySystem.other.DataLoader.loadData;
 
 public class DeliveryMain {
+    private static final Logger logger = Logger.getLogger("DeliveryLog");
+
     public static void main(String[] args) {
-        //Set up Logger
-        Logger logger = Logger.getLogger("MyLog");
-        FileHandler fh;
-        try {
-            fh = new FileHandler("DeliveryLog.log");
-            logger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-            //logger.setUseParentHandlers(false);
-            logger.info("Set up Logger");
-        } catch (SecurityException | IOException e) {
-            logger.log(Level.WARNING, e.getMessage(), e);
-        }
+        logger.info("Set up Logger");
 
         Scanner input = new Scanner(System.in);
         boolean valid = false;
@@ -49,9 +37,9 @@ public class DeliveryMain {
             int zipcode = input.nextInt();
 
             Location senderAddress = new Location(address, city, zipcode);
-            logger.log(Level.INFO, "");
+            logger.info("Sender address saved");
             Sender sender = new Sender(name, phoneNumber, senderAddress);
-            logger.log(Level.INFO, "");
+            logger.info("Sender Information saved");
 
             //PACKAGE
             double l = 0, w = 0, h = 0;
@@ -70,16 +58,16 @@ public class DeliveryMain {
                     valid = true;
                 } catch (ExceedsLimitsException e) {
                     //e.printStackTrace();
-                    logger.log(Level.WARNING, "Package dimensions exceed limits", e);
+                    logger.warn(e.getMessage() + "Package dimensions exceed limits");
                     System.out.println("This package exceeds our limits. Try using a smaller box or breaking your item up into lighter packages.");
                 } catch (NegativeValueException e) {
                     //e.printStackTrace();
-                    logger.log(Level.WARNING, "Invalid Package dimensions", e);
+                    logger.warn(e.getMessage() + "Invalid Package dimensions");
                     System.out.println("Please enter a valid size and weight.");
                 }
             } while (!valid);
             Box box = new Box(l, w, h);
-            logger.log(Level.INFO, "Got dimensions, box created");
+            logger.info("Got dimensions, box saved.");
 
 
             System.out.println("What is the value of the item you are shipping in dollars: ");
@@ -94,11 +82,13 @@ public class DeliveryMain {
                     fragility = ValidateInput.validateYesNo(input.nextLine());
                     valid = true;
                 } catch (InvalidInputException e) {
+                    logger.warn(e.getMessage() + "Invalid yes/no input");
                     System.out.println("Please enter a valid input (y/n)");
                 }
             } while (!valid);
 
             Package shippingPackage = new Package(box, weight, value, fragility);
+            logger.info("Package information saved.");
 
             //RECIPIENT
             System.out.println("We now need to know who you want to send this package to.");
@@ -115,7 +105,9 @@ public class DeliveryMain {
             input.nextLine();
 
             Location recipientAddress = new Location(address, city, zipcode);
+            logger.info("Recipient address saved");
             Recipient recipient = new Recipient(name, phoneNumber, recipientAddress);
+            logger.info("Recipient information saved");
 
             //INSURANCE
             int insuranceType;
