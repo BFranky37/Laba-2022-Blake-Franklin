@@ -23,16 +23,16 @@ public class DeliveryMain {
         loadData();
 
         //SENDER
-        System.out.println("Welcome to the DeliveryApp. We will be happy to ship your package. First we need some information about you");
-        System.out.println("Please enter your name: ");
+        logger.info("Welcome to the DeliveryApp. We will be happy to ship your package. First we need some information about you");
+        logger.info("Please enter your name: ");
         String name = input.nextLine();
-        System.out.println("Please enter your phone number: ");
+        logger.info("Please enter your phone number: ");
         String phoneNumber = input.nextLine();
-        System.out.println("Please enter your street address: ");
+        logger.info("Please enter your street address: ");
         String address = input.nextLine();
-        System.out.println("Please enter your city: ");
+        logger.info("Please enter your city: ");
         String city = input.nextLine();
-        System.out.println("Please enter the your zipcode or postal code: ");
+        logger.info("Please enter the your zipcode or postal code: ");
         int zipcode = 0;
         do {
             try {
@@ -40,7 +40,7 @@ public class DeliveryMain {
                 valid = true;
             } catch (InvalidInputException e) {
                 logger.warn(e.getMessage() + "Invalid zipcode input");
-                System.out.println("Please enter a valid 6-digit zipcode:");
+                logger.info("Please enter a valid 6-digit zipcode:");
             }
         } while (!valid);
 
@@ -50,33 +50,33 @@ public class DeliveryMain {
         //PACKAGE
         double l = 0, w = 0, h = 0;
         double weight = 0;
-        System.out.println("Now we need information about the package you are sending.");
+        logger.info("Now we need information about the package you are sending.");
         do {
             try {
                 valid = false;
-                System.out.println("Please enter the length, width, and height of your package in inches, one by one: ");
+                logger.info("Please enter the length, width, and height of your package in inches, one by one: ");
                 l = input.nextDouble();
                 w = input.nextDouble();
                 h = input.nextDouble();
                 Box.validateSize(l, w, h);
 
-                System.out.println("What is the weight of your package in pounds: ");
+                logger.info("What is the weight of your package in pounds: ");
                 weight = Package.validateWeight(input.nextDouble());
                 valid = true;
             } catch (ExceedsLimitsException e) {
                 //e.printStackTrace();
                 logger.warn(e.getMessage());
-                System.out.println("This package exceeds our limits. Try using a smaller box or breaking your item up into lighter packages.");
+                logger.info("This package exceeds our limits. Try using a smaller box or breaking your item up into lighter packages.");
             } catch (NegativeValueException e) {
                 //e.printStackTrace();
                 logger.warn(e.getMessage());
-                System.out.println("Please enter a valid size and weight.");
+                logger.info("Please enter a valid size and weight.");
             }
         } while (!valid);
         Box box = new Box(l, w, h);
 
 
-        System.out.println("What is the value of the item you are shipping in dollars: ");
+        logger.info("What is the value of the item you are shipping in dollars: ");
         double value = input.nextDouble();
         input.nextLine();
 
@@ -84,36 +84,36 @@ public class DeliveryMain {
         valid = false;
         do {
             try {
-                System.out.println("Is the item you are shipping fragile? (y/n): ");
+                logger.info("Is the item you are shipping fragile? (y/n): ");
                 fragility = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
                 logger.warn(e.getMessage());
-                System.out.println("Please enter a valid input (y/n)");
+                logger.info("Please enter a valid input (y/n)");
             }
         } while (!valid);
 
         Package shippingPackage = new Package(box, weight, value, fragility);
 
         //RECIPIENT
-        System.out.println("We now need to know who you want to send this package to.");
-        System.out.println("Please enter the recipient's name: ");
+        logger.info("We now need to know who you want to send this package to.");
+        logger.info("Please enter the recipient's name: ");
         name = input.nextLine();
-        System.out.println("Please enter the recipient's phone number: ");
+        logger.info("Please enter the recipient's phone number: ");
         phoneNumber = input.nextLine();
-        System.out.println("Please enter the recipient's street address: ");
+        logger.info("Please enter the recipient's street address: ");
         address = input.nextLine();
-        System.out.println("Please enter the recipient's city: ");
+        logger.info("Please enter the recipient's city: ");
         city = input.nextLine();
         do {
             try {
                 valid = false;
-                System.out.println("Please enter the recipient's zipcode or postal code: ");
+                logger.info("Please enter the recipient's zipcode or postal code: ");
                 zipcode = ValidateInput.validateZip(input.nextInt());
                 valid = true;
             } catch (InvalidInputException e) {
                 logger.warn(e.getMessage() + "Invalid zipcode input");
-                System.out.println("Please enter a valid 6-digit zipcode:");
+                logger.info("Please enter a valid 6-digit zipcode:");
             }
         } while (!valid);
         input.nextLine();
@@ -132,14 +132,14 @@ public class DeliveryMain {
         valid = false;
         do {
             try {
-                System.out.println("Would you like to purchase insurance for this package to be reimbursed in the case it is lost or damaged? ");
-                System.out.println("The price for insurance for your item would be " +
+                logger.info("Would you like to purchase insurance for this package to be reimbursed in the case it is lost or damaged? ");
+                logger.info("The price for insurance for your item would be " +
                         "$" + Math.round(getInsurancePlans().get(insuranceType).calculatePrice(value) * 100.0) / 100.0 + " (y/n):");
                 insurancePurchased = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
                 logger.warn(e.getMessage() + "Invalid yes/no input");
-                System.out.println("Please enter a valid input (y/n)");
+                logger.info("Please enter a valid input (y/n)");
             } catch (UnloadedDataException e) {
                 logger.error(e.getMessage(), e);
                 throw new RuntimeException(e);
@@ -162,12 +162,12 @@ public class DeliveryMain {
         do {
             try {
                 valid = false;
-                System.out.println("Would you like to pay for priority shipping to ensure your package reaches the destination quickly? (y/n): ");
+                logger.info("Would you like to pay for priority shipping to ensure your package reaches the destination quickly? (y/n): ");
                 priority = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
                 logger.warn(e.getMessage() + "Invalid yes/no input");
-                System.out.println("Please enter a valid input (y/n)");
+                logger.info("Please enter a valid input (y/n)");
             }
         } while (!valid);
         if (priority) {
@@ -182,27 +182,27 @@ public class DeliveryMain {
             throw new RuntimeException(e);
         }
 
-        System.out.println("The final price for this shipment comes out to $" + Math.round(shipment.getPrice() * 100.0) / 100.0);
+        logger.info("The final price for this shipment comes out to $" + Math.round(shipment.getPrice() * 100.0) / 100.0);
         boolean shipmentFinalized = false;
         do {
             try {
                 valid = false;
-                System.out.println("Would you like to finalize this shipment? (y/n)");
+                logger.info("Would you like to finalize this shipment? (y/n)");
                 shipmentFinalized = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
                 logger.warn(e.getMessage() + "Invalid yes/no input");
-                System.out.println("Please enter a valid input (y/n)");
+                logger.info("Please enter a valid input (y/n)");
             }
         } while (!valid);
         if (shipmentFinalized) {
             sender.addOrder(shipment);
             recipient.recievePackage(shipment.getPackage());
             logger.info("Shipment finalized");
-            System.out.println("Package Sent!");
+            logger.info("Package Sent!");
         }
 
-        System.out.println(shipment);
+        logger.info(shipment);
         logger.info("Exiting Program...");
     }
 }

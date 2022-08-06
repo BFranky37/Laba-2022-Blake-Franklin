@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 
 public final class DataLoader {
-    private static final Logger logger = Logger.getLogger("DeliveryLog");
+    private static final Logger logger = Logger.getLogger(DataLoader.class.getName());
     public static ArrayList<Vehicle> vehicles = new ArrayList<>();
     public static ArrayList<Insurance> insurancePlans = new ArrayList<>();
 

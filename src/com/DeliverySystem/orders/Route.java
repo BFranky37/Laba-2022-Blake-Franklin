@@ -1,5 +1,6 @@
 package com.DeliverySystem.orders;
 
+import com.DeliverySystem.other.DataLoader;
 import com.DeliverySystem.other.Location;
 import org.apache.log4j.Logger;
 
@@ -7,7 +8,7 @@ import java.util.Objects;
 import java.lang.Math;
 
 public class Route implements Charge {
-    private static final Logger logger = Logger.getLogger("DeliveryLog");
+    private static final Logger logger = Logger.getLogger(Route.class.getName());
     //Members
     private Location fromLocation;
     private Location toLocation;
