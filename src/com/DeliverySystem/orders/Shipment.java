@@ -3,6 +3,7 @@ package com.DeliverySystem.orders;
 import java.util.Objects;
 
 import com.DeliverySystem.exceptions.UnloadedDataException;
+import com.DeliverySystem.other.DataLoader;
 import com.DeliverySystem.vehicles.Truck;
 import com.DeliverySystem.vehicles.Plane;
 import com.DeliverySystem.vehicles.Vehicle;
@@ -13,8 +14,8 @@ import org.apache.log4j.Logger;
 import static com.DeliverySystem.other.DataLoader.*;
 
 
-public final class Shipment implements Charge, ShippingPlan{
-    private static final Logger logger = Logger.getLogger("DeliveryLog");
+public class Shipment implements Charge, ShippingPlan{
+    private static final Logger logger = Logger.getLogger(Shipment.class.getName());
     //MEMBERS
     private Sender sender;
     private Recipient recipient;
@@ -47,7 +48,7 @@ public final class Shipment implements Charge, ShippingPlan{
 
     public void setSender(Sender send) throws UnloadedDataException {
         sender = send;
-        //System.out.println("As the sender for this shipment has been changed, we must re-verify the shipping method and update the price.");
+        //logger.info("As the sender for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
     }
 
@@ -57,7 +58,7 @@ public final class Shipment implements Charge, ShippingPlan{
 
     public void setRecipient(Recipient receive) throws UnloadedDataException {
         recipient = receive;
-        //System.out.println("As the recipient for this shipment has been changed, we must re-verify the shipping method and update the price.");
+        //logger.info("As the recipient for this shipment has been changed, we must re-verify the shipping method and update the price.");
         setRoute();
     }
 
@@ -67,7 +68,7 @@ public final class Shipment implements Charge, ShippingPlan{
 
     public void setPackage(Package pack) throws UnloadedDataException {
         shippingPackage = pack;
-        //System.out.println("As the package for this shipment has been changed, we must re-verify the shipping method and update the price.");
+        //logger.info("As the package for this shipment has been changed, we must re-verify the shipping method and update the price.");
         determineShippingPlan();
     }
 
@@ -144,7 +145,7 @@ public final class Shipment implements Charge, ShippingPlan{
                 vehicle = new Plane(getVehicles().get(4), "04-" + vehicleNumber); //Standard Delivery Plane
             else vehicle = new Plane(getVehicles().get(5), "05-" + vehicleNumber); //Heavy Cargo Plane
         } catch (UnloadedDataException e) {
-            System.out.println("Trying to access vehicle data that has not been loaded");
+            logger.info("Trying to access vehicle data that has not been loaded");
             loadData();
             determineShippingPlan();
         }

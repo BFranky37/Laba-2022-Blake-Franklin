@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.Objects;
 
 public class Location {
-    private static final Logger logger = Logger.getLogger("DeliveryLog");
+    private static final Logger logger = Logger.getLogger(Location.class.getName());
     //Members
     private String streetAddress;
     private String city;

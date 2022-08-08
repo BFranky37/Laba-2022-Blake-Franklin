@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import java.util.Objects;
 
 public class Box implements Shape {
-    private static final Logger logger = Logger.getLogger("DeliveryLog");
+    private static final Logger logger = Logger.getLogger(Box.class.getName());
     //Dimensions measured in inches
     private double length;
     private double width;

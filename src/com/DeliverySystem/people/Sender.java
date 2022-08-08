@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.DeliverySystem.exceptions.InvalidDeliveryException;
+import com.DeliverySystem.other.DataLoader;
 import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Shipment;
 import org.apache.log4j.Logger;
 
 public class Sender extends Person{
-    private static final Logger logger = Logger.getLogger("DeliveryLog");
+    private static final Logger logger = Logger.getLogger(Sender.class.getName());
     //Members
     private final ArrayList<Shipment> orders;
 
@@ -43,9 +44,9 @@ public class Sender extends Person{
     }
     //to get the list of all packages this recipient has received
     public void getOrders() {
-        System.out.println("Shipments ordered by" + super.getName() + ": ");
+        logger.info("Shipments ordered by " + super.getName() + ": ");
         for (Shipment s : orders) {
-            System.out.println(s);
+            logger.info(s);
         }
     }
 

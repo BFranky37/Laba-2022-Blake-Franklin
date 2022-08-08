@@ -3,12 +3,13 @@ package com.DeliverySystem.orders;
 import com.DeliverySystem.exceptions.ExceedsLimitsException;
 import com.DeliverySystem.exceptions.NegativeValueException;
 import com.DeliverySystem.other.Box;
+import com.DeliverySystem.other.DataLoader;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;
 
 public class Package implements Charge {
-    private static final Logger logger = Logger.getLogger("DeliveryLog");
+    private static final Logger logger = Logger.getLogger(Package.class.getName());
     //Members
     private Box box;
     private double weight;
