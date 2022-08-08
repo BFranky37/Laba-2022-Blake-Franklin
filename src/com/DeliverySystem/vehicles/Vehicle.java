@@ -1,5 +1,10 @@
 package com.DeliverySystem.vehicles;
 
+import com.DeliverySystem.orders.Package;
+import com.DeliverySystem.orders.Shipment;
+
+import java.util.LinkedList;
+
 public abstract class Vehicle implements Limits {
     //Members
     private String name;

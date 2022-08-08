@@ -10,7 +10,7 @@ import com.DeliverySystem.orders.Shipment;
 import org.apache.log4j.Logger;
 
 public class Sender extends Person{
-    private static final Logger logger = Logger.getLogger(Recipient.class.getName());
+    private static final Logger logger = Logger.getLogger(Sender.class.getName());
     //Members
     private final ArrayList<Shipment> orders;
 
@@ -44,7 +44,7 @@ public class Sender extends Person{
     }
     //to get the list of all packages this recipient has received
     public void getOrders() {
-        logger.info("Shipments ordered by" + super.getName() + ": ");
+        logger.info("Shipments ordered by " + super.getName() + ": ");
         for (Shipment s : orders) {
             logger.info(s);
         }

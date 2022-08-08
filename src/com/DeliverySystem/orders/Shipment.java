@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import static com.DeliverySystem.other.DataLoader.*;
 
 
-public final class Shipment implements Charge, ShippingPlan{
+public class Shipment implements Charge, ShippingPlan{
     private static final Logger logger = Logger.getLogger(Shipment.class.getName());
     //MEMBERS
     private Sender sender;

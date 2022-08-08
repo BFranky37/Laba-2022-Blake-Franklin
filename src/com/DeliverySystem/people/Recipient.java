@@ -37,9 +37,9 @@ public class Recipient extends Person{
         }
     }
 
-    //to get the list of all packages this recipient has recieved
+    //to get the list of all packages this recipient has received
     public void getPackagesRecieved() {
-        logger.info("Packages recieved by" + super.getName() + ": ");
+        logger.info("Packages received by " + super.getName() + ": ");
         for (Package p : packagesRecieved) {
             logger.info(p);
         }
