@@ -3,19 +3,18 @@ package com.DeliverySystem.other;
 import com.DeliverySystem.people.Person;
 
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 
 public final class SavedData {
-    private static LinkedList<Person> profiles = new LinkedList<Person>();
+    private static LinkedHashSet<Person> profiles = new LinkedHashSet<Person>();
 
-    private static LinkedHashSet<String> cities = new LinkedHashSet<String>();
+    private static CustomList<String> cities = new CustomList<String>();
 
     public static void addProfile(Person individual) {
         if (!profiles.contains(individual))
             profiles.add(individual);
     }
 
-    public static LinkedList<Person> getProfiles() {
+    public static LinkedHashSet<Person> getProfiles() {
         return profiles;
     }
 
@@ -23,7 +22,7 @@ public final class SavedData {
         cities.add(city);
     }
 
-    public static LinkedHashSet<String> getCities() {
+    public static CustomList<String> getCities() {
         return cities;
     }
 }

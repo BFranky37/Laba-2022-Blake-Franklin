@@ -35,6 +35,7 @@ public class DeliveryMain {
         String address = input.nextLine();
         logger.info("Please enter your city: ");
         String city = input.nextLine();
+        addCity(city);
         logger.info("Please enter the your zipcode or postal code: ");
         int zipcode = 0;
         do {
@@ -112,6 +113,7 @@ public class DeliveryMain {
             address = input.nextLine();
             logger.info("Please enter the recipient's city: ");
             city = input.nextLine();
+            addCity(city);
             do {
                 try {
                     valid = false;
@@ -227,8 +229,12 @@ public class DeliveryMain {
 
         logger.info("\nAll shipments finalized.");
         logger.info("Profiles created:");
-        for (Person profile : getProfiles()) {
+        for (Object profile : getProfiles()) {
             logger.info(profile);
+        }
+        logger.info("\nCurrently operating in these cities::");
+        for (Object allCity : getCities()) {
+            logger.info(allCity);
         }
         logger.info("\nPackages shipped:");
         sender.getOrders();
