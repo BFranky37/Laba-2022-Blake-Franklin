@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.DeliverySystem.exceptions.InvalidDeliveryException;
-import com.DeliverySystem.other.DataLoader;
-import com.DeliverySystem.other.Location;
 import com.DeliverySystem.orders.Shipment;
 import org.apache.log4j.Logger;
 

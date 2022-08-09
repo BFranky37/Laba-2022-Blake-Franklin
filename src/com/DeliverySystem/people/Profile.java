@@ -1,7 +1,5 @@
 package com.DeliverySystem.people;
 
-import com.DeliverySystem.other.Location;
-
 public interface Profile {
     public String getName();
 

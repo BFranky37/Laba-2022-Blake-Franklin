@@ -6,11 +6,11 @@ import com.DeliverySystem.people.*;
 
 import org.apache.log4j.Logger;
 
-import java.util.LinkedList;
 import java.util.Scanner;
 
 import static com.DeliverySystem.other.DataLoader.getInsurancePlans;
 import static com.DeliverySystem.other.DataLoader.loadData;
+import static com.DeliverySystem.other.SavedData.*;
 
 public class DeliveryMain {
     private static final Logger logger = Logger.getLogger(DeliveryMain.class.getName());
@@ -20,8 +20,6 @@ public class DeliveryMain {
 
         Scanner input = new Scanner(System.in);
         boolean valid = false;
-
-        LinkedList<Person> profiles = new LinkedList<Person>();
 
         loadData();
         logger.info("Welcome to the DeliveryApp. We will be happy to ship your package.");
@@ -51,8 +49,7 @@ public class DeliveryMain {
 
         Location senderAddress = new Location(address, city, zipcode);
         Sender sender = new Sender(name, phoneNumber, senderAddress);
-        if (!profiles.contains(sender))
-            profiles.add(sender);
+        addProfile(sender);
 
         //GOING THROUGH THE ORDER PROCESS
         boolean sendAnother;
@@ -130,8 +127,7 @@ public class DeliveryMain {
 
             Location recipientAddress = new Location(address, city, zipcode);
             Recipient recipient = new Recipient(name, phoneNumber, recipientAddress);
-            if (!profiles.contains(recipient))
-                profiles.add(recipient);
+            addProfile(recipient);
 
             //INSURANCE
             int insuranceType;
@@ -229,16 +225,13 @@ public class DeliveryMain {
             } while (!valid);
         } while (sendAnother);
 
-        System.out.println("\n");
-        logger.info("All shipments finalized.");
+        logger.info("\nAll shipments finalized.");
         logger.info("Profiles created:");
-        for (Person profile : profiles) {
+        for (Person profile : getProfiles()) {
             logger.info(profile);
         }
-        System.out.println("\n");
-        logger.info("Packages shipped:");
+        logger.info("\nPackages shipped:");
         sender.getOrders();
-        System.out.println("\n");
-        logger.info("Exiting Program...");
+        logger.info("\nExiting Program...");
     }
 }

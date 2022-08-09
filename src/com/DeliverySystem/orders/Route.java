@@ -1,7 +1,6 @@
 package com.DeliverySystem.orders;
 
-import com.DeliverySystem.other.DataLoader;
-import com.DeliverySystem.other.Location;
+import com.DeliverySystem.people.Location;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;

@@ -1,7 +1,5 @@
 package com.DeliverySystem.people;
 
-import com.DeliverySystem.other.Location;
-
 public abstract class Person implements Profile{
     //Members
     private String name;

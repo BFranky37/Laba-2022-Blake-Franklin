@@ -1,4 +1,4 @@
-package com.DeliverySystem.other;
+package com.DeliverySystem.people;
 
 import org.apache.log4j.Logger;
 
