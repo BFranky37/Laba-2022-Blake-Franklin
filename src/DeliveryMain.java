@@ -233,9 +233,7 @@ public class DeliveryMain {
             logger.info(profile);
         }
         logger.info("\nCurrently operating in these cities::");
-        for (Object allCity : getCities()) {
-            logger.info(allCity);
-        }
+        logger.info(getCities());
         logger.info("\nPackages shipped:");
         sender.getOrders();
         logger.info("\nExiting Program...");

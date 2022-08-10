@@ -171,19 +171,20 @@ public class CustomList<T> implements Iterable {
     @Override
     public String toString()
     {
-        StringBuilder S = new StringBuilder("{ ");
+        StringBuilder S = new StringBuilder("(");
         CustomNode<T> X = head;
 
         if (X == null)
-            return S + " }";
+            return S + "List is Empty)";
 
         while (X.next != null) {
-            S.append(String.valueOf(X.data)).append(" -> ");
+            S.append(String.valueOf(X.data));
+            S.append(", ");
             X = X.next;
         }
 
         S.append(String.valueOf(X.data));
-        return S + " }";
+        return S + ")";
     }
 
     public static void iterateList(CustomList<Integer> linkedList){
