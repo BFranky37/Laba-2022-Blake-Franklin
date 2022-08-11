@@ -22,6 +22,15 @@ public class DeliveryMain {
         boolean valid = false;
 
         loadData();
+
+        CustomList<String> towns = new CustomList<String>();
+        towns.add("New York");
+        towns.add("Orlando");
+        for (Object t: towns) {
+            logger.info(t);
+        }
+
+
         logger.info("Welcome to the DeliveryApp. We will be happy to ship your package.");
 
 

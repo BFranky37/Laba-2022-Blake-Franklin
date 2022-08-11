@@ -10,8 +10,7 @@ public final class SavedData {
     private static CustomList<String> cities = new CustomList<String>();
 
     public static void addProfile(Person individual) {
-        if (!profiles.contains(individual))
-            profiles.add(individual);
+        profiles.add(individual);
     }
 
     public static LinkedHashSet<Person> getProfiles() {

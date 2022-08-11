@@ -11,7 +11,7 @@ public class CustomList<T> implements Iterable {
     CustomNode<T> head;
     private int length = 0;
     
-    CustomList() {
+    public CustomList() {
         this.head = null;
     }
 
@@ -19,7 +19,7 @@ public class CustomList<T> implements Iterable {
         return length;
     }
 
-    void add(T data) { //Add at the end
+    public void add(T data) { //Add at the end
         CustomNode<T> temp = new CustomNode<>(data);
         
         if (this.head == null) {
@@ -39,8 +39,8 @@ public class CustomList<T> implements Iterable {
         }
         length++;
     }
-    
-    void add(int position, T data) { //Add at any position
+
+    public void add(int position, T data) { //Add at any position
         // Checking if position is valid
         if (position > length + 1) {
             // Display message only
@@ -79,7 +79,7 @@ public class CustomList<T> implements Iterable {
         prev.next.next = temp;
     }
 
-    void remove(T key) {
+    public void remove(T key) {
         //  NOTE
         // dummy CustomNode is used to represent the CustomNode before
         // the current CustomNode Since in a Singly Linked-List we
@@ -154,17 +154,17 @@ public class CustomList<T> implements Iterable {
         }
     }
 
-    void clear() {
+    public void clear() {
         head = null;
         length = 0;
     }
 
-    boolean empty() {
+    public boolean empty() {
         return head == null;
     }
 
 
-    int length() {
+    public int length() {
         return this.length;
     }
 
