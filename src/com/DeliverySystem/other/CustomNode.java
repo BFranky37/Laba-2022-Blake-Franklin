@@ -8,4 +8,12 @@ public class CustomNode<T> {
         this.data = data;
         this.next = null;
     }
+
+    public T getData() {
+        return data;
+    }
+
+    public CustomNode<T> getNext() {
+        return next;
+    }
 }

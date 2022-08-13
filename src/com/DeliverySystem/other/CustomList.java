@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-public class CustomList<T> implements Iterable {
+public class CustomList<T> implements Iterable<T> {
     private static final Logger logger = Logger.getLogger(CustomList.class.getName());
     CustomNode<T> head;
     private int length = 0;
-    
+
     public CustomList() {
         this.head = null;
     }
@@ -21,7 +21,7 @@ public class CustomList<T> implements Iterable {
 
     public void add(T data) { //Add at the end
         CustomNode<T> temp = new CustomNode<>(data);
-        
+
         if (this.head == null) {
             head = temp;
         }
@@ -150,7 +150,7 @@ public class CustomList<T> implements Iterable {
         }
         // If CustomNode to be deleted does not exist
         else {
-            logger.info("Given Value is not present in linked list");
+            logger.warn("Given Value is not present in linked list");
         }
     }
 
@@ -178,12 +178,12 @@ public class CustomList<T> implements Iterable {
             return S + "List is Empty)";
 
         while (X.next != null) {
-            S.append(String.valueOf(X.data));
+            S.append(X.data);
             S.append(", ");
             X = X.next;
         }
 
-        S.append(String.valueOf(X.data));
+        S.append(X.data);
         return S + ")";
     }
 
@@ -197,9 +197,8 @@ public class CustomList<T> implements Iterable {
 
     }
 
-    @Override
-    public Iterator iterator() {
-        return null;
+    public CustomNode<T> getHead() {
+        return head;
     }
 
     @Override
@@ -208,7 +207,33 @@ public class CustomList<T> implements Iterable {
     }
 
     @Override
+    public Iterator<T> iterator() {
+        return new ListIterator<T>(this);
+    }
+
+    @Override
     public Spliterator spliterator() {
         return Iterable.super.spliterator();
+    }
+}
+
+class ListIterator<T> implements Iterator<T> {
+    CustomNode<T> current;
+
+    // initialize pointer to head of the list for iteration
+    public ListIterator(CustomList<T> list) {
+        current = list.getHead();
+    }
+
+    // returns false if next element does not exist
+    public boolean hasNext() {
+        return current != null;
+    }
+
+    // return current data and update pointer
+    public T next() {
+        T data = current.getData();
+        current = current.getNext();
+        return data;
     }
 }
