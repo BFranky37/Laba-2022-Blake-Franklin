@@ -3,6 +3,6 @@
 /workspace.xml
 *.class
 *.vscode
-*.xml
+/.idea
 DeliveryLog.log.lck
 logs.log
