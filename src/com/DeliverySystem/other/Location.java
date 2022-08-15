@@ -1,10 +1,7 @@
-<<<<<<< Updated upstream:src/com/DeliverySystem/other/Location.java
 package com.DeliverySystem.other;
-=======
-package main.java.com.DeliverySystem.people;
->>>>>>> Stashed changes:src/main/java/com/DeliverySystem/people/Location.java
 
 import org.apache.log4j.Logger;
+
 import java.util.Objects;
 
 public class Location {
