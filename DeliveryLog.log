@@ -1,8 +1,0 @@
-Aug 03, 2022 1:26:05 PM main.java.DeliverySystem.DeliveryMain main
-INFO: Set up Logger
-Aug 03, 2022 1:26:25 PM main.java.DeliverySystem.DeliveryMain main
-WARNING: Got a negative value for size
-com.DeliverySystem.exceptions.NegativeValueException: Got a negative value for size
-	at com.DeliverySystem.other.Box.validateSize(Box.java:52)
-	at main.java.DeliverySystem.DeliveryMain.main(main.java.DeliverySystem.DeliveryMain.java:65)
-
