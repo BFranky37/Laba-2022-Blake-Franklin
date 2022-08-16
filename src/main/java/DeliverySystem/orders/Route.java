@@ -1,10 +1,9 @@
-package main.java.DeliverySystem.orders;
+package DeliverySystem.orders;
 
-import main.java.DeliverySystem.people.Location;
+import DeliverySystem.people.Location;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;
-import java.lang.Math;
 
 public class Route implements Charge {
     private static final Logger logger = Logger.getLogger(Route.class.getName());

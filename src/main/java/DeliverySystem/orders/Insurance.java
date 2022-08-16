@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.orders;
+package DeliverySystem.orders;
 
 import java.util.Objects;
 

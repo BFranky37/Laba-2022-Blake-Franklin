@@ -1,10 +1,10 @@
-package main.java.DeliverySystem.other;
+package DeliverySystem.other;
 
-import main.java.DeliverySystem.exceptions.UnloadedDataException;
-import main.java.DeliverySystem.orders.Insurance;
-import main.java.DeliverySystem.vehicles.Plane;
-import main.java.DeliverySystem.vehicles.Truck;
-import main.java.DeliverySystem.vehicles.Vehicle;
+import DeliverySystem.exceptions.UnloadedDataException;
+import DeliverySystem.orders.Insurance;
+import DeliverySystem.vehicles.Plane;
+import DeliverySystem.vehicles.Truck;
+import DeliverySystem.vehicles.Vehicle;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

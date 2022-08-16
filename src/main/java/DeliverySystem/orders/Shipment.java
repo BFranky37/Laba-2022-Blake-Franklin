@@ -1,17 +1,17 @@
-package main.java.DeliverySystem.orders;
+package DeliverySystem.orders;
 
-import main.java.DeliverySystem.exceptions.UnloadedDataException;
-import main.java.DeliverySystem.people.Recipient;
-import main.java.DeliverySystem.people.Sender;
-import main.java.DeliverySystem.vehicles.Plane;
-import main.java.DeliverySystem.vehicles.Truck;
-import main.java.DeliverySystem.vehicles.Vehicle;
+import DeliverySystem.exceptions.UnloadedDataException;
+import DeliverySystem.people.Recipient;
+import DeliverySystem.people.Sender;
+import DeliverySystem.vehicles.Plane;
+import DeliverySystem.vehicles.Truck;
+import DeliverySystem.vehicles.Vehicle;
+
 import org.apache.log4j.Logger;
-
 import java.util.Objects;
 
-import static main.java.DeliverySystem.other.DataLoader.getVehicles;
-import static main.java.DeliverySystem.other.DataLoader.loadData;
+import static DeliverySystem.other.DataLoader.*;
+
 
 
 public class Shipment implements Charge, ShippingPlan{

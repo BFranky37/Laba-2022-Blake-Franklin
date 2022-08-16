@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.people;
+package DeliverySystem.people;
 
 public interface Profile {
     public String getName();

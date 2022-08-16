@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.vehicles;
+package DeliverySystem.vehicles;
 
 public abstract class Vehicle implements Limits {
     //Members

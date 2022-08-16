@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.exceptions;
+package DeliverySystem.exceptions;
 
 public class InvalidInputException extends Exception {
     public InvalidInputException(String message) {

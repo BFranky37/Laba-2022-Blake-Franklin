@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.people;
+package DeliverySystem.people;
 
 import org.apache.log4j.Logger;
 

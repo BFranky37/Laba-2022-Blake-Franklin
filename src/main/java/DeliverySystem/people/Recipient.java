@@ -1,11 +1,11 @@
-package main.java.DeliverySystem.people;
+package DeliverySystem.people;
+
+import DeliverySystem.exceptions.InvalidDeliveryException;
+import org.apache.log4j.Logger;
+import DeliverySystem.orders.Package;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import main.java.DeliverySystem.exceptions.InvalidDeliveryException;
-import main.java.DeliverySystem.orders.Package;
-import org.apache.log4j.Logger;
 
 public class Recipient extends Person{
     private static final Logger logger = Logger.getLogger(Recipient.class.getName());

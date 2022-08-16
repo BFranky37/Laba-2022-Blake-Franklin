@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.exceptions;
+package DeliverySystem.exceptions;
 
 public class ExceedsLimitsException extends Exception {
     public ExceedsLimitsException(String message) {

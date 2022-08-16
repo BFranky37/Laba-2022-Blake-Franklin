@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.exceptions;
+package DeliverySystem.exceptions;
 
 public class UnloadedDataException extends Exception {
     public UnloadedDataException(String message) {

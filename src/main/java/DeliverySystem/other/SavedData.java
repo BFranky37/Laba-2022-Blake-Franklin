@@ -1,6 +1,6 @@
-package main.java.DeliverySystem.other;
+package DeliverySystem.other;
 
-import main.java.DeliverySystem.people.Person;
+import DeliverySystem.people.Person;
 
 import java.util.LinkedHashSet;
 

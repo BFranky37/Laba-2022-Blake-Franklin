@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.other;
+package DeliverySystem.other;
 
 public class CustomNode<T> {
     T data;

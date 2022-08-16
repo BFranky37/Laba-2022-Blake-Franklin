@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.people;
+package DeliverySystem.people;
 
 public abstract class Person implements Profile{
     //Members

@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.other;
+package DeliverySystem.other;
 
 public interface Shape {
     double getArea();

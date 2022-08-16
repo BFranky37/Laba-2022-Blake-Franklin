@@ -1,8 +1,8 @@
-package main.java.DeliverySystem.orders;
+package DeliverySystem.orders;
 
-import main.java.DeliverySystem.exceptions.ExceedsLimitsException;
-import main.java.DeliverySystem.exceptions.NegativeValueException;
-import main.java.DeliverySystem.other.Box;
+import DeliverySystem.exceptions.ExceedsLimitsException;
+import DeliverySystem.exceptions.NegativeValueException;
+import DeliverySystem.other.Box;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;

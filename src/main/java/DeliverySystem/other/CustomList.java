@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.other;
+package DeliverySystem.other;
 
 import org.apache.log4j.Logger;
 

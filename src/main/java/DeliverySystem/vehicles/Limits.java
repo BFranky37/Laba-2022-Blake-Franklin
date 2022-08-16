@@ -1,4 +1,4 @@
-package main.java.DeliverySystem.vehicles;
+package DeliverySystem.vehicles;
 
 public interface Limits {
     public double getMaxWeight();

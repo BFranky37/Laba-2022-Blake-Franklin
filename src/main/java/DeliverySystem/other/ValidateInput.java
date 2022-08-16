@@ -1,6 +1,6 @@
-package main.java.DeliverySystem.other;
+package DeliverySystem.other;
 
-import main.java.DeliverySystem.exceptions.InvalidInputException;
+import DeliverySystem.exceptions.InvalidInputException;
 
 public final class ValidateInput {
 

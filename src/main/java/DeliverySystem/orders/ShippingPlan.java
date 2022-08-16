@@ -1,6 +1,6 @@
-package main.java.DeliverySystem.orders;
+package DeliverySystem.orders;
 
-import main.java.DeliverySystem.exceptions.UnloadedDataException;
+import DeliverySystem.exceptions.UnloadedDataException;
 
 public interface ShippingPlan {
     public void determineShippingPlan() throws UnloadedDataException;

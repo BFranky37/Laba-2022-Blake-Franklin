@@ -1,10 +1,10 @@
-package main.java.DeliverySystem;
+package DeliverySystem;
 
-import main.java.DeliverySystem.exceptions.*;
-import main.java.DeliverySystem.orders.Package;
-import main.java.DeliverySystem.orders.Shipment;
-import main.java.DeliverySystem.other.*;
-import main.java.DeliverySystem.people.*;
+import DeliverySystem.exceptions.*;
+import DeliverySystem.orders.Package;
+import DeliverySystem.orders.Shipment;
+import DeliverySystem.other.*;
+import DeliverySystem.people.*;
 
 import org.apache.log4j.Logger;
 import java.util.Scanner;
