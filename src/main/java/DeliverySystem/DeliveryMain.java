@@ -7,7 +7,11 @@ import DeliverySystem.other.*;
 import DeliverySystem.people.*;
 
 import org.apache.log4j.Logger;
+
+import java.io.IOException;
 import java.util.Scanner;
+
+import static DeliverySystem.fileUtils.FileUtilities.*;
 
 public class DeliveryMain {
     private static final Logger logger = Logger.getLogger(DeliveryMain.class.getName());
@@ -17,6 +21,13 @@ public class DeliveryMain {
 
         Scanner input = new Scanner(System.in);
         boolean valid = false;
+
+        try {
+            countUniqueWords("src/main/java/DeliverySystem/fileUtils/UniqueWords.txt");
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
 
         DataLoader.loadData();
         logger.info("Welcome to the DeliveryApp. We will be happy to ship your package.");
