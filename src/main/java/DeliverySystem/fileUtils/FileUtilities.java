@@ -19,8 +19,7 @@ public final class FileUtilities {
         //logger.info(fileContents);
 
         fileContents = fileContents.replaceAll("[^a-zA-Z \n 0-9]", "");
-        String[] words = fileContents.split("\\s");
-        LinkedHashSet<String> uniqueWords = new LinkedHashSet<String>(Arrays.asList(words));
+        LinkedHashSet<String> uniqueWords = new LinkedHashSet<String>(Arrays.asList(fileContents.split("\\s")));
         uniqueWords.remove("");
         //logger.info(uniqueWords);
 
