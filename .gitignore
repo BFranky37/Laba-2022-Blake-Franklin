@@ -4,7 +4,8 @@
 *.class
 *.vscode
 /.idea
-/target/*
+target/
+target/*
 DeliveryLog.log.lck
 logs.log
 DeliveryApp.iml
