@@ -41,11 +41,8 @@ public class Sender extends Person{
         }
     }
     //to get the list of all packages this recipient has received
-    public void getOrders() {
-        logger.info("Shipments ordered by " + super.getName() + ": ");
-        for (Shipment s : orders) {
-            logger.info(s);
-        }
+    public ArrayList<Shipment> getOrders() {
+        return orders;
     }
 
     //Class Overrides
