@@ -1,11 +1,10 @@
 # Default ignored files
 /shelf/
-/workspace.xml
-*.class
-*.vscode
 /.idea
+*.class
+*.json
+/workspace.xml
 DeliveryLog.log.lck
-logs.log
 DeliveryApp.iml
 
 ## target folder at the top level of the project structue and paths and contents underneath it
@@ -14,3 +13,8 @@ target/*
 ## target folder at any level of the project structue
 **/target
 /target
+
+## personalized text files
+Receipts.txt
+logs.log
+UniqueWords.txt
