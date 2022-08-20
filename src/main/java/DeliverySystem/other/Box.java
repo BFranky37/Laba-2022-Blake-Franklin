@@ -12,16 +12,41 @@ public class Box implements Shape {
     private double length;
     private double width;
     private double height;
-    public static final double sizeLimit = 500000;
+    private static final double sizeLimit = 500000;
+
+    public enum SizeMeasurement {
+        INCHES ("inches", 2.54),
+        CENTIMETERS ("centimeters", 0.39);
+
+        private final String name;
+        private final double conversionRate;
+
+        SizeMeasurement(String name, double conversionRate) {
+            this.name = name;
+            this.conversionRate = conversionRate;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getConversionRate() {
+            return conversionRate;
+        }
+
+        public double convert(double value) {
+            return value * conversionRate;
+        }
+    }
 
     //Constructors
     public Box() {
         logger.info("Box created");
     }
     public Box(double l, double w, double h) {
-        length = l;
-        width = w;
-        height = h;
+        length = SizeMeasurement.CENTIMETERS.convert(l);
+        width = SizeMeasurement.CENTIMETERS.convert(w);
+        height = SizeMeasurement.CENTIMETERS.convert(h);
         logger.info("Box created with dimensions length: " + length + " width: " + width + " height: " + height );
     }
 
@@ -49,13 +74,13 @@ public class Box implements Shape {
         height = h;
     }
 
-    public static double validateSize(double l, double w, double h) throws ExceedsLimitsException, NegativeValueException {
-        if (l*w*h > sizeLimit) {
+    public static void validateSize(double l, double w, double h) throws ExceedsLimitsException, NegativeValueException {
+        double size = SizeMeasurement.CENTIMETERS.convert(l*w*h);
+        if (size > sizeLimit) {
             throw new ExceedsLimitsException("Size exceeds limit");
         } else if (l < 0 || w < 0 || h < 0) {
             throw new NegativeValueException("Got a negative value for size");
         }
-        else return l*w*h;
     }
 
     @Override

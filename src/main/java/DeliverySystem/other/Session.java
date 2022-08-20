@@ -4,6 +4,7 @@ import DeliverySystem.exceptions.*;
 import DeliverySystem.orders.Package;
 import DeliverySystem.orders.Shipment;
 import DeliverySystem.people.*;
+import DeliverySystem.orders.Insurance;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +47,6 @@ public final class Session {
 
     public static Sender getUserInfo() {
         valid = false;
-        logger.info("First we need some information about you");
         logger.info("Please enter your name: ");
         String name = input.nextLine();
         logger.info("Please enter your phone number: ");
@@ -80,13 +80,13 @@ public final class Session {
         do {
             try {
                 valid = false;
-                logger.info("Please enter the length, width, and height of your package in inches, one by one: ");
+                logger.info("Please enter the length, width, and height of your package in centimeters, one by one: ");
                 l = input.nextDouble();
                 w = input.nextDouble();
                 h = input.nextDouble();
                 Box.validateSize(l, w, h);
 
-                logger.info("What is the weight of your package in pounds: ");
+                logger.info("What is the weight of your package in kilograms: ");
                 weight = Package.validateWeight(input.nextDouble());
                 valid = true;
             } catch (ExceedsLimitsException e) {
@@ -122,7 +122,6 @@ public final class Session {
     }
 
     public static Recipient getRecipientInfo() {
-        logger.info("We now need to know who you want to send this package to.");
         logger.info("Please enter the recipient's name: ");
         String name = input.nextLine();
         logger.info("Please enter the recipient's phone number: ");
@@ -151,46 +150,38 @@ public final class Session {
         return new Recipient(name, phoneNumber, recipientAddress);
     }
 
-    public static int getInsuranceType(Package shippingPackage) {
-        int insuranceType;
+    public static Insurance getInsuranceType(Package shippingPackage) {
+        Insurance insuranceType;
         boolean insurancePurchased = false;
         double value = shippingPackage.getValue();
         if (value > 200)
-            insuranceType = 3;
+            insuranceType = Insurance.HIGH_VALUE;
         else if (shippingPackage.getFragility())
-            insuranceType = 2;
-        else insuranceType = 1;
+            insuranceType = Insurance.FRAGILITY;
+        else insuranceType = Insurance.BASIC;
         valid = false;
         do {
             try {
                 logger.info("Would you like to purchase insurance for this package to be reimbursed in the case it is lost or damaged? ");
                 logger.info("The price for insurance for your item would be " +
-                    "$" + Math.round(DataLoader.getInsurancePlans().get(insuranceType).calculatePrice(value) * 100.0) / 100.0 + " (y/n):");
+                    "$" + Math.round(insuranceType.calculatePrice(value) * 100.0) / 100.0 + " (y/n):");
                 insurancePurchased = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
                 logger.warn(e.getMessage() + "Invalid yes/no input");
                 logger.info("Please enter a valid input (y/n)");
-            } catch (UnloadedDataException e) {
-                logger.error(e.getMessage(), e);
-                throw new RuntimeException(e);
             }
         } while (!valid);
 
         if (!insurancePurchased)
-            insuranceType = 0;
+            insuranceType = Insurance.NONE;
         else {
-            try {
-                logger.info("Insurance added: " + DataLoader.getInsurancePlans().get(insuranceType).getName());
-            } catch (UnloadedDataException e) {
-                logger.error(e.getMessage(), e);
-                throw new RuntimeException(e);
-            }
+            logger.info("Insurance added: " + insuranceType.getName());
         }
         return insuranceType;
     }
 
-    public static Shipment finalizeShipment(Sender sender, Recipient recipient, Package shippingPackage, int insuranceType) {
+    public static Shipment finalizeShipment(Sender sender, Recipient recipient, Package shippingPackage, Insurance insuranceType) {
         boolean priority = false;
         do {
             try {
@@ -209,7 +200,7 @@ public final class Session {
 
         Shipment shipment;
         try {
-            shipment = new Shipment(sender, recipient, shippingPackage, DataLoader.getInsurancePlans().get(insuranceType), priority);
+            shipment = new Shipment(sender, recipient, shippingPackage, insuranceType, priority);
         } catch (UnloadedDataException e) {
             logger.error(e.getMessage());
             throw new RuntimeException(e);

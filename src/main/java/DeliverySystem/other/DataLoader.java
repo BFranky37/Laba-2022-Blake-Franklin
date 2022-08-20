@@ -1,7 +1,6 @@
 package DeliverySystem.other;
 
 import DeliverySystem.exceptions.UnloadedDataException;
-import DeliverySystem.orders.Insurance;
 import DeliverySystem.vehicles.Plane;
 import DeliverySystem.vehicles.Truck;
 import DeliverySystem.vehicles.Vehicle;
@@ -12,13 +11,11 @@ import java.util.ArrayList;
 public final class DataLoader {
     private static final Logger logger = Logger.getLogger(DataLoader.class.getName());
     public static ArrayList<Vehicle> vehicles = new ArrayList<>();
-    public static ArrayList<Insurance> insurancePlans = new ArrayList<>();
 
     private DataLoader() {}
 
     public static void loadData() {
         loadVehicles();
-        loadInsurancePlans();
         logger.info("Data loaded.");
     }
 
@@ -33,16 +30,8 @@ public final class DataLoader {
         vehicles.add(new Plane("Heavy Cargo Plane", 20.0, "05-000000", 3000, 500000.0));
     }
 
-    private static void loadInsurancePlans() {
-        insurancePlans.clear();
-        insurancePlans.add(new Insurance("No Insurance", 0, 0));
-        insurancePlans.add(new Insurance("Basic Insurance", 0.3, .015));
-        insurancePlans.add(new Insurance("Fragility Insurance", 0.5, .03));
-        insurancePlans.add(new Insurance("High Value Insurance", 1.0, .05));
-    }
-
     public static void checkDataLoaded() throws UnloadedDataException {
-        if (vehicles.isEmpty() || insurancePlans.isEmpty()) {
+        if (vehicles.isEmpty()) {
             throw new UnloadedDataException("Attempting to access DataLoader data that has not been loaded");
         }
     }
@@ -51,15 +40,6 @@ public final class DataLoader {
         try {
             checkDataLoaded();
             return vehicles;
-        } catch (UnloadedDataException e) {
-            throw new UnloadedDataException(e.getMessage());
-        }
-    }
-
-    public static ArrayList<Insurance> getInsurancePlans() throws UnloadedDataException {
-        try {
-            checkDataLoaded();
-            return insurancePlans;
         } catch (UnloadedDataException e) {
             throw new UnloadedDataException(e.getMessage());
         }

@@ -18,3 +18,5 @@ example: "her delivery was stilted"
 
 Finally, It can mean the supply or provision of something.
 example: "delivery of electricity at a specified price"
+
+Current number of unique words in this file: 82

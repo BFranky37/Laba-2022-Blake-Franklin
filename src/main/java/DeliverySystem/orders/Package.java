@@ -18,10 +18,35 @@ public class Package implements Charge {
     final static double costRate = 2.3;
     public static final double weightLimit = 3000;
 
+    public enum WeightMeasurement {
+        POUNDS ("pounds", 0.45),
+        KILOGRAMS ("kilograms", 2.2);
+
+        private final String name;
+        private final double conversionRate;
+
+        WeightMeasurement(String name, double conversionRate) {
+            this.name = name;
+            this.conversionRate = conversionRate;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getConversionRate() {
+            return conversionRate;
+        }
+
+        public double convert(double value) {
+            return value * conversionRate;
+        }
+    }
+
     //Constructors
     public Package(Box bx, double wgt, double val, boolean fragile) {
         box = bx;
-        weight = wgt;
+        weight = WeightMeasurement.KILOGRAMS.convert(wgt); //weight is initially given in Kilos. Convert to pounds
         value = val;
         fragility = fragile;
         logger.info("Package created");
@@ -74,6 +99,7 @@ public class Package implements Charge {
     }
 
     public static double validateWeight(double weight) throws ExceedsLimitsException, NegativeValueException {
+        weight = WeightMeasurement.KILOGRAMS.convert(weight); //weight is initially given in Kilos. Convert to pounds
         if (weight > weightLimit) {
             throw new ExceedsLimitsException("Size exceeds limit");
         } else if (weight < 0) {
