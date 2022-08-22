@@ -2,6 +2,7 @@ package DeliverySystem.orders;
 
 import DeliverySystem.exceptions.ExceedsLimitsException;
 import DeliverySystem.exceptions.NegativeValueException;
+import DeliverySystem.other.IOperation;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;
@@ -94,7 +95,8 @@ public class Package implements Charge {
     @Override
     public void calculatePrice() {
         // area / 100 * costRate
-        cost = (box.getArea() / 100 * costRate);
+        IOperation<Double> applyRate = (base, rate) -> base * rate;
+        cost = applyRate.operation(box.getArea() / 100, costRate);
     }
 
     public static double validateWeight(double weight) throws ExceedsLimitsException, NegativeValueException {

@@ -187,12 +187,13 @@ public class DeliveryMain {
                     break;
 
                 case OPERATING_CITIES:
-                    ToIntFunction<CustomList> numberOfCities = (c) -> {return c.getLength();};
-                    if (Session.getCities().getLength() == 0)
+                    ToIntFunction<CustomList> numberOfCities = (c) -> c.getLength() - 1;
+                    if (Session.getCities().getLength() <= 0)
                         logger.info("Not delivering packages in any cities currently.");
                     else {
                         logger.info("Currently operating in " + numberOfCities.applyAsInt(Session.getCities()) + " cities:");
                         logger.info(Session.getCities());
+                        logger.info("Covering a total distance of");
                     }
                     break;
 

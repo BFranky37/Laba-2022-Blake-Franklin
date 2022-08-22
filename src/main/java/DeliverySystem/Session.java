@@ -241,17 +241,18 @@ public final class Session {
         Date date = new java.util.Date();
         double totalPrice = 0;
         File file = FileUtils.getFile("Receipts.txt");
-        FileUtils.writeStringToFile(file, "Receipt for " + date, Charset.defaultCharset(), true);
+        IOperation<String> punctuationAppend = (string, punctuation) -> string + punctuation;
+        String writeToFile = "Receipt for " + date;
         while (numShipments > 0) {
             Shipment shipment = sender.getOrders().get(sender.getOrders().size() - numShipments);
-            String shipmentDetails = "\n\nRecipient: " + shipment.getRecipient() +
-                                        "\nRoute: " + shipment.getRoute() +
-                                        "\nShipping method: " + shipment.getVehicle() +
-                                        "\nPrice: $" + String.format("%.2f", shipment.getPrice()) + "\n";
-            FileUtils.writeStringToFile(file, shipmentDetails, Charset.defaultCharset(), true);
+            writeToFile = punctuationAppend.operation("\n\nRecipient: " + shipment.getRecipient() +
+                                                    "\nRoute: " + shipment.getRoute() +
+                                                    "\nShipping method: " + shipment.getVehicle() +
+                                                    "\nPrice: $" + String.format("%.2f", shipment.getPrice()) + "\n", ",");
             totalPrice += shipment.getPrice();
             numShipments--;
         }
-        FileUtils.writeStringToFile(file, "\nTotal: $" + String.format("%.2f", totalPrice) + "\n\n\n", Charset.defaultCharset(), true);
+        writeToFile = punctuationAppend.operation("\nTotal: $" + String.format("%.2f", totalPrice) + "\n\n\n", "...");
+        FileUtils.writeStringToFile(file, writeToFile, Charset.defaultCharset(), true);
     }
 }
