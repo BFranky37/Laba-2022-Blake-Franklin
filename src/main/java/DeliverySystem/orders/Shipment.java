@@ -120,8 +120,8 @@ public class Shipment implements Charge, ShippingPlan{
 
     @Override
     public void calculatePrice() {
-        totalPrice = Math.round((shippingPackage.getPrice() + travelRoute.getPrice() + vehicle.getPrice()
-                + insurance.calculatePrice(shippingPackage.getValue()) * 100.0) / 100.0);
+        totalPrice = Double.parseDouble(String.format("%.2f", (shippingPackage.getPrice() + travelRoute.getPrice() + vehicle.getPrice()
+                + insurance.calculatePrice(shippingPackage.getValue()))));
     }
 
     @Override

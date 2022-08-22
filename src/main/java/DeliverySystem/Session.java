@@ -1,10 +1,12 @@
-package DeliverySystem.other;
+package DeliverySystem;
 
 import DeliverySystem.exceptions.*;
+import DeliverySystem.orders.Box;
 import DeliverySystem.orders.Package;
 import DeliverySystem.orders.Shipment;
-import DeliverySystem.people.*;
 import DeliverySystem.orders.Insurance;
+import DeliverySystem.other.*;
+import DeliverySystem.people.*;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -76,7 +78,6 @@ public final class Session {
     public static Package getPackageInfo() {
         double l = 0, w = 0, h = 0;
         double weight = 0;
-        logger.info("We need information about the package you are sending.");
         do {
             try {
                 valid = false;
@@ -222,8 +223,11 @@ public final class Session {
 
         if (shipmentFinalized) {
             numShipments ++;
+            //logger.info("num shipments increase to " + numShipments);
             sender.addOrder(shipment);
-            recipient.recievePackage(shipment.getPackage());
+            //logger.info("shipment added to sender orders");
+            //recipient.receivePackage(shipment.getPackage());
+            //logger.info("shipment added to recipient orders");
             logger.info("Shipment finalized");
             logger.info("Package Sent!");
         }
@@ -248,6 +252,6 @@ public final class Session {
             totalPrice += shipment.getPrice();
             numShipments--;
         }
-        FileUtils.writeStringToFile(file, "\nTotal: $" + totalPrice + "\n\n\n", Charset.defaultCharset(), true);
+        FileUtils.writeStringToFile(file, "\nTotal: $" + String.format("%.2f", totalPrice) + "\n\n\n", Charset.defaultCharset(), true);
     }
 }

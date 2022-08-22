@@ -1,7 +1,8 @@
-package DeliverySystem.other;
+package DeliverySystem.orders;
 
 import DeliverySystem.exceptions.ExceedsLimitsException;
 import DeliverySystem.exceptions.NegativeValueException;
+import DeliverySystem.other.Shape;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;

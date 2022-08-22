@@ -12,7 +12,7 @@ public final class ValidateInput {
         } else if (input.charAt(0) == 'n' || input.charAt(0) == 'N') {
             return false;
         }
-        else throw new InvalidInputException("Y or N not given");
+        else throw new InvalidInputException("Please enter a valid input (y/n)");
     }
 
     public static int validateZip(int input) throws InvalidInputException {

@@ -25,7 +25,7 @@ public class Recipient extends Person{
         logger.info("Recipient created.");
     }
 
-    public void recievePackage(Package dropOff) {
+    public void receivePackage(Package dropOff) {
         try {
             if (dropOff.getBox() == null) {
                 throw new InvalidDeliveryException("Null values attached to this shipment");
@@ -57,12 +57,11 @@ public class Recipient extends Person{
 
         return (Objects.equals(this.getName(), per.getName()) &&
                 Objects.equals(this.getNumber(), per.getNumber()) &&
-                this.getAddress() == per.getAddress() &&
-                this.packagesRecieved == per.packagesRecieved);
+                this.getAddress() == per.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getName(), this.getNumber(), this.getAddress(), packagesRecieved);
+        return Objects.hash(this.getName(), this.getNumber(), this.getAddress());
     }
 }

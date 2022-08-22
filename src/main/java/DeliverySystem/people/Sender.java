@@ -59,12 +59,11 @@ public class Sender extends Person{
 
         return (Objects.equals(this.getName(), per.getName()) &&
                 Objects.equals(this.getNumber(), per.getNumber()) &&
-                this.getAddress() == per.getAddress() &&
-                this.orders == per.orders);
+                this.getAddress() == per.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getName(), this.getNumber(), this.getAddress(), orders);
+        return Objects.hash(this.getName(), this.getNumber(), this.getAddress());
     }
 }
