@@ -9,14 +9,14 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 
 public final class DataLoader {
-    private static final Logger logger = Logger.getLogger(DataLoader.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DataLoader.class.getName());
     public static ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     private DataLoader() {}
 
     public static void loadData() {
         loadVehicles();
-        logger.info("Data loaded.");
+        LOGGER.info("Data loaded.");
     }
 
     private static void loadVehicles() {

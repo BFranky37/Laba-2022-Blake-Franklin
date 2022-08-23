@@ -8,47 +8,22 @@ import org.apache.log4j.Logger;
 import java.util.Objects;
 
 public class Box implements Shape {
-    private static final Logger logger = Logger.getLogger(Box.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Box.class.getName());
     //Dimensions measured in inches
     private double length;
     private double width;
     private double height;
     private static final double sizeLimit = 500000;
 
-    public enum SizeMeasurement {
-        INCHES ("inches", 2.54),
-        CENTIMETERS ("centimeters", 0.39);
-
-        private final String name;
-        private final double conversionRate;
-
-        SizeMeasurement(String name, double conversionRate) {
-            this.name = name;
-            this.conversionRate = conversionRate;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public double getConversionRate() {
-            return conversionRate;
-        }
-
-        public double convert(double value) {
-            return value * conversionRate;
-        }
-    }
-
     //Constructors
     public Box() {
-        logger.info("Box created");
+        LOGGER.info("Box created");
     }
     public Box(double l, double w, double h) {
         length = SizeMeasurement.CENTIMETERS.convert(l);
         width = SizeMeasurement.CENTIMETERS.convert(w);
         height = SizeMeasurement.CENTIMETERS.convert(h);
-        logger.info("Box created with dimensions length: " + length + " width: " + width + " height: " + height );
+        LOGGER.info("Box created with dimensions length: " + length + " width: " + width + " height: " + height );
     }
 
     public double getLength() {

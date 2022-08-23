@@ -2,13 +2,13 @@ package DeliverySystem.orders;
 
 import DeliverySystem.exceptions.ExceedsLimitsException;
 import DeliverySystem.exceptions.NegativeValueException;
-import DeliverySystem.other.IOperation;
+import DeliverySystem.functionalInterfaces.INumericOperation;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;
 
 public class Package implements Charge {
-    private static final Logger logger = Logger.getLogger(Package.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Package.class.getName());
     //Members
     private Box box;
     private double weight;
@@ -18,38 +18,13 @@ public class Package implements Charge {
     final static double costRate = 2.3;
     public static final double weightLimit = 3000;
 
-    public enum WeightMeasurement {
-        POUNDS ("pounds", 0.45),
-        KILOGRAMS ("kilograms", 2.2);
-
-        private final String name;
-        private final double conversionRate;
-
-        WeightMeasurement(String name, double conversionRate) {
-            this.name = name;
-            this.conversionRate = conversionRate;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public double getConversionRate() {
-            return conversionRate;
-        }
-
-        public double convert(double value) {
-            return value * conversionRate;
-        }
-    }
-
     //Constructors
     public Package(Box bx, double wgt, double val, boolean fragile) {
         box = bx;
         weight = WeightMeasurement.KILOGRAMS.convert(wgt); //weight is initially given in Kilos. Convert to pounds
         value = val;
         fragility = fragile;
-        logger.info("Package created");
+        LOGGER.info("Package created");
         calculatePrice();
     }
 
@@ -95,7 +70,7 @@ public class Package implements Charge {
     @Override
     public void calculatePrice() {
         // area / 100 * costRate
-        IOperation<Double> applyRate = (base, rate) -> base * rate;
+        INumericOperation<Double> applyRate = (base, rate) -> base * rate;
         cost = applyRate.operation(box.getArea() / 100, costRate);
     }
 

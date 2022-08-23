@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Recipient extends Person{
-    private static final Logger logger = Logger.getLogger(Recipient.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Recipient.class.getName());
     //Members
     private final ArrayList<Package> packagesRecieved;
 
@@ -16,13 +16,13 @@ public class Recipient extends Person{
     public Recipient() {
         super();
         packagesRecieved = new ArrayList<>();
-        logger.info("Recipient created.");
+        LOGGER.info("Recipient created.");
     }
 
     public Recipient(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
         packagesRecieved = new ArrayList<>();
-        logger.info("Recipient created.");
+        LOGGER.info("Recipient created.");
     }
 
     public void receivePackage(Package dropOff) {
@@ -37,9 +37,9 @@ public class Recipient extends Person{
 
     //to get the list of all packages this recipient has received
     public void getPackagesRecieved() {
-        logger.info("Packages received by " + super.getName() + ": ");
+        LOGGER.info("Packages received by " + super.getName() + ": ");
         for (Package p : packagesRecieved) {
-            logger.info(p);
+            LOGGER.info(p);
         }
     }
 

@@ -8,21 +8,23 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Sender extends Person{
-    private static final Logger logger = Logger.getLogger(Sender.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Sender.class.getName());
     //Members
     private final ArrayList<Shipment> orders;
+    private Discount discount;
 
     //Constructors
     public Sender() {
         super();
         orders = new ArrayList<>();
-        logger.info("Sender created.");
+        LOGGER.info("Sender created.");
     }
 
     public Sender(String fullname, String phoneNum, Location fulladdress) {
         super(fullname, phoneNum, fulladdress);
         orders = new ArrayList<>();
-        logger.info("Sender created.");
+        LOGGER.info("Sender created.");
+        discount = Discount.NO_DISCOUNT;
     }
 
     public void addOrder(Shipment order) {
@@ -43,6 +45,14 @@ public class Sender extends Person{
     //to get the list of all packages this recipient has received
     public ArrayList<Shipment> getOrders() {
         return orders;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 
     //Class Overrides

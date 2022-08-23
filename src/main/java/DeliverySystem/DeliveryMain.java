@@ -2,89 +2,53 @@ package DeliverySystem;
 
 import DeliverySystem.exceptions.InvalidInputException;
 import DeliverySystem.fileUtils.FileUtilities;
+import DeliverySystem.functionalInterfaces.IFilter;
+import DeliverySystem.functionalInterfaces.IReturnNum;
 import DeliverySystem.orders.Insurance;
 import DeliverySystem.orders.Package;
 import DeliverySystem.other.CustomList;
 import DeliverySystem.other.DataLoader;
+import DeliverySystem.other.Menu;
 import DeliverySystem.other.ValidateInput;
+import DeliverySystem.people.Discount;
 import DeliverySystem.people.Person;
 import DeliverySystem.people.Recipient;
 import DeliverySystem.people.Sender;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 public class DeliveryMain {
-    private static final Logger logger = Logger.getLogger(DeliveryMain.class.getName());
-
-    public enum Menu {
-        SHIP_PACKAGE (1, "Ship package"),
-        EDIT_PROFILE (2, "Edit your profile information"),
-        ADD_RECIPIENT (3, "Add recipient"),
-        VIEW_PROFILES (4, "View recipient profiles"),
-        OPERATING_CITIES (5, "View operating cities"),
-        EXIT_PROGRAM (6, "Exit program");
-
-        private final int selectionNum;
-        private final String name;
-
-        Menu(int selectionNum, String name) {
-            this.selectionNum = selectionNum;
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-        public int getSelectionNum() {
-            return selectionNum;
-        }
-
-        public void printMenu() {
-            int num = 1;
-            logger.info("Delivery App Menu:");
-            for (Menu option : getClass().getEnumConstants()) {
-                logger.info(num + ". " + option.getName());
-                num++;
-            }
-        }
-
-        public Menu makeSelection(int selection) throws InvalidInputException {
-            for (Menu option : getClass().getEnumConstants()) {
-                if (selection == option.getSelectionNum())
-                     return option;
-            }
-            throw new InvalidInputException("Menu selection not in range.");
-        }
-    }
+    private static final Logger LOGGER = Logger.getLogger(DeliveryMain.class.getName());
 
     public static void main(String[] args) {
-        logger.info("Set up Logger");
+        LOGGER.info("Set up Logger");
 
         Scanner input = new Scanner(System.in);
 
         try {
             FileUtilities.countUniqueWords("src/main/java/DeliverySystem/fileUtils/UniqueWords.txt");
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
         DataLoader.loadData();
-        logger.info("Welcome to the DeliveryApp. We will be happy to ship your package.");
+        LOGGER.info("Welcome to the DeliveryApp. We will be happy to ship your package. ");
 
         //Get user information
-        logger.info("First we need some information about you");
+        LOGGER.info("First we need some information about you. Press enter to continue");
         Sender sender = Session.getUserInfo();
         Session.addProfile(sender);
 
         //MENU
         Menu menu = Menu.SHIP_PACKAGE;
         boolean exit = false;
+        boolean valid = false;
         do {
             boolean validInput = false;
             menu.printMenu(); //Print menu
@@ -93,7 +57,7 @@ public class DeliveryMain {
                     menu = menu.makeSelection(Integer.parseInt(input.nextLine())); //Select menu option
                     validInput = true;
                 } catch (InvalidInputException | NumberFormatException e) {
-                    logger.warn(e.getMessage() + " Please try again.");
+                    LOGGER.warn(e.getMessage() + " Please try again.");
                 }
             }
 
@@ -102,28 +66,30 @@ public class DeliveryMain {
                     //GOING THROUGH THE ORDER PROCESS
                     boolean sendAnother;
                     do {
-                        boolean valid = false;
+                        valid = false;
                         sendAnother = false;
                         //PACKAGE
-                        logger.info("We need information about the package you are sending.");
+                        LOGGER.info("We need information about the package you are sending.");
                         Package shippingPackage = Session.getPackageInfo();
 
                         //RECIPIENT
-                        logger.info("We now need to know who you want to send this package to.");
+                        LOGGER.info("We now need to know who you want to send this package to. Press enter to continue");
                         Recipient recipient = null;
                         boolean previousRecipient;
                         do {
                             try { //SELECT FROM PREVIOUS RECIPIENTS
-                                logger.info("Have you sent to this person before or added their information? (y/n)");
+                                LOGGER.info("Have you sent to this person before or added their information? (y/n)");
                                 previousRecipient = ValidateInput.validateYesNo(input.nextLine());
                                 if (previousRecipient) {
                                     int num = 1;
+                                    IFilter<LinkedHashSet<Person>, List<Person>> filterProfiles = (profiles) -> //Convert profiles to List of Recipient names
+                                            (List<Person>) profiles.stream().filter(name -> !name.getClass().equals(Sender.class)).collect(Collectors.toList());
                                     List<Person> profiles = Session.getProfiles().stream().filter(name -> !name.getClass().equals(Sender.class)).collect(Collectors.toList());
                                     for (Person profile : profiles) {
-                                        logger.info(num + ". " + profile.getName() + ": " + profile.getAddress());
+                                        LOGGER.info(num + ". " + profile.getName() + ": " + profile.getAddress());
                                         num++;
                                     }
-                                    logger.info("Please select the recipient for this shipment.");
+                                    LOGGER.info("Please select the recipient for this shipment.");
                                     int recipientSelection = Integer.parseInt(input.nextLine());
                                     if (recipientSelection > profiles.size())
                                         throw new InvalidInputException("Menu selection not in range.");
@@ -135,7 +101,7 @@ public class DeliveryMain {
                                 }
                                 valid = true;
                             } catch (InvalidInputException e) {
-                                logger.info(e.getMessage());
+                                LOGGER.info(e.getMessage());
                             }
                         } while (!valid);
 
@@ -147,59 +113,91 @@ public class DeliveryMain {
                         do {
                             try {
                                 valid = false;
-                                logger.info("Would you like to send another package? (y/n)");
+                                LOGGER.info("Would you like to send another package? (y/n)");
                                 sendAnother = ValidateInput.validateYesNo(input.nextLine());
                                 valid = true;
                             } catch (InvalidInputException e) {
-                                logger.warn(e.getMessage() + "Invalid yes/no input");
-                                logger.info("Please enter a valid input (y/n)");
+                                LOGGER.warn(e.getMessage() + "Invalid yes/no input");
+                                LOGGER.info("Please enter a valid input (y/n)");
                             }
                         } while (!valid);
                     } while (sendAnother);
 
-                    logger.info("All shipments finalized.");
-                    logger.info("Printing Receipts...");
+                    LOGGER.info("All shipments finalized.");
+                    LOGGER.info("Printing Receipts...");
                     try {
                         Session.printReceipt(sender);
                     } catch (IOException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                         throw new RuntimeException(e);
                     }
                     break;
 
                 case EDIT_PROFILE:
                     Session.getProfiles().remove(sender);
-                    //logger.info("old user profile removed.");
+                    //LOGGER.info("old user profile removed.");
                     sender = Session.getUserInfo();
-                    //logger.info("Got new user information");
+                    //LOGGER.info("Got new user information");
                     Session.addProfile(sender);
-                    logger.info("User information saved.");
+                    LOGGER.info("User information saved.");
+                    break;
+
+                case CHANGE_DISCOUNT:
+                    StringBuilder discountName = new StringBuilder("");
+                    double discountRate = 0.0;
+                    LOGGER.info("Please answer the following yes or no questions (y/n) to apply for discount:");
+                    for (Discount discount : Discount.values()) {
+                        do {
+                            try {
+                                if (discount != Discount.NO_DISCOUNT) {
+                                    valid = false;
+                                    LOGGER.info("Are you a " + discount.getName() + "?");
+                                    if (ValidateInput.validateYesNo(input.nextLine())) {
+                                        discountName.append(discount.getName()).append(" ");
+                                        discountRate += discount.getDiscountRate();
+                                    }
+                                    valid = true;
+                                }
+                            } catch (InvalidInputException e) {
+                                LOGGER.warn(e.getMessage() + "Invalid yes/no input");
+                                LOGGER.info("Please enter a valid input (y/n)");
+                            }
+                        } while (!valid);
+                    }
+
+                    if (discountRate == 0)
+                        sender.setDiscount(Discount.NO_DISCOUNT);
+                    else {
+                        sender.getDiscount().setName(discountName.toString());
+                        sender.getDiscount().setDiscountRate(discountRate);
+                    }
+                    LOGGER.info("Discount set to " + sender.getDiscount().getName() + " with a rate of " + sender.getDiscount().getDiscountRate());
                     break;
 
                 case ADD_RECIPIENT:
                     Session.addProfile(Session.getRecipientInfo());
-                    logger.info("Recipient profile added.");
+                    LOGGER.info("Recipient profile added.");
                     break;
 
                 case VIEW_PROFILES:
-                    logger.info("Recipient profiles created:");
-                    Session.getProfiles().forEach((n) -> System.out.println(n.getName() + ": " + n.getAddress()));
+                    LOGGER.info("Recipient profiles created:");
+                    Session.getProfiles().forEach((n) -> LOGGER.info(n.getName() + ": " + n.getAddress()));
                     break;
 
                 case OPERATING_CITIES:
-                    ToIntFunction<CustomList> numberOfCities = (c) -> c.getLength() - 1;
+                    IReturnNum<CustomList> numberOfCities = (c) -> c.getLength() - 1;
                     if (Session.getCities().getLength() <= 0)
-                        logger.info("Not delivering packages in any cities currently.");
+                        LOGGER.info("Not delivering packages in any cities currently.");
                     else {
-                        logger.info("Currently operating in " + numberOfCities.applyAsInt(Session.getCities()) + " cities:");
-                        logger.info(Session.getCities());
-                        logger.info("Covering a total distance of");
+                        LOGGER.info("Currently operating in " + numberOfCities.getItem(Session.getCities()) + " cities:");
+                        LOGGER.info(Session.getCities());
+                        LOGGER.info("Covering a total distance of");
                     }
                     break;
 
                 case EXIT_PROGRAM:
-                    logger.info("Thank you for using the Delivery App!");
-                    logger.info("Exiting Program...");
+                    LOGGER.info("Thank you for using the Delivery App!");
+                    LOGGER.info("Exiting Program...");
                     exit = true;
                     break;
             }

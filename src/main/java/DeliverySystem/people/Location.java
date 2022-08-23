@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.Objects;
 
 public class Location {
-    private static final Logger logger = Logger.getLogger(Location.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Location.class.getName());
     //Members
     private String streetAddress;
     private String city;
@@ -18,7 +18,7 @@ public class Location {
         streetAddress = saddress;
         city = c;
         zipcode = zip;
-        logger.info("Address created.");
+        LOGGER.info("Address created.");
     }
 
     //Getters and Setters

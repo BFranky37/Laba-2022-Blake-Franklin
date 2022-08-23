@@ -7,7 +7,7 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 public class CustomList<T> implements Iterable<T> {
-    private static final Logger logger = Logger.getLogger(CustomList.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CustomList.class.getName());
     CustomNode<T> head;
     private int length = 0;
 
@@ -44,7 +44,7 @@ public class CustomList<T> implements Iterable<T> {
         // Checking if position is valid
         if (position > length + 1) {
             // Display message only
-            logger.warn("Position Unavailable in LinkedList");
+            LOGGER.warn("Position Unavailable in LinkedList");
             return;
         }
 
@@ -150,7 +150,7 @@ public class CustomList<T> implements Iterable<T> {
         }
         // If CustomNode to be deleted does not exist
         else {
-            logger.warn("Given Value is not present in linked list");
+            LOGGER.warn("Given Value is not present in linked list");
         }
     }
 
@@ -192,7 +192,7 @@ public class CustomList<T> implements Iterable<T> {
 
         for (Object o : linkedList) {
             // next() return the next element in the iteration
-            logger.info(o + ", ");
+            LOGGER.info(o + ", ");
         }
 
     }

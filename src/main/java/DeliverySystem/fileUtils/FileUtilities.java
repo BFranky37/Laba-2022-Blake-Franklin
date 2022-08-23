@@ -11,20 +11,20 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 
 public final class FileUtilities {
-    private static final Logger logger = Logger.getLogger(FileUtilities.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FileUtilities.class.getName());
 
     public static int countUniqueWords(String filename) throws IOException {
         File file = FileUtils.getFile(filename);
         String fileContents = StringUtils.lowerCase(FileUtils.readFileToString(file, Charset.defaultCharset()));
-        //logger.info(fileContents);
+        //LOGGER.info(fileContents);
 
         fileContents = fileContents.replaceAll("[^a-zA-Z \n 0-9]", "");
         LinkedHashSet<String> uniqueWords = new LinkedHashSet<String>(Arrays.asList(fileContents.split("\\s")));
         uniqueWords.remove("");
-        //logger.info(uniqueWords);
+        //LOGGER.info(uniqueWords);
 
         FileUtils.writeStringToFile(file, "\n\nCurrent number of unique words in this file: " + uniqueWords.size(), Charset.defaultCharset(), true);
-        logger.info("Currently " + uniqueWords.size() + " unique words in file " + file.getName());
+        LOGGER.info("Currently " + uniqueWords.size() + " unique words in file " + file.getName());
 
         return uniqueWords.size();
     }

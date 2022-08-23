@@ -1,13 +1,13 @@
 package DeliverySystem.orders;
 
-import DeliverySystem.other.IOperation;
+import DeliverySystem.functionalInterfaces.IReturnOperation;
 import DeliverySystem.people.Location;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;
 
 public class Route implements Charge {
-    private static final Logger logger = Logger.getLogger(Route.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Route.class.getName());
     //Members
     private Location fromLocation;
     private Location toLocation;
@@ -19,7 +19,7 @@ public class Route implements Charge {
     public Route(Location from, Location to) {
         fromLocation = from;
         toLocation = to;
-        logger.info("Route created.");
+        LOGGER.info("Route created.");
         calculatePrice();
     }
 
@@ -53,8 +53,8 @@ public class Route implements Charge {
 
     @Override
     public void calculatePrice() { //Generally speaking, the bigger the difference in Zip Code, the further away the post offices are
-        IOperation<Integer> getDistance = (from, to) -> from - to;
-        distance = Math.abs(getDistance.operation(fromLocation.getZipcode(), toLocation.getZipcode()));
+        IReturnOperation<Integer> getDistance = (from, to) -> from - to;
+        distance = Math.abs(getDistance.returnResult(fromLocation.getZipcode(), toLocation.getZipcode()));
         if (distance < 100) {
             price = (Math.round(distance * 100.0) / 100000.0) + basePrice;
         }

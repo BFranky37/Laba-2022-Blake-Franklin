@@ -1,6 +1,7 @@
 package DeliverySystem;
 
 import DeliverySystem.exceptions.*;
+import DeliverySystem.functionalInterfaces.IEditString;
 import DeliverySystem.orders.Box;
 import DeliverySystem.orders.Package;
 import DeliverySystem.orders.Shipment;
@@ -20,7 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 public final class Session {
-    private static final Logger logger = Logger.getLogger(Session.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Session.class.getName());
     private static final Scanner input = new Scanner(System.in);
     private static LinkedHashSet<Person> profiles = new LinkedHashSet<Person>();
     private static CustomList<String> cities = new CustomList<String>();
@@ -29,6 +30,11 @@ public final class Session {
 
     public static void addProfile(Person individual) {
         profiles.add(individual);
+    }
+
+    public static void updateProfile(Person individual) {
+        profiles.remove(individual);
+        addProfile(individual);
     }
 
     public static LinkedHashSet<Person> getProfiles() {
@@ -49,25 +55,26 @@ public final class Session {
 
     public static Sender getUserInfo() {
         valid = false;
-        logger.info("Please enter your name: ");
+        input.nextLine();
+        LOGGER.info("Please enter your name: ");
         String name = input.nextLine();
-        logger.info("Please enter your phone number: ");
+        LOGGER.info("Please enter your phone number: ");
         String phoneNumber = input.nextLine();
-        logger.info("Please enter your street address: ");
+        LOGGER.info("Please enter your street address: ");
         String address = input.nextLine();
-        logger.info("Please enter your city: ");
+        LOGGER.info("Please enter your city: ");
         String city = input.nextLine();
         StringUtils.capitalize(city);
         addCity(city);
-        logger.info("Please enter the your zipcode or postal code: ");
+        LOGGER.info("Please enter the your zipcode or postal code: ");
         int zipcode = 0;
         do {
             try {
                 zipcode = ValidateInput.validateZip(input.nextInt());
                 valid = true;
             } catch (InvalidInputException e) {
-                logger.warn(e.getMessage() + "Invalid zipcode input");
-                logger.info("Please enter a valid 6-digit zipcode:");
+                LOGGER.warn(e.getMessage() + "Invalid zipcode input");
+                LOGGER.info("Please enter a valid 6-digit zipcode:");
             }
         } while (!valid);
 
@@ -81,28 +88,28 @@ public final class Session {
         do {
             try {
                 valid = false;
-                logger.info("Please enter the length, width, and height of your package in centimeters, one by one: ");
+                LOGGER.info("Please enter the length, width, and height of your package in centimeters, one by one: ");
                 l = input.nextDouble();
                 w = input.nextDouble();
                 h = input.nextDouble();
                 Box.validateSize(l, w, h);
 
-                logger.info("What is the weight of your package in kilograms: ");
+                LOGGER.info("What is the weight of your package in kilograms: ");
                 weight = Package.validateWeight(input.nextDouble());
                 valid = true;
             } catch (ExceedsLimitsException e) {
                 //e.printStackTrace();
-                logger.warn(e.getMessage());
-                logger.info("This package exceeds our limits. Try using a smaller box or breaking your item up into lighter packages.");
+                LOGGER.warn(e.getMessage());
+                LOGGER.info("This package exceeds our limits. Try using a smaller box or breaking your item up into lighter packages.");
             } catch (NegativeValueException e) {
                 //e.printStackTrace();
-                logger.warn(e.getMessage());
-                logger.info("Please enter a valid size and weight.");
+                LOGGER.warn(e.getMessage());
+                LOGGER.info("Please enter a valid size and weight.");
             }
         } while (!valid);
         Box box = new Box(l, w, h);
 
-        logger.info("What is the value of the item you are shipping in dollars: ");
+        LOGGER.info("What is the value of the item you are shipping in dollars: ");
         double value = input.nextDouble();
         input.nextLine();
 
@@ -110,12 +117,12 @@ public final class Session {
         valid = false;
         do {
             try {
-                logger.info("Is the item you are shipping fragile? (y/n): ");
+                LOGGER.info("Is the item you are shipping fragile? (y/n): ");
                 fragility = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
-                logger.warn(e.getMessage());
-                logger.info("Please enter a valid input (y/n)");
+                LOGGER.warn(e.getMessage());
+                LOGGER.info("Please enter a valid input (y/n)");
             }
         } while (!valid);
 
@@ -123,26 +130,27 @@ public final class Session {
     }
 
     public static Recipient getRecipientInfo() {
-        logger.info("Please enter the recipient's name: ");
+        input.nextLine();
+        LOGGER.info("Please enter the recipient's name: ");
         String name = input.nextLine();
-        logger.info("Please enter the recipient's phone number: ");
+        LOGGER.info("Please enter the recipient's phone number: ");
         String phoneNumber = input.nextLine();
-        logger.info("Please enter the recipient's street address: ");
+        LOGGER.info("Please enter the recipient's street address: ");
         String address = input.nextLine();
-        logger.info("Please enter the recipient's city: ");
+        LOGGER.info("Please enter the recipient's city: ");
         String city = input.nextLine();
-        StringUtils.capitalize(city);
+        city = StringUtils.capitalize(city);
         addCity(city);
         int zipcode = 11111;
         do {
             try {
                 valid = false;
-                logger.info("Please enter the recipient's zipcode or postal code: ");
+                LOGGER.info("Please enter the recipient's zipcode or postal code: ");
                 zipcode = ValidateInput.validateZip(input.nextInt());
                 valid = true;
             } catch (InvalidInputException e) {
-                logger.warn(e.getMessage() + "Invalid zipcode input");
-                logger.info("Please enter a valid 6-digit zipcode:");
+                LOGGER.warn(e.getMessage() + "Invalid zipcode input");
+                LOGGER.info("Please enter a valid 6-digit zipcode:");
             }
         } while (!valid);
         input.nextLine();
@@ -163,21 +171,21 @@ public final class Session {
         valid = false;
         do {
             try {
-                logger.info("Would you like to purchase insurance for this package to be reimbursed in the case it is lost or damaged? ");
-                logger.info("The price for insurance for your item would be " +
+                LOGGER.info("Would you like to purchase insurance for this package to be reimbursed in the case it is lost or damaged? ");
+                LOGGER.info("The price for insurance for your item would be " +
                     "$" + Math.round(insuranceType.calculatePrice(value) * 100.0) / 100.0 + " (y/n):");
                 insurancePurchased = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
-                logger.warn(e.getMessage() + "Invalid yes/no input");
-                logger.info("Please enter a valid input (y/n)");
+                LOGGER.warn(e.getMessage() + "Invalid yes/no input");
+                LOGGER.info("Please enter a valid input (y/n)");
             }
         } while (!valid);
 
         if (!insurancePurchased)
             insuranceType = Insurance.NONE;
         else {
-            logger.info("Insurance added: " + insuranceType.getName());
+            LOGGER.info("Insurance added: " + insuranceType.getName());
         }
         return insuranceType;
     }
@@ -187,49 +195,49 @@ public final class Session {
         do {
             try {
                 valid = false;
-                logger.info("Would you like to pay for priority shipping to ensure your package reaches the destination quickly? (y/n): ");
+                LOGGER.info("Would you like to pay for priority shipping to ensure your package reaches the destination quickly? (y/n): ");
                 priority = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
-                logger.warn(e.getMessage() + "Invalid yes/no input");
-                logger.info("Please enter a valid input (y/n)");
+                LOGGER.warn(e.getMessage() + "Invalid yes/no input");
+                LOGGER.info("Please enter a valid input (y/n)");
             }
         } while (!valid);
         if (priority) {
-            logger.info("Priority Shipping added.");
+            LOGGER.info("Priority Shipping added.");
         }
 
         Shipment shipment;
         try {
             shipment = new Shipment(sender, recipient, shippingPackage, insuranceType, priority);
         } catch (UnloadedDataException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
-        logger.info("The final price for this shipment comes out to $" + Math.round(shipment.getPrice() * 100.0) / 100.0);
+        LOGGER.info("The final price for this shipment comes out to $" + Math.round(shipment.getPrice() * 100.0) / 100.0);
         boolean shipmentFinalized = false;
         do {
             try {
                 valid = false;
-                logger.info("Would you like to finalize this shipment? (y/n)");
+                LOGGER.info("Would you like to finalize this shipment? (y/n)");
                 shipmentFinalized = ValidateInput.validateYesNo(input.nextLine());
                 valid = true;
             } catch (InvalidInputException e) {
-                logger.warn(e.getMessage() + "Invalid yes/no input");
-                logger.info("Please enter a valid input (y/n)");
+                LOGGER.warn(e.getMessage() + "Invalid yes/no input");
+                LOGGER.info("Please enter a valid input (y/n)");
             }
         } while (!valid);
 
         if (shipmentFinalized) {
             numShipments ++;
-            //logger.info("num shipments increase to " + numShipments);
+            //LOGGER.info("num shipments increase to " + numShipments);
             sender.addOrder(shipment);
-            //logger.info("shipment added to sender orders");
+            //LOGGER.info("shipment added to sender orders");
             //recipient.receivePackage(shipment.getPackage());
-            //logger.info("shipment added to recipient orders");
-            logger.info("Shipment finalized");
-            logger.info("Package Sent!");
+            //LOGGER.info("shipment added to recipient orders");
+            LOGGER.info("Shipment finalized");
+            LOGGER.info("Package Sent!");
         }
 
         return shipment;
@@ -241,18 +249,18 @@ public final class Session {
         Date date = new java.util.Date();
         double totalPrice = 0;
         File file = FileUtils.getFile("Receipts.txt");
-        IOperation<String> punctuationAppend = (string, punctuation) -> string + punctuation;
+        IEditString<String> punctuationAppend = (string, punctuation) -> string + punctuation;
         String writeToFile = "Receipt for " + date;
         while (numShipments > 0) {
             Shipment shipment = sender.getOrders().get(sender.getOrders().size() - numShipments);
-            writeToFile = punctuationAppend.operation("\n\nRecipient: " + shipment.getRecipient() +
+            writeToFile = punctuationAppend.append("\n\nRecipient: " + shipment.getRecipient() +
                                                     "\nRoute: " + shipment.getRoute() +
                                                     "\nShipping method: " + shipment.getVehicle() +
                                                     "\nPrice: $" + String.format("%.2f", shipment.getPrice()) + "\n", ",");
             totalPrice += shipment.getPrice();
             numShipments--;
         }
-        writeToFile = punctuationAppend.operation("\nTotal: $" + String.format("%.2f", totalPrice) + "\n\n\n", "...");
+        writeToFile = punctuationAppend.append("\nTotal: $" + String.format("%.2f", totalPrice) + "\n\n\n", "...");
         FileUtils.writeStringToFile(file, writeToFile, Charset.defaultCharset(), true);
     }
 }

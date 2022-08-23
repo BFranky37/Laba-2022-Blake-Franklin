@@ -23,24 +23,12 @@ public enum Insurance {
         return name;
     }
 
-    public void setName(String newName) {
-        name = newName;
-    }
-
     public double getCost() {
         return baseCost;
     }
 
-    public void setCost(double cost) {
-        baseCost = cost;
-    }
-
     public double getRate() {
         return priceRate;
-    }
-
-    public void setRate(double rate) {
-        priceRate = rate;
     }
 
     public double calculatePrice(double value) {
