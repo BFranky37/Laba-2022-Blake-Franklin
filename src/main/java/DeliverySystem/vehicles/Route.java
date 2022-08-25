@@ -1,6 +1,7 @@
-package DeliverySystem.orders;
+package DeliverySystem.vehicles;
 
 import DeliverySystem.functionalInterfaces.IReturnOperation;
+import DeliverySystem.orders.Charge;
 import DeliverySystem.people.Location;
 import org.apache.log4j.Logger;
 

@@ -33,7 +33,7 @@ public enum Menu {
     public void printMenu() {
         int num = 1;
         LOGGER.info("Delivery App Menu:");
-        for (Menu option : Menu.values()) {
+        for (Menu option : getClass().getEnumConstants()) {
             LOGGER.info(num + ". " + option.getName());
             num++;
         }

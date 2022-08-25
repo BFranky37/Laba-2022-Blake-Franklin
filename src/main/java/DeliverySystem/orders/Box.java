@@ -20,9 +20,9 @@ public class Box implements Shape {
         LOGGER.info("Box created");
     }
     public Box(double l, double w, double h) {
-        length = SizeMeasurement.CENTIMETERS.convert(l);
-        width = SizeMeasurement.CENTIMETERS.convert(w);
-        height = SizeMeasurement.CENTIMETERS.convert(h);
+        length = Math.round(SizeMeasurement.CENTIMETERS.convert(l) * 100.0) / 100.0;
+        width = Math.round(SizeMeasurement.CENTIMETERS.convert(w) * 100.0) / 100.0;
+        height = Math.round(SizeMeasurement.CENTIMETERS.convert(h) * 100.0) / 100.0;
         LOGGER.info("Box created with dimensions length: " + length + " width: " + width + " height: " + height );
     }
 
@@ -61,7 +61,7 @@ public class Box implements Shape {
 
     @Override
     public final double getArea() { //return area in cubic inches
-        return (length * width * height);
+        return (Math.round(SizeMeasurement.CENTIMETERS.convert(length * width * height) * 100.0) / 100.0);
     }
 
     //Class Overrides

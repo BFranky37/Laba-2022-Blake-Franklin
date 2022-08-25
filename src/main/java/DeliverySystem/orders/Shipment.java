@@ -1,11 +1,10 @@
 package DeliverySystem.orders;
 
 import DeliverySystem.exceptions.UnloadedDataException;
+import DeliverySystem.people.Discount;
 import DeliverySystem.people.Recipient;
 import DeliverySystem.people.Sender;
-import DeliverySystem.vehicles.Plane;
-import DeliverySystem.vehicles.Truck;
-import DeliverySystem.vehicles.Vehicle;
+import DeliverySystem.vehicles.*;
 
 import org.apache.log4j.Logger;
 import java.util.Objects;
@@ -27,6 +26,7 @@ public class Shipment implements Charge, ShippingPlan{
 
     private boolean priority;
     private double totalPrice;
+    private boolean delivered;
 
     //Constructor
     public Shipment(Sender send, Recipient receive, Package pack, Insurance plan, boolean prio) throws UnloadedDataException {
@@ -35,6 +35,7 @@ public class Shipment implements Charge, ShippingPlan{
         shippingPackage = pack;
         insurance = plan;
         priority = prio;
+        delivered = false;
 
         travelRoute = new Route(send.getAddress(), receive.getAddress());
         determineShippingPlan();
@@ -122,6 +123,18 @@ public class Shipment implements Charge, ShippingPlan{
     public void calculatePrice() {
         totalPrice = Double.parseDouble(String.format("%.2f", (shippingPackage.getPrice() + travelRoute.getPrice() + vehicle.getPrice()
                 + insurance.calculatePrice(shippingPackage.getValue()))));
+        //Apply discount
+        if (sender.getDiscount() != Discount.NO_DISCOUNT) {
+            totalPrice -= totalPrice * sender.getDiscount().getDiscountRate();
+        }
+    }
+
+    public boolean isDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
     }
 
     @Override

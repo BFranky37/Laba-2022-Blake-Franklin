@@ -1,20 +1,27 @@
 package DeliverySystem;
 
-import DeliverySystem.exceptions.*;
+import DeliverySystem.exceptions.ExceedsLimitsException;
+import DeliverySystem.exceptions.InvalidInputException;
+import DeliverySystem.exceptions.NegativeValueException;
+import DeliverySystem.exceptions.UnloadedDataException;
 import DeliverySystem.functionalInterfaces.IEditString;
 import DeliverySystem.orders.Box;
+import DeliverySystem.orders.Insurance;
 import DeliverySystem.orders.Package;
 import DeliverySystem.orders.Shipment;
-import DeliverySystem.orders.Insurance;
-import DeliverySystem.other.*;
+import DeliverySystem.other.CustomList;
+import DeliverySystem.other.ValidateInput;
 import DeliverySystem.people.*;
-
+import DeliverySystem.vehicles.DropOff;
+import DeliverySystem.vehicles.Travel;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -83,6 +90,7 @@ public final class Session {
     }
 
     public static Package getPackageInfo() {
+        //Getting Box info
         double l = 0, w = 0, h = 0;
         double weight = 0;
         do {
@@ -107,7 +115,17 @@ public final class Session {
                 LOGGER.info("Please enter a valid size and weight.");
             }
         } while (!valid);
-        Box box = new Box(l, w, h);
+        //Using reflection to create Box and call its methods
+        Box box;
+        try {
+            box = Box.class.getConstructor(double.class, double.class, double.class).newInstance(l, w, h);
+            Method returnArea = Box.class.getMethod("getArea");
+            double area = (double) returnArea.invoke(box);
+            LOGGER.info("the area of this box is " + area + "inches");
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
+                 InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
 
         LOGGER.info("What is the value of the item you are shipping in dollars: ");
         double value = input.nextDouble();
@@ -216,6 +234,8 @@ public final class Session {
         }
 
         LOGGER.info("The final price for this shipment comes out to $" + Math.round(shipment.getPrice() * 100.0) / 100.0);
+        if (sender.getDiscount() != Discount.NO_DISCOUNT)
+            LOGGER.info("with " + sender.getDiscount().getName() + " discount of " + sender.getDiscount().getDiscountRate() * 100 + "% applied.");
         boolean shipmentFinalized = false;
         do {
             try {
@@ -238,8 +258,15 @@ public final class Session {
             //LOGGER.info("shipment added to recipient orders");
             LOGGER.info("Shipment finalized");
             LOGGER.info("Package Sent!");
-        }
 
+            Object Lock1 = new Object();
+            Object Lock2 = new Object();
+            Thread travel = new Thread(new Travel(shipment, Lock1, Lock2));
+            Thread receivePackage = new Thread(new DropOff(shipment, Lock1, Lock2));
+            travel.start();
+            receivePackage.start();
+            LOGGER.info("Delivery vehicle has begun it's transport");
+        }
         return shipment;
     }
 

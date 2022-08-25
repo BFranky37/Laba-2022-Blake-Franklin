@@ -30,6 +30,7 @@ public class DeliveryMain {
 
         Scanner input = new Scanner(System.in);
 
+        //Count unique words
         try {
             FileUtilities.countUniqueWords("src/main/java/DeliverySystem/fileUtils/UniqueWords.txt");
         } catch (IOException e) {
@@ -37,6 +38,7 @@ public class DeliveryMain {
             throw new RuntimeException(e);
         }
 
+        //Load predefined vehicle data
         DataLoader.loadData();
         LOGGER.info("Welcome to the DeliveryApp. We will be happy to ship your package. ");
 
@@ -84,7 +86,7 @@ public class DeliveryMain {
                                     int num = 1;
                                     IFilter<LinkedHashSet<Person>, List<Person>> filterProfiles = (profiles) -> //Convert profiles to List of Recipient names
                                             (List<Person>) profiles.stream().filter(name -> !name.getClass().equals(Sender.class)).collect(Collectors.toList());
-                                    List<Person> profiles = Session.getProfiles().stream().filter(name -> !name.getClass().equals(Sender.class)).collect(Collectors.toList());
+                                    List<Person> profiles = filterProfiles.filter(Session.getProfiles());
                                     for (Person profile : profiles) {
                                         LOGGER.info(num + ". " + profile.getName() + ": " + profile.getAddress());
                                         num++;
@@ -185,7 +187,7 @@ public class DeliveryMain {
                     break;
 
                 case OPERATING_CITIES:
-                    IReturnNum<CustomList> numberOfCities = (c) -> c.getLength() - 1;
+                    IReturnNum<CustomList<String>> numberOfCities = (c) -> c.getLength() - 1;
                     if (Session.getCities().getLength() <= 0)
                         LOGGER.info("Not delivering packages in any cities currently.");
                     else {
