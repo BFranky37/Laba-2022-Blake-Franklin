@@ -22,12 +22,12 @@ public class Travel implements Runnable {
             LOGGER.info("Holding delivery lock1");
             try {
                 //Delivery vehicle traveling the distance of the route
-                Thread.sleep(100L * shipment.getRoute().getDistance());
-                synchronized (lock2) {
-                    LOGGER.info("Holding delivery lock2");
-                    LOGGER.info(shipment.getVehicle().toString() + " has completed delivery");
-                    shipment.setDelivered(true);
-                }
+                Thread.sleep(1000L * shipment.getRoute().getDistance());
+                //synchronized (lock2) { //Creates a Deadlock
+                //    LOGGER.info("Holding delivery lock2");
+                LOGGER.info(shipment.getVehicle().toString() + " has completed delivery");
+                shipment.setDelivered(true);
+                //}
             } catch (InterruptedException e) {
                 LOGGER.info("Delivery Vehicle interrupted while on route.");
             }

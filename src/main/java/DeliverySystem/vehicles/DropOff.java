@@ -18,13 +18,13 @@ public class DropOff implements Runnable{
 
     @Override
     public void run() {
-        synchronized (lock2) { //lock will be held until shipment has been transported to the recipient
-            LOGGER.info("Holding delivery lock1");
+        synchronized (lock1) { //lock will be held until shipment has been transported to the recipient
+            //LOGGER.info("Holding delivery lock2");
             shipment.getRecipient().receivePackage(shipment.getPackage());
-            synchronized (lock1) {
-                LOGGER.info("Holding delivery lock2");
-                LOGGER.info("Recipient " + shipment.getRecipient().getName() + " has received their package.");
-            }
+            //synchronized (lock1) { //Will create a Deadlock
+            //    LOGGER.info("Holding delivery lock1");
+            LOGGER.info("Recipient " + shipment.getRecipient().getName() + " has received their package.");
+            //}
         }
     }
 }

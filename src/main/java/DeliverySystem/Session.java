@@ -277,17 +277,17 @@ public final class Session {
         double totalPrice = 0;
         File file = FileUtils.getFile("Receipts.txt");
         IEditString<String> punctuationAppend = (string, punctuation) -> string + punctuation;
-        String writeToFile = "Receipt for " + date;
+        String writeToFile = ("Receipt for " + date);
         while (numShipments > 0) {
             Shipment shipment = sender.getOrders().get(sender.getOrders().size() - numShipments);
-            writeToFile = punctuationAppend.append("\n\nRecipient: " + shipment.getRecipient() +
+            writeToFile = punctuationAppend.append(writeToFile + "\n\nRecipient: " + shipment.getRecipient() +
                                                     "\nRoute: " + shipment.getRoute() +
                                                     "\nShipping method: " + shipment.getVehicle() +
                                                     "\nPrice: $" + String.format("%.2f", shipment.getPrice()) + "\n", ",");
             totalPrice += shipment.getPrice();
             numShipments--;
         }
-        writeToFile = punctuationAppend.append("\nTotal: $" + String.format("%.2f", totalPrice) + "\n\n\n", "...");
+        writeToFile = punctuationAppend.append(writeToFile + "\nTotal: $" + String.format("%.2f", totalPrice) + "\n\n\n", "...");
         FileUtils.writeStringToFile(file, writeToFile, Charset.defaultCharset(), true);
     }
 }
