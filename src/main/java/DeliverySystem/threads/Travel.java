@@ -1,4 +1,4 @@
-package DeliverySystem.vehicles;
+package DeliverySystem.threads;
 
 import DeliverySystem.orders.Shipment;
 import org.apache.log4j.Logger;
