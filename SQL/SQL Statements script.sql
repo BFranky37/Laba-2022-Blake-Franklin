@@ -68,9 +68,9 @@ VALUES (1, 1),
         (4, 4),
         (5, 4),
         (6, 5),
-        (7, 5),
+        (7, 2),
         (8, 5),
-        (9, 5),
+        (9, 2),
         (10, 5);
 
 INSERT INTO vehicle_types (name, cost_rate, weight_capacity, space_capacity)
@@ -295,6 +295,39 @@ JOIN vehicle_types ON vehicles.vehicle_typeID = vehicle_types.id
 JOIN shipment_status ON shipments.id = shipment_status.shipment_id;
 
 
+-- aggregate functions
+SELECT COUNT(shipments.id) AS 'number of shipments', shipments.senderID FROM shipments
+GROUP BY senderID
+HAVING COUNT(shipments.id) > 1;
 
+SELECT COUNT(vehicles.id) AS 'number of vehicles', vehicles.vehicle_typeID, vehicle_types.name FROM vehicles
+JOIN vehicle_types ON vehicle_types.id = vehicles.vehicle_typeID
+GROUP BY vehicle_typeID
+HAVING vehicle_typeID < 5;
 
+SELECT COUNT(vehicles.id) AS 'number of vehicles', vehicles.vehicle_typeID, vehicle_types.name FROM vehicles
+JOIN vehicle_types ON vehicle_types.id = vehicles.vehicle_typeID
+GROUP BY vehicle_typeID
+HAVING vehicle_typeID >= 5;
 
+SELECT shipments.senderID, profiles.name, SUM(shipments.price) FROM shipments
+JOIN users ON users.id = shipments.senderID
+JOIN profiles ON profiles.id = users.profileID
+GROUP BY senderID
+HAVING SUM(shipments.price) < 30;
+
+SELECT shipments.senderID, profiles.name, AVG(shipments.price) FROM shipments
+JOIN users ON users.id = shipments.senderID
+JOIN profiles ON profiles.id = users.profileID
+GROUP BY senderID
+HAVING (AVG(shipments.price) % 2) = 0;
+
+SELECT discounts.name AS 'discount name', COUNT(user_has_discount.userID) AS 'number of holders' FROM discounts
+JOIN user_has_discount ON user_has_discount.discountID = discounts.id
+GROUP BY discounts.id
+HAVING COUNT(user_has_discount.userID) > 1 AND discounts.name != 'None';
+
+SELECT insurance.name, COUNT(shipments.id) AS 'number of shipments insured' FROM insurance
+JOIN shipments ON shipments.insuranceID = insurance.id
+GROUP BY insuranceID
+HAVING shipments.insuranceID != 4;
