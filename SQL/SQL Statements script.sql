@@ -38,16 +38,16 @@ VALUES ('Basic Insurance', .3, .015),
         ('High Value Fragility Insurance', 1.5, .55);
 
 INSERT INTO profiles (name, phone_number, addressID)
-VALUES ('Blake Franklin', '1234567890', 1),
-		('Kevin Boller', '9876543210', 2),
-        ('Will Billiam', '4365402748', 3),
-        ('Donny Gee', '4274930282', 4),
-        ('Alex Fantastic', '9305714378', 5),
-        ('John Madden', '8887776321', 6),
-        ('Mike Madden', '8887775123', 6),
-        ('Melina Dagel', '5876302811', 7),
-        ('Grace Falsetto', '3388004422', 8),
-        ('Arthur Takanaka', '1231231234', 9);
+VALUES ('Blake Franklin', '1234567890', 1, 1),
+		('Kevin Boller', '9876543210', 2, 1),
+        ('Will Billiam', '4365402748', 3, 1),
+        ('Donny Gee', '4274930282', 4, 1),
+        ('Alex Fantastic', '9305714378', 5, 1),
+        ('John Madden', '8887776321', 6, 1),
+        ('Mike Madden', '8887775123', 6, 2),
+        ('Melina Dagel', '5876302811', 7, 2),
+        ('Grace Falsetto', '3388004422', 8, 2),
+        ('Arthur Takanaka', '1231231234', 9, 2);
 
 INSERT INTO users (profileID, password)
 VALUES (1, 'myPassword'),
