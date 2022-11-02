@@ -38,30 +38,30 @@ VALUES ('Basic Insurance', .3, .015),
         ('High Value Fragility Insurance', 1.5, .55);
 
 INSERT INTO profiles (name, phone_number, addressID)
-VALUES ('Blake Franklin', '1234567890', 1, 1),
-		('Kevin Boller', '9876543210', 2, 1),
-        ('Will Billiam', '4365402748', 3, 1),
-        ('Donny Gee', '4274930282', 4, 1),
-        ('Alex Fantastic', '9305714378', 5, 1),
-        ('John Madden', '8887776321', 6, 1),
-        ('Mike Madden', '8887775123', 6, 2),
-        ('Melina Dagel', '5876302811', 7, 2),
-        ('Grace Falsetto', '3388004422', 8, 2),
-        ('Arthur Takanaka', '1231231234', 9, 2);
+VALUES ('Blake Franklin', '1234567890', 1),
+		('Kevin Boller', '9876543210', 2),
+        ('Will Billiam', '4365402748', 3),
+        ('Donny Gee', '4274930282', 4),
+        ('Alex Fantastic', '9305714378', 5),
+        ('John Madden', '8887776321', 6),
+        ('Mike Madden', '8887775123', 6),
+        ('Melina Dagel', '5876302811', 7),
+        ('Grace Falsetto', '3388004422', 8),
+        ('Arthur Takanaka', '1231231234', 9);
 
-INSERT INTO users (profileID, password)
-VALUES (1, 'myPassword'),
-		(2, 'hehehaha33'),
-        (3, 'LoLoL!!'),
-        (4, 'qwertyuiop'),
-        (5, 'H0TB0D'),
-        (6, 'B@tman911'),
-        (7, '12345'),
-        (8, 'q2o9r7cqby3'),
-        (9, 'the1PIECE'),
-        (10, '10fingers10toes?');
+INSERT INTO users (profileID, username, password)
+VALUES (1, 'BFranklin', 'myPassword'),
+		(2, 'KBoller', 'hehehaha33'),
+        (3, 'WBill', 'LoLoL!!'),
+        (4, 'DonGee', 'qwertyuiop'),
+        (5, 'AlexFan', 'H0TB0D'),
+        (6, 'JohnMad', 'B@tman911'),
+        (7, 'MikeMad', '12345'),
+        (8, 'Melgel', 'q2o9r7cqby3'),
+        (9, 'GFalse', 'the1PIECE'),
+        (10, 'Artaka', '10fingers10toes?');
         
-INSERT INTO user_has_discount (userID, discountID)
+INSERT INTO user_status (userID, discountID)
 VALUES (1, 1),
 		(2, 1),
         (3, 3),
@@ -282,8 +282,8 @@ shipment_status.delivered AS 'Delivered status'
 FROM
 shipments
 JOIN users ON shipments.senderID = users.id
-JOIN user_has_discount ON users.id = user_has_discount.userID
-JOIN discounts ON user_has_discount.discountID = discounts.ID
+JOIN user_status ON users.id = user_status.userID
+JOIN discounts ON user_status.discountID = discounts.ID
 JOIN profiles ON shipments.recipientID = profiles.ID
 JOIN routes ON shipments.routeID = routes.id
 JOIN addresses ON routes.to_addressID = addresses.id
@@ -322,10 +322,10 @@ JOIN profiles ON profiles.id = users.profileID
 GROUP BY senderID
 HAVING (AVG(shipments.price) % 2) = 0;
 
-SELECT discounts.name AS 'discount name', COUNT(user_has_discount.userID) AS 'number of holders' FROM discounts
-JOIN user_has_discount ON user_has_discount.discountID = discounts.id
+SELECT discounts.name AS 'discount name', COUNT(user_status.userID) AS 'number of holders' FROM discounts
+JOIN user_status ON user_status.discountID = discounts.id
 GROUP BY discounts.id
-HAVING COUNT(user_has_discount.userID) > 1 AND discounts.name != 'None';
+HAVING COUNT(user_status.userID) > 1 AND discounts.name != 'None';
 
 SELECT insurance.name, COUNT(shipments.id) AS 'number of shipments insured' FROM insurance
 JOIN shipments ON shipments.insuranceID = insurance.id
